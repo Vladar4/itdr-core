@@ -1,0 +1,62 @@
+\documentclass[itdr]{subfiles}
+
+\begin{document}
+
+\clearpage
+
+% SPELL INDEX
+\noindent\begin{minipage}{\textwidth}
+\idxlayout{columns=3,font=normalsize}
+\printindex[spells]
+\end{minipage}
+
+% BESTIARY INDEX
+\noindent\begin{minipage}{\textwidth}
+\idxlayout{columns=3,font=normalsize}
+\printindex[bestiary]
+\end{minipage}
+
+\vfill
+
+\faHandPointUp
+
+\vspace{1ex}
+
+\noindent\begin{minipage}{\textwidth}
+\begin{lstlisting}
+% SPELL INDEX
+\noindent\begin{minipage}{\textwidth}
+	\idxlayout{columns=3,font=normalsize}
+	\printindex[spells]
+\end{minipage}
+
+% BESTIARY INDEX
+\noindent\begin{minipage}{\textwidth}
+	\idxlayout{columns=3,font=normalsize}
+	\printindex[bestiary]
+\end{minipage}
+\end{lstlisting}
+\end{minipage}
+
+\clearpage
+
+% MAIN INDEX
+\idxlayout{columns=3,font=small}
+{\let\clearpage\relax
+\printindex}
+
+\vfill
+
+\faHandPointUp
+
+\vspace{1ex}
+
+\noindent\begin{minipage}{\textwidth}
+\begin{lstlisting}
+% MAIN INDEX
+\idxlayout{columns=3,font=small}
+\printindex
+\end{lstlisting}
+\end{minipage}
+
+\end{document}

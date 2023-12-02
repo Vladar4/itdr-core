@@ -1,0 +1,339 @@
+\ProvidesPackage{itdr/bestiary}[2023/12/01]
+\RequirePackage{datatool}
+\RequirePackage{kvoptions}
+\RequirePackage{pgffor}% foreach operator for comma-separated list of strings
+\RequirePackage{xparse}
+
+
+
+% bestiary.csv database fields (separated by | character):
+%
+% 	       |-----------stat-----------|    |--info--(upt to 10 info fields)
+%          |                          |    |
+% 1   |2   |3  |4  |5  |6 |7     |8   |9   |10     |
+%     |    |   |   |   |  |      |    |    |       |
+% name|tags|str|dex|wil|hp|armour|data|desc|info(1)|...
+
+% Fields:
+%
+% name - monster name
+% tags - comma-separated list of tags (beast, construct, demon, dragon, monster, swarm, undead, etc.)
+% str, dex, wil - ability scores, 10 by default
+% hp - hit points
+% armour - armour score and description, if needed, e.g.: 2 (piecemeal armour + shield)
+% data - the rest of the first line of a stat block: attacks, abilities, etc.
+% desc - literary description paragraph
+% info - ten fields for the abilities and properties descriptions
+
+% Example:
+%
+% name|tags|str|dex|wil|hp|armour|data|desc|info||
+% Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a \save{DEX} or take Tusks Damage and be knocked prone.|\subparagraph{Trample:} a prone target takes d12~Damage.|
+
+
+%%%%%%%%%%%%%%%%
+% DECLARATIONS %
+%%%%%%%%%%%%%%%%
+
+\newcommand{\bestiaryDefault}{itdr/bestiary}% default DB file name
+\newcommand{\bestiaryExtension}{csv}% DB file extension
+\newcommand{\bestiaryFilename}[1]{#1.\bestiaryExtension}% add the file extension to a file name
+\DTLsetseparator{|}% DB separator character
+\def\infofirst{10}% first info field index
+\def\infolimit{20}% info field limiter (20-10=10 total info fileds)
+\DTLnewdbonloadfalse% do not create a new DB on load
+\DTLnewdb{bestiaryDB}
+
+\def\bestiaryIndex{}% The index to write the bestiary entries into.
+					% Empty by default.
+					% To add to default index, redefine it to \jobname
+
+
+%%%%%%%%%
+% LOGIC %
+%%%%%%%%%
+
+% if the argument is empty, execute the second argument, otherwise - the third
+%
+% #1 - data
+% #2 - code to execute if true
+% #3 - code to exexute if false
+%
+\newcommand{\ifempty}[3]{%
+	\DTLifeq{#1}{}{% first condition (empty)
+		#2\ignorespaces}{% else
+		\DTLifeq{#1}{\dtlnovalue}{% second condition (novalue)
+			#2\ignorespaces}{% else
+			#3\ignorespaces}}
+}
+
+% if the argument is empty or equal to default value, execute the third argument, otherwise - the fourth
+%
+% #1 - data
+% #2 - default value (0 if not specified)
+% #3 - code to execute if true
+% #4 - code to exexute if false
+%
+\newcommand{\ifemptyordefault}[4][0]{%
+	\DTLifeq{#2}{}{% first condition (empty)
+		#3\ignorespaces}{% else
+		\DTLifeq{#2}{\dtlnovalue}{% second condition (novalue)
+			#3\ignorespaces}{% else
+			\DTLifeq{#1}{#2}{% third condition (default)
+				#3\ignorespaces}{% else
+				#4\ignorespaces}}}
+}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                              %%%%%%%%%%%%%%
+                              %% DATABASE %%
+                              %%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%
+% LOAD %
+%%%%%%%%
+
+% clear the database
+%
+\newcommand{\bestiaryClear}{\DTLcleardb{bestiaryDB}}
+
+% sort the database by name field
+%
+\newcommand{\bestiarySort}{\DTLsort{name}{bestiaryDB}}
+
+% clear, load and sort the database by name field
+%
+% #1 - file name (no extension)
+%
+\newcommand{\bestiaryLoad}[1]{%
+	\bestiaryClear%
+	\DTLloaddb{bestiaryDB}{\bestiaryFilename{#1}}%
+	\bestiarySort%
+}
+
+% append to the database and sort it by name field
+%
+% #1 - file name (no extension)
+%
+\newcommand{\bestiaryAppend}[1]{%
+	\DTLloaddb{bestiaryDB}{\bestiaryFilename{#1}}%
+	\bestiarySort%
+}
+
+% clear the database, load a comma-separated list of files, and then sort it by name field
+%
+% #1 - comma-separated list of file names (no extension)
+%
+\newcommand{\bestiaryLoadList}[1]{%
+	\bestiaryClear%
+	\foreach \entry in {#1} {\DTLloaddb{bestiaryDB}{\bestiaryFilename{\entry}}}%
+	\bestiarySort%
+}
+
+% package options
+\SetupKeyvalOptions{%
+	family=BDB,
+	prefix=BDB@
+}
+\DeclareStringOption[\bestiaryDefault]{db}% default database file
+
+\ProcessKeyvalOptions*
+% load the default database, if given as a package option
+\ifx\BDB@db\@empty \else\expandafter\bestiaryLoadList\expandafter{\BDB@db}\fi
+
+% store the value of column2 into a new \def
+%
+% #1 - \def name
+% #2 - db name
+% #3 - column1 name
+% #4 - column1 value
+% #5 - column2 name 
+%
+\newcommand{\DTLdef}[5]{%
+	\edtlgetrowforvalue{#2}{\dtlcolumnindex{#2}{#3}}{#4}%
+	\dtlgetentryfromcurrentrow{\dtlcurrentvalue}{\dtlcolumnindex{#2}{#5}}%
+	\let#1\dtlcurrentvalue
+}
+
+%%%%%%%%%
+% PRINT %
+%%%%%%%%%
+
+% print a single field from the database's entry by its name
+%
+% #1 - entry name
+% #2 - field name
+%
+\newcommand{\bestiaryPrintField}[2]{\DTLfetch{bestiaryDB}{name}{#1}{#2}}
+
+% print and format stat fields from the database's entry by its name
+%
+% \bestiaryPrintStat{name}
+%
+\newcommand{\bestiaryPrintStat}[1]{%
+	\DTLdef{\str}{bestiaryDB}{name}{#1}{str}%
+	\DTLdef{\dex}{bestiaryDB}{name}{#1}{dex}%
+	\DTLdef{\wil}{bestiaryDB}{name}{#1}{wil}%
+	\DTLdef{\hp}{bestiaryDB}{name}{#1}{hp}%
+	\DTLdef{\armour}{bestiaryDB}{name}{#1}{armour}%
+	\DTLdef{\data}{bestiaryDB}{name}{#1}{data}%
+	\newcount\printed%
+	\printed=0% increment by 1 each time the entry is printed
+	\ifemptyordefault[10]{\str}{}{% STR
+		\advance \printed by 1
+		STR~\str}
+	\ifemptyordefault[10]{\dex}{}{% DEX
+		\ifnum\printed>0, \fi
+		\advance \printed by 1
+		DEX~\dex}
+	\ifemptyordefault[10]{\wil}{}{% WIL
+		\ifnum\printed>0, \fi
+		\advance \printed by 1
+		WIL~\wil}
+	\ifemptyordefault{\hp}{}{% HP
+		\ifnum\printed>0, \fi
+		\advance \printed by 1
+		\hp{}hp}
+	\ifemptyordefault{\armour}{}{% Armour
+		\ifnum\printed>0, \fi
+		\advance \printed by 1
+		Armour~\armour}
+	\ifempty{\data}{}{%
+		\ifnum\printed>0, \fi
+		\data}
+}
+
+% print a desc field from the database's entry by its name
+%
+% \bestiaryPrintDesc{name}
+%
+\newcommand{\bestiaryPrintDesc}[1]{%
+	\DTLfetch{bestiaryDB}{name}{#1}{desc}
+}
+
+% print all info fields from the database's entry by its name
+%
+\newcommand{\bestiaryPrintInfo}[1]{%
+	\edtlgetrowforvalue{bestiaryDB}{\dtlcolumnindex{bestiaryDB}{name}}{#1}
+	\newcount\idx
+	\idx=\infofirst% first info index
+	\loop
+		\xdtlgetrowindex{\row}{bestiaryDB}{1}{#1}% get row index
+		\dtlgetrow{bestiaryDB}{\row}% get row by index
+		\dtlgetentryfromcurrentrow{\info}{\idx}% get info
+		\ifnum% outer condition start (true if >0)
+				%\ifx\info\empty% first condition
+				\ifx&\info&% first condition (empty)
+					1%
+				\else
+					\ifx\info\dtlnovalue% second condition (novalue)
+						2%
+					\else
+						0%
+					\fi% second condition end
+				\fi>0% first condition end; outer condition ( >0)
+			\idx=\infolimit% if not present or empty, break the loop
+		\else
+			\info\par% otherwise, print info
+		\fi% ifnum (outer)
+		\advance \idx by 1
+		\unless\ifnum\idx>\infolimit
+	\repeat
+}
+
+\makeatletter
+\define@boolkey{bKeys}{name}[true]{}
+\define@boolkey{bKeys}{stat}[true]{}
+\define@boolkey{bKeys}{desc}[true]{}
+\define@boolkey{bKeys}{info}[true]{}
+
+% print one full entry from the database by its name, or just specified fields
+%
+% \bestiaryPrint[name,stat,desc,info]{name}
+%
+% #1 - * (the starred version does not write into the index)
+% #2 - (optional) field list
+% #3 - name
+%
+\NewDocumentCommand{\bestiaryPrint}{ s O{name,stat,desc,info} m }{%
+	\IfBooleanF{#1}{% if \bestiaryIndex is not empty, write to it
+		\ifx\bestiaryIndex\empty\else\index[\bestiaryIndex]{#3}\fi}
+	\setkeys{bKeys}{name=false,stat=false,desc=false,info=false,#2}
+	\ifKV@bKeys@name\statpar*{#3}\fi
+	\ifKV@bKeys@stat\bestiaryPrintStat{#3}.\par \fi
+	\ifKV@bKeys@desc\bestiaryPrintDesc{#3}\par \fi
+	\ifKV@bKeys@info\bestiaryPrintInfo{#3}\par \fi
+}
+
+% print all names from the database
+%
+% \bestiaryPrintAllNames[prefix][suffix]
+%
+% #1 - prefix (optional)
+% #2 - suffix (optional)
+%
+% Example:
+% \begin{enumerate}
+%   \bestiaryPrintAllNames[\item][]
+% \end{enumerate}
+%
+\NewDocumentCommand{\bestiaryPrintAllNames}{ O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name}{#1\name#2}
+}
+
+% print all names containing a tag
+%
+% \bestiaryPrintEntriesByTag{beast}[prefix][suffix]
+%
+% #1 - tag
+% #2 - prefix (optional)
+% #3 - suffix (optional)
+%
+\NewDocumentCommand{\bestiaryPrintNamesByTag}{ m O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name, \tags=tags}{%
+		\DTLifinlist{#1}{\tags}{% if tag is present
+			#2\name#3
+		}
+		{}% if tag is absent, do nothing
+	}% DTLforeach*
+}
+
+
+% print all entries the database
+%
+% \bestiaryPrintAllEntries[before][after]
+%
+% #1 - * (the starred version does not write into the index)
+% #2 - before (optional)
+% #3 - after (optional)
+%
+\NewDocumentCommand{\bestiaryPrintAllEntries}{ s O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name}{%
+		#2% before
+		\IfBooleanTF{#1}{\bestiaryPrint*{\name}}{\bestiaryPrint{\name}}
+		#3% after
+	}% DTLforeach*
+}
+
+% print all entries containing a tag
+%
+% \bestiaryPrintEntriesByTag{tag}[before][after][index]
+%
+% #1 - * (the starred version does not write into the index)
+% #2 - fields (optional) field list
+% #3 - tag
+% #4 - before (optional)
+% #5 - after (optional)
+%
+\NewDocumentCommand{\bestiaryPrintEntriesByTag}{ s O{name,stat,desc,info} m O{} O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name, \tags=tags}{%
+		\DTLifinlist{#3}{\tags}{% if tag is present
+			#4% before
+			\IfBooleanTF{#1}{\bestiaryPrint*{\name}}{\bestiaryPrint{\name}}
+			#5% after
+		}{}% if tag is absent
+	}% DTLforeach*
+}
+

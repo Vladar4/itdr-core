@@ -1,0 +1,877 @@
+\documentclass[itdr]{subfiles}
+
+
+\begin{document}
+\chapter{Numbered Chapter}
+\label{ch:numbered}
+
+\section{def.tex}
+
+The file \lstinline!def.tex! defines some essential variables and should be included in the document's preamble.
+
+\begin{lstlisting}
+	\input{def} % variables
+\end{lstlisting}
+
+At the very least, it should have \lstinline!\title!, \lstinline!\author!, and \lstinline!\keywords! definitions, as they are used for the PDF metadata.
+
+\vspace{\baselineskip}
+\noindent\begin{minipage}{\textwidth}
+	\begin{lstlisting}
+		\def \game {Into the Dungeon: Revived}	% GAME variable
+		\def \title {ItDR Core Guide}	% TITLE variable
+		\def \subtitle {A \LaTeX~style manual for ``\game''}	% SUBTITLE variable
+		\def \author {Vladimir Arabadzhi}	% AUTHOR variable
+		\def \keywords {\title;Into the Dungeon;RPG;LaTeX}	% KEYWORDS variable
+		\def \version {2023/12/01}	% VERSION variable
+		\def \license {\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)}}	% LICENSE variable
+	\end{lstlisting}
+\end{minipage}
+
+\vfill
+
+\noindent\begin{minipage}{\textwidth}
+\section{Tables}
+
+\begin{multicols}{2}
+\header{Header}
+\begin{dtable}[L|C|R]
+	\textbf{Left-aligned} & \textbf{Centered} & \textbf{Right-aligned}\\
+	\rowcolor{dColor1} & \cellcolor{dColor2}text & \cellcolor{dColor2}text\\
+	\multirow{-2}{*}{multirow} & text & text \\
+	\hline
+	text & \multicolumn{2}{c}{multicolumn} \\
+	text & text & text \\
+\end{dtable}
+
+\break
+
+\paragraph{Column alignment}
+
+\begin{itemize}
+	\item c --- centred
+	\item C --- centred, equal width
+	\item l --- left-aligned
+	\item L --- left-aligned, equal width
+	\item r --- right-aligned
+	\item R --- right-aligned, equal width
+\end{itemize}
+
+\end{multicols}
+
+\vspace{\baselineskip}
+\begin{lstlisting}
+\header{Header}
+\begin{dtable}[L|C|R]
+	\textbf{Left-aligned} & \textbf{Centered} & \textbf{Right-aligned}\\
+	\rowcolor{dColor1} & \cellcolor{dColor2}text & \cellcolor{dColor2}text\\
+	\multirow{-2}{*}{multirow} & text & text \\
+	\hline
+	text & \multicolumn{2}{c}{multicolumn} \\
+	text & text & text \\
+\end{dtable}
+\end{lstlisting}
+
+\end{minipage}
+
+\vfill
+\clearpage
+
+\section{Lists}
+
+\subsection{Itemize}
+\begin{itemize}[leftmargin=*]
+	\item depth 1, item 1
+	\item depth 1, item 2
+	\begin{itemize}
+		\item depth 2, item 1
+		\item depth 2, item 2
+		\begin{itemize}
+			\item depth 3, item 1
+			\item depth 3, item 2
+			\begin{itemize}
+				\item depth 4, item 1
+				\item depth 4, item 2
+			\end{itemize}
+			\item depth 3, item 3
+			\item depth 3, item 4
+		\end{itemize}
+		\item depth 2, item 3
+		\item depth 2, item 4
+	\end{itemize}
+	\item depth 1, item 3
+	\item depth 1, item 4
+\end{itemize}
+
+\vfill
+
+\begin{lstlisting}
+	\begin{itemize}[leftmargin=*]% no left margin
+		\item depth 1, item 1
+		\item depth 1, item 2
+		\begin{itemize}
+			\item depth 2, item 1
+			\item depth 2, item 2
+			\begin{itemize}
+				\item depth 3, item 1
+				\item depth 3, item 2
+				\begin{itemize}
+					\item depth 4, item 1
+					\item depth 4, item 2
+				\end{itemize}
+				\item depth 3, item 3
+				\item depth 3, item 4
+			\end{itemize}
+			\item depth 2, item 3
+			\item depth 2, item 4
+		\end{itemize}
+		\item depth 1, item 3
+		\item depth 1, item 4
+	\end{itemize}
+\end{lstlisting}
+
+\break
+
+\subsection{Enumerate}
+\begin{enumerate}
+	\item depth 1, item 1
+	\itemrange2 depth 1, items 2-3
+	\begin{enumerate}
+		\item depth 2, item (1)
+		\item depth 2, item (2)
+		\begin{enumerate}
+			\item depth 3, item I
+			\itemrange3 items II--IV
+			\begin{enumerate}
+				\itemrange4 depth 4, items (i--iv)
+				\item depth 4, item (v)
+			\end{enumerate}
+			\item depth 3, item V
+			\item depth 3, item VI
+		\end{enumerate}
+		\item depth 2, item (3)
+		\itemrange4 depth 2, items (4--7)
+	\end{enumerate}
+	\item depth 1, item 4
+	\item depth 1, item 5
+\end{enumerate}
+
+\vfill
+
+\begin{lstlisting}
+	\begin{enumerate}
+		\item depth 1, item 1
+		\itemrange2 depth 1, items 2-3
+		\begin{enumerate}
+			\item depth 2, item (1)
+			\item depth 2, item (2)
+			\begin{enumerate}
+				\item depth 3, item I
+				\itemrange3 items II--IV
+				\begin{enumerate}
+					\itemrange4 depth 4, items (i--iv)
+					\item depth 4, item (v)
+				\end{enumerate}
+				\item depth 3, item V
+				\item depth 3, item VI
+			\end{enumerate}
+			\item depth 2, item (3)
+			\itemrange4 depth 2, items (4--7)
+		\end{enumerate}
+		\item depth 1, item 4
+		\item depth 1, item 5
+	\end{enumerate}
+\end{lstlisting}
+
+\cleartoleftpage
+
+\section{Templates}
+
+\subsection{Features}
+
+\noindent\fbox{\lstinline!\\feat\{Feature\}!} Feature
+
+\noindent\fbox{\lstinline!\\feata\{Ancestry\}!} Ancestry
+
+\noindent\fbox{\lstinline!\\featb\{Background\}!} Background
+
+\noindent\fbox{\lstinline!\\feate\{Text\}!} \feate{Text}
+
+\vspace{-0.7\baselineskip}
+
+\noindent\fbox{\lstinline!\\featmt!} \featmt
+
+\vspace{-0.7\baselineskip}
+
+\noindent\fbox{\lstinline!\\feathp!} \feathp
+
+\vspace{-0.7\baselineskip}
+
+\noindent\fbox{\lstinline!\\featadv Text!} \textbf{Advancement:} Text
+
+\feat[\jobname]{Warrior}\featmt\feathp
+Gain bonus d4 weapon Damage die.
+\featadv{The bonus die is Raised by one.}
+
+\begin{lstlisting}
+% indexed
+\feat[/jobname]{Warrior}
+	\featmt\feathp
+Gain bonus d4 weapon Damage die.
+\featadv{The bonus die is Raised by one.}
+
+% non-indexed
+\feat*{Warrior}
+\end{lstlisting}
+
+\feata[\jobname]{Ancestry}
+Ancestry description.
+
+\begin{lstlisting}
+% indexed
+\feata[/jobname]{Ancestry}
+
+% non-indexed
+\feata*{Ancestry}
+\end{lstlisting}
+
+\featb[\jobname]{Background}
+Background description.
+
+\begin{lstlisting}
+% indexed
+\featb[/jobname]{Background}
+
+% non-indexed
+\featb*{Background}
+\end{lstlisting}
+
+\break
+
+\subsection{Equipment}
+
+\weapon[\jobname]{Weapon}{10s}{d6/d8}
+\begin{lstlisting}
+% indexed
+\weapon[\jobname]{Weapon}
+	{10s}{d6/d8}
+
+% non-indexed
+\weapon*{Weapon}{10s}{d6/d8}
+\end{lstlisting}
+
+\armour[\jobname]{Armour}{10s}{1}
+\begin{lstlisting}
+% indexed
+\armour[\jobname]{Armour}{10s}{1}
+
+% non-indexed
+\armour*{Armour}{10s}{1}
+\end{lstlisting}
+
+\equip[\jobname]{Equipment}{10s} Description.
+\begin{lstlisting}
+% indexed
+\equip[\jobname]{Equipment}{10s} Description.
+
+% non-indexed
+\equip*{Equipment}{10s} Description.
+\end{lstlisting}
+
+\vfill
+
+\subsection{Domain}
+
+\paragraph{Red Hill --- Home of the Man-Beasts}
+\domain{Black Yur Og, Veteran Shaman}{5}{Stone walls (8hp, Armour 8), 4 Rock Throwers.\\30 Tribal Champions (2-handed axe), 300 Wild Men (axe, shield), 300 Wild Men (bow).}
+
+\begin{lstlisting}
+\paragraph{Red Hill --- Home of the Man-Beasts}
+\domain{Black Yur Og, Veteran Shaman}{5}{Stone walls (8hp, Armour 8), 4 Rock Throwers.\\30 Tribal Champions (2-handed axe), 300 Wild Men (axe, shield), 300 Wild Men (bow).}
+\end{lstlisting}
+
+\sizpop{4}
+
+\sizpop{21}
+
+\sizpop[insignificant]{0}
+
+\begin{lstlisting}
+\sizpop{4}
+\sizpop{21}
+\sizpop[insignificant]{0}
+\end{lstlisting}
+
+%\vfill
+\break
+
+\subsection{Spells}
+
+Default spell index is defined as:
+\begin{lstlisting}
+\def \spells {spells}
+\end{lstlisting}
+
+%
+% Define:
+%	\newindex{spells}{Spell List}
+% before the start of your document.
+
+\section{\nth{1} Circle}
+\index{Spells!\nth{1} Circle}
+\def \spellcircle {1}
+
+\spell[\spells]{Spell} Spell description.
+\begin{lstlisting}
+\section{\nth{1} Circle}
+\index{Spells!\nth{1} Circle}
+\def \spellcircle {1}
+
+% indexed
+\spell[\spells]{Spell} Spell description.
+
+% non-indexed
+\spell*{Spell} Spell description.
+\end{lstlisting}
+
+\sspell[\spells]{Stand-alone Spell}{1} Spell description.
+\begin{lstlisting}
+% indexed
+\sspell[\spells]{Stand-alone Spell}{1} Spell description.
+
+% non-indexed
+\sspell*{Stand-alone Spell}{1} Spell description.
+\end{lstlisting}
+
+\vfill
+%\break
+
+\subsection{Monsters}
+
+\statpar[\jobname]{Monster}
+\underpar{Underparagraph text}
+STR~12, 3hp, Armour~1, d4~Bite, club (d6), abilities.
+
+\subparagraph{Critical Damage in Melee:} Effect.
+
+\begin{lstlisting}
+% indexed
+\statpar[\jobname]{Monster}
+
+% non-indexed
+\statpar*{Monster}
+
+\underpar{Underparagraph text}
+STR~12, 3hp, Armour~1, d4~Bite, club (d6), abilities.
+
+\subparagraph{Critical Damage in Melee:} Effect.
+\end{lstlisting}
+\vspace{-\baselineskip}
+\break
+
+\subsection{Miscellaneous}
+
+\paragraph{Subscript and Superscript}
+
+\fbox{\lstinline!\\tsub\{\}!} A \tsub{shorthand} for \fbox{\lstinline!\\textsubscript\{\}!}\\
+\fbox{\lstinline!\\tsup\{\}!} A \tsup{shorthand} for \fbox{\lstinline!\\textsuperscript\{\}!}\\
+
+\vfill
+\iparagraph{Indexed Paragraph}
+\begin{lstlisting}
+\iparagraph{Indexed Paragraph}
+\end{lstlisting}
+
+\vfill
+\paragraph{Saves}
+
+Make a \save{STR}. This affects all \saves{DEX}.
+
+\begin{lstlisting}
+Make a \save{STR}. This affects all \saves{DEX}.
+\end{lstlisting}
+
+\vfill
+\paragraph{Notes}
+\vspace{-\baselineskip}
+\begin{multicols}{2}
+\noindent Text\note[1] \fbox{\lstinline!Text\\note[1]!}\\
+Text\note[2] \fbox{\lstinline!Text\\note[2]!}\\
+Text\note[3] \fbox{\lstinline!Text\\note[3]!}\\
+Text\note[4] \fbox{\lstinline!Text\\note[4]!}\\
+Text\note[5] \fbox{\lstinline!Text\\note[5]!}\\
+Text\note[6] \fbox{\lstinline!Text\\note[6]!}
+\end{multicols}
+\vspace{-\baselineskip}\noindent\rule{0.5\linewidth}{1pt}\vspace{1ex}\\
+\notetext[1]{Note.} \fbox{\lstinline!\\notetext[1]\{Note\}!}\\
+\notetext[2]{Note.} \fbox{\lstinline!\\notetext[2]\{Note.\}!}\\
+\notetext[3]{Note.} \fbox{\lstinline!\\notetext[3]\{Note.\}!}\\
+\notetext[4]{Note.} \fbox{\lstinline!\\notetext[4]\{Note.\}!}\\
+\notetext[5]{Note.} \fbox{\lstinline!\\notetext[5]\{Note.\}!}\\
+\notetext[6]{Note.} \fbox{\lstinline!\\notetext[6]\{Note.\}!}\\
+
+For details on footnotes, see \href{https://www.ctan.org/pkg/sepfootnotes}{sepfootnotes} package.
+
+\vfill
+\paragraph{Symbols}
+\fbox{\lstinline!\\dbar!} \dbar --- prettier double bar.
+
+\vfill
+\paragraph{Lineskip}
+\fbox{\lstinline!\\lineskip!} --- skip one line.\\
+\fbox{\lstinline!\\lineskip[length]!} --- skip vertical length.
+
+\vfill
+
+\paragraph{Tight}
+\vspace{-0.5\baselineskip}
+A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the end of a paragraph, it attempts to fit the text in a lesser amount of lines than previously.\tight
+
+\begin{lstlisting}
+	Paragraph text above.\tight 
+\end{lstlisting}
+\vspace{-2\baselineskip}\faHandPointUp
+
+\break
+
+\section{Boxes}
+
+\begin{dbox}
+	\paragraph{Default Box}
+	Optional rules and notes.\\
+	\lipsum[66]
+\end{dbox}
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+\begin{dbox}
+	\paragraph{Default Box}
+	CONTENTS
+\end{dbox}	
+\end{lstlisting}
+
+\vfill
+%\break
+
+\begin{abox}
+	\paragraph{Aloud Box}
+	Room descriptions and other material to read aloud to the players.\\
+	\lipsum[66]
+\end{abox}
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+\begin{abox}
+	\paragraph{Aloud Box}
+	CONTENTS
+\end{abox}	
+\end{lstlisting}
+
+\vfill
+
+\begin{bbox}
+	\paragraph{Background Box}
+	Highlighting important information.\\
+	\lipsum[66]
+\end{bbox}
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+	\begin{bbox}
+		\paragraph{Background Box}
+		CONTENTS
+	\end{bbox}
+\end{lstlisting}
+
+\break
+
+\begin{qbox}
+	\paragraph{Quote Box}
+	Quotes and handouts.\\
+	\lipsum[66]
+\end{qbox}
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+\begin{qbox}
+	\paragraph{Quote Box}
+	CONTENTS
+\end{qbox}
+\end{lstlisting}
+
+\vfill
+
+\begin{lbar}
+	\paragraph{Left Bar}
+	\lipsum[66]
+\end{lbar}
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+	\begin{lbar}
+		\paragraph{Left Bar}
+		CONTENTS
+	\end{lbar}
+\end{lstlisting}
+
+\vfill
+
+\paragraph{Right Box}
+\rightbox[\parskip]{\faHandPointRight~\em{SOME TEXT}}
+Put a right-aligned line of text raised by \fbox{\lstinline!\\baselineskip + #1!}.
+Default of \fbox{\lstinline!#1!} is \fbox{\lstinline!\\parskip!} to put the text on a \fbox{\lstinline!\\paragraph!} line above.
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+\paragraph{Right Box}
+\rightbox[\parskip]{%
+	\faHandPointRight~\em{SOME TEXT}}
+TEXT
+\end{lstlisting}
+
+\vfill
+
+\paragraph{Right Text}
+
+Right-align a part \righttext{of the text.}
+
+\begin{lstlisting}
+Right-align a part \righttext{of the text.}
+\end{lstlisting}
+
+\vfill
+\break
+
+\section{Icons}
+
+\icon{\faGem} Icons from the \href{https://ctan.org/pkg/fontawesome5}{fontawesome5} package.
+
+\begin{lstlisting}
+\icon{\faGem} Icons from the \href{https://ctan.org/pkg/fontawesome5}{fontawesome5} package.
+\end{lstlisting}
+
+\skipline
+
+\icontitle\faGem\paragraph{Icon and Paragraph}
+
+\begin{lstlisting}
+\icontitle\faGem\paragraph{Icon and Paragraph}
+\end{lstlisting}
+
+Print an icon at the start of the title line.
+
+\skipline
+
+\header{Examples}
+\begin{dtable}[cl|L]
+
+\iconls{faBolt}{trigger}\\
+
+\iconls{faBookmark}{bookmark}\\
+
+\iconls{faCube}{container}\\
+
+\iconls{faDragon}{monster}\\
+
+\iconls{faDungeon}{door}\\
+
+\iconls{faExclamationTriangle}{encounter}\\
+
+\iconls{faEye}{visible}\\
+
+\iconls{faFlag}{flag}\\
+
+\iconls{faGem}{treasure}\\
+
+\iconls{faHiking}{travel}\\
+
+\iconls{faHourglassHalf}{timer}\\
+
+\iconls{faKey}{key}\\
+
+\iconls{faOldKey}{\em (custom v4 icon)}\\
+
+\iconls{faLock}{locked}\\
+
+\iconls{faMagic}{magic}\\
+
+\iconls{faMap}{map}\\
+
+\iconls{faMapSigns}{directions} \\
+
+\iconls{faMoon}{night}\\
+
+\iconls{faPaw}{tracks}\\
+
+\iconls{faRulerCombined}{size, dimensions}\\
+
+\iconls{faScroll}{scroll, info}\\
+
+\iconls{faSearch}{hidden}\\
+
+\iconls{faSkullCrossbones}{trap, danger}\\
+
+\iconls{faStar}{special}\\
+
+\iconls{faSun}{day}\\
+
+\iconls{faTrophy}{reward}\\
+
+\iconls{faUser}{character}\\
+
+\iconls{faUsers}{group}\\
+
+\end{dtable}
+
+\vfill
+\break
+
+\header{Shortcuts}
+
+\begin{dtable}[cL|cL]
+	\iconItDR & \multicolumn{3}{l}{\textbackslash iconItDR\note} \\
+	\iconsc{iconCharacter}	& \iconsc{iconMagic}	\\
+	\iconsc{iconContainer}	& \iconsc{iconMonster}	\\
+	\iconsc{iconDanger}		& \iconsc{iconNight}	\\
+	\iconsc{iconDay}		& \iconsc{iconReward}	\\
+	\iconsc{iconDirections}	& \iconsc{iconSize}		\\
+	\iconsc{iconDoor}		& \iconsc{iconStar}		\\
+	\iconsc{iconEncounter}	& \iconsc{iconTimer}	\\
+	\iconsc{iconGroup}		& \iconsc{iconTravel}	\\
+	\iconsc{iconHidden}		& \iconsc{iconTreasure}	\\
+	\iconsc{iconKey}\note	& \iconsc{iconTrigger}	\\
+	\iconsc{iconLock}		& \iconsc{iconVisible}	\\
+\end{dtable}
+
+\note {\em Custom icon declared in \lstinline!itdr.sty!}
+
+\vfill
+
+\section{Links}
+\label{sec:links}
+
+\begin{lstlisting}
+\label{sec:links}
+\end{lstlisting}
+
+\subsubsection{Customref}
+
+\customref{sec:links}{A link to Links section}
+
+\begin{lstlisting}
+\customref{sec:links}{A link to Links section}
+\end{lstlisting}
+
+\subsubsection{Fullref}
+
+\fullref{sec:links}
+
+\begin{lstlisting}
+\fullref{sec:links}
+\end{lstlisting}
+
+\subsubsection{Safenameref}
+
+\safenameref{sec:links}{Links section} and \safenameref{sec:other}{some other section}.
+
+If the label is undefined, fallback is used.
+
+\begin{lstlisting}
+\safenameref{sec:links}{Links section} and \safenameref{sec:other}{some other section}.
+\end{lstlisting}
+
+\subsubsection{Safepageref}
+
+\safepageref{Links: p.}{sec:links}
+	{.}{Links: fallback.}\\
+\safepageref{Other: p.}{sec:other}
+	{.}{Other: fallback.}
+
+Output: \lstinline!before ?? after!
+
+Where \lstinline!??! is a page number of the label. If label is undefined, fallback is used.
+
+\begin{lstlisting}
+\safepageref{Links: p.}{sec:links}
+		{.}{Links: fallback}\\
+\safepageref{Other: p.}{sec:other}
+		{.}{Other: fallback}
+\end{lstlisting}
+
+\cleartoleftpage
+
+\begin{minipage}{\textwidth}
+\section{Wrap}
+
+Using the \mbox{\href{https://www.ctan.org/pkg/wrapfig2}{wrapfig2}} package (imported in the \lstinline!itdr.sty!).
+
+\begin{lstlisting}
+% FIGURE
+\begin{wrapfigure}[indented lines number]{location}[overhang][width]
+	figure
+\end{wrapfigure}
+
+% TABLE
+\begin{wraptable}[indented lines number]{location}[overhang][width]
+	table
+\end{wraptable}
+
+% TEXT
+\begin{wraptext}[indented lines number correction]{location}[overhang]{width}
+	(optional style settings)
+	\includeframedtext[insertion measure]{text to frame}[settings][radius]
+\end{wraptext}
+
+% FLOAT (underlying environment)
+\begin{wrapfloat}{object name}[line number]{location}[overhang]{width}
+	object
+\end{wrapfloat}
+\end{lstlisting}
+
+New environment (around \lstinline!wrapfloat!):
+
+\begin{lstlisting}
+\begin{wrap}[line number]{location}[overhang]{width}
+	object
+\end{wrap}
+\end{lstlisting}
+
+\paragraph{Location}
+
+\begin{itemize}
+	\item l --- left
+	\item L --- floating left
+	\item r --- right
+	\item R --- floating right
+	\item i --- inner margin
+	\item I --- floating inner margin
+	\item o --- outer margin
+	\item O --- floating outer margin
+\end{itemize}
+
+
+\end{minipage}
+
+\clearpage
+
+\subsection{Wrap Examples}
+
+\begin{wrap}{l}{0.5\linewidth}
+\vspace{-\baselineskip}
+\subsubsection{Left Wrap}
+\begin{lstlisting}
+\begin{wrap}{l}
+	{0.5\linewidth}
+	% CONTENT
+\end{wrap}
+\end{lstlisting}
+\end{wrap}
+
+\lipsum[1]
+
+\begin{wrap}{r}[0.5\linewidth]{\linewidth}
+\vspace{-\baselineskip}
+\subsubsection{Central Wrap}
+\begin{lstlisting}
+% first column
+\begin{wrap}{r}
+	[0.5\linewidth]{\linewidth}
+	\vspace{-\baselineskip}
+	% CONTENT
+\end{wrap}
+
+% second column
+% (empty wrap environment to match
+% the one in the first column)
+\begin{wrap}[15]{l}{0.46\linewidth}
+\end{wrap}
+\end{lstlisting}
+\end{wrap}
+
+\skipline
+\lipsum[2]
+
+\skipline
+\lipsum[3]
+
+\begin{wrap}{r}{0.5\linewidth}
+\vspace{-\baselineskip}
+\subsubsection{Right Wrap}
+\begin{lstlisting}
+\begin{wrap}{r}
+	{0.5\linewidth}
+	% CONTENT
+\end{wrap}
+\end{lstlisting}
+\end{wrap}
+
+\skipline
+\lipsum[4]
+
+\begin{wrap}[15]{l}{0.46\linewidth}
+\end{wrap}
+
+\skipline
+\lipsum[5]
+
+\vfill
+\cleartoleftpage
+
+\dimagebottom{dimagebottom}{150pt}
+
+\section{Images}
+
+\dimage{dimage}{400pt}
+
+\break
+
+The default \lstinline!\graphicspath! is:\\
+\fbox{\lstinline!\{./img/\} \{./img/pic/\} \{./pic/\} \{./core/img/\}!}\\
+
+\vspace{-0.5ex}
+\begin{lstlisting}
+\dimage{dimage}{400pt}
+% \dimage[options]{filename}[extension]{height}
+\end{lstlisting}
+\faHandPointLeft
+
+\vfill
+
+\dimage[trim={0pt 110pt 0pt 0pt},clip]{itdr_logo}[pdf]{100pt}
+\faHandPointUp
+\begin{lstlisting}
+\dimage[trim={0pt 110pt 0pt 0pt},clip]{itdr_logo}[pdf]{100pt}
+% [trim=\{left bottom right top\}, clip]
+\end{lstlisting}
+
+\vfill
+
+\begin{lstlisting}
+\thispagestyle{empty}
+\dimagepage{dimagepage}
+% \dimagepage[options]{filename}[extension]
+\end{lstlisting}
+{\em (See the next page)}\hfill\faHandPointRight
+
+\vfill
+
+\begin{lstlisting}
+% place BEFORE anything on the page
+\dimagebottom{dimagebottom}{150pt}
+% \dimagebottom[options]{filename}[extension]{height}
+\end{lstlisting}
+\faHandPointDown
+\vspace{-3.5ex}
+
+\break
+
+\thispagestyle{empty}
+\dimagepage{dimagepage}
+
+\end{document}

@@ -1,0 +1,30 @@
+\def \game {Into the Dungeon: Revived}	% GAME variable
+\def \title {ItDR Core Guide}	% TITLE variable
+\def \subtitle {A \LaTeX~style manual for ``\game''}	% SUBTITLE variable
+\def \author {Vladimir Arabadzhi}	% AUTHOR variable
+\def \keywords {\title;Into the Dungeon;RPG;LaTeX}	% KEYWORDS variable
+\def \version {2023/12/01}	% VERSION variable
+\def \license {\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)}}	% LICENSE variable
+
+% SPECIAL TO ITDR-CORE-GUIDE
+
+\newindex{spells}{Spell List}
+\def \bestiaryIndex {bestiary}
+\newindex{bestiary}{Bestiary}
+
+\usepackage{listings}
+\lstset
+{
+	language=[LaTeX]TeX,
+	breaklines=true,
+	tabsize=2,
+	basicstyle=\tt\normalsize,
+	keywordstyle=\color{blue},
+	identifierstyle=\color{magenta},
+	commentstyle=\color{black!65},
+	frame = single,
+	backgroundcolor=\color{lightgray!50},
+}
+
+\newcommand{\iconls}[2]{\lower\iconLower\hbox{\csname #1\endcsname}&\textbackslash#1&#2}
+\newcommand{\iconsc}[1]{\lower\iconLower\hbox{\csname #1\endcsname}&\textbackslash#1}

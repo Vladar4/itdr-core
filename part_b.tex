@@ -1,0 +1,234 @@
+\documentclass[itdr]{subfiles}
+
+\begin{document}
+
+\chapterx{Appendix B: Bestiary}
+\label{ch:appendix_b}
+
+\noindent\begin{minipage}{\textwidth}
+\section{Bestiary package}
+
+\subsection{Database fields}
+
+\fbox{\lstinline!bestiary.csv!} database fields (separated by \fbox{\lstinline!|!} character):
+
+\noindent\begin{lstlisting}
+	       |-----------stat-----------|    |--info--(upt to 10 info fields)
+         |                          |    |
+1   |2   |3  |4  |5  |6 |7     |8   |9   |10     |
+    |    |   |   |   |  |      |    |    |       |
+name|tags|str|dex|wil|hp|armour|data|desc|info(1)|...
+\end{lstlisting}
+
+\paragraph{Fields}
+\begin{enumerate}
+	\item \fbox{\lstinline!name!} --- monster name
+	\item \fbox{\lstinline!tags!} --- comma-separated list of tags (beast, construct, demon, dragon, monster, person, swarm, undead, etc.)
+	\itemrange3 \fbox{\lstinline!str!}, \fbox{\lstinline!dex!}, \fbox{\lstinline!wil!} --- ability scores, 10 by default
+	\item \fbox{\lstinline!hp!} --- hit points
+	\item \fbox{\lstinline!armour!} --- armour score and description, if needed, e.g.: 2 (piecemeal armour + shield)
+	\item \fbox{\lstinline!data!} --- the rest of the first line of a stat block: attacks, abilities, etc.
+	\item \fbox{\lstinline!desc!} --- literary description paragraph
+	\item \fbox{\lstinline!info!} --- ten fields for the abilities and properties descriptions
+\end{enumerate}
+
+\paragraph{Example}
+\noindent\begin{lstlisting}
+name|tags|str|dex|wil|hp|armour|data|desc|info||
+Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a \save{DEX} or take Tusks Damage and be knocked prone.|\subparagraph{Trample:} a prone target takes d12~Damage.|
+\end{lstlisting}
+\end{minipage}
+
+\vfill
+\clearpage
+
+\noindent\begin{minipage}{\textwidth}
+\subsection{Managing the database}
+
+\begin{itemize}
+	\item \fbox{\lstinline!\\bestiaryDefault!} --- default database file name: \fbox{\lstinline!itdr/bestiary!}
+	\item \fbox{\lstinline!\\bestiaryExtension!} --- database file extension: \fbox{\lstinline!csv!}
+	\item \fbox{\lstinline!\\bestiaryFilename\{filename\}!} --- add the file extension to a file name (done automatically on load)
+	\item \fbox{\lstinline!\\def\\bestiaryIndex\{\}!} --- (default) disable the bestiary index
+	\item \fbox{\lstinline!\\def\\bestiaryIndex\{\\jobname\}!} --- set the bestiary index to default one.
+	\item \fbox{\lstinline!\\def\\bestiaryIndex\{bestiary\}!} --- (used in this document) set the bestiary index to \lstinline!bestiary!.
+	\item \fbox{\lstinline!\\usepackage\{itdr/bestiary\}!} --- load with the default database file: \fbox{\lstinline!itdr/bestiary.csv!}
+	\item \fbox{\lstinline!\\usepackage[db=filename]\{itdr/bestiary\}!} --- load with a custom database file
+	\item \fbox{\lstinline!\\usepackage[db=\{file1, file2, file3, ...\}]\{itdr/bestiary\}!} --- load with a custom list of database files
+	\item \fbox{\lstinline!\\bestiaryClear!} --- clear the database
+	\item \fbox{\lstinline!\\bestiarySort!} --- sort the database by name field
+	\item \fbox{\lstinline!\\bestiaryLoad\{filename\}!} --- clear, load and sort the database by name field
+	\item \fbox{\lstinline!\\bestiaryAppend\{filename\}!} --- append to the database and sort it by name field
+	\item \fbox{\lstinline!\\bestiaryLoadList\{file1, file2, file3, ...\}!} --- clear the database, load a comma-separated list of files, and then sort it by name field
+	\item \fbox{\lstinline!\\DTLdef\{\\name\}\{bestiaryDB\}\{column1 name\}\{column1 value\}\{column2 name\}!} --- store the value of column2 into a new \textbackslash{}def
+\end{itemize}
+
+\end{minipage}
+
+\vfill
+\clearpage
+
+\section{Print Names}
+
+\begin{lstlisting}
+\bestiaryPrintAllNames
+	[<prefix>][<suffix>]
+
+\bestiaryPrintNamesByTag
+	{<tag>}[<prefix>][<suffix>]
+\end{lstlisting}
+
+\begin{lstlisting}
+\begin{enumerate}
+	\bestiaryPrintAllNames[\item]
+\end{enumerate}
+\end{lstlisting}
+
+\begin{enumerate}
+	\bestiaryPrintAllNames[\item]
+\end{enumerate}
+
+\vfill
+\break
+
+\begin{lstlisting}
+\begin{enumerate}
+\bestiaryPrintNamesByTag{monster}
+	[\item]
+\end{enumerate}
+\end{lstlisting}
+
+\begin{enumerate}
+	\bestiaryPrintNamesByTag{monster}[\item]
+\end{enumerate}
+
+\vfill
+
+\begin{lstlisting}
+\begin{enumerate}
+	\bestiaryPrintNamesByTag{beast}
+		[\item]
+\end{enumerate}
+\end{lstlisting}
+
+\begin{enumerate}
+	\bestiaryPrintNamesByTag{beast}[\item]
+\end{enumerate}
+
+\vfill
+\break
+
+\section{Print an Entry}
+
+\begin{lstlisting}
+\bestiaryPrint[<fields>]{<name>}
+
+\bestiaryPrint*[<fields>]{<name>}
+
+% the starred version does not write into the index
+\end{lstlisting}
+
+\paragraph{Fields:}
+\begin{itemize}
+	\item \lstinline!name! --- header and index entry
+	\item \lstinline!stat! --- main stat block
+	\item \lstinline!desc! --- description
+	\item \lstinline!info! --- abilities, properties, etc.
+\end{itemize}
+
+\skipline
+\hrule
+\vfill
+
+\begin{lstlisting}
+\bestiaryPrint{Gazer}
+\end{lstlisting}
+
+\bestiaryPrint{Gazer}
+
+\vfill
+
+\begin{lstlisting}
+\bestiaryPrint[name,desc]{Gazer}
+\end{lstlisting}
+
+\bestiaryPrint[name,desc]{Gazer}
+
+\vfill
+
+\begin{lstlisting}
+\bestiaryPrint[name,stat]{Gazer}
+\end{lstlisting}
+
+\bestiaryPrint[name,stat]{Gazer}
+
+\vfill
+\break
+
+\begin{lstlisting}
+\bestiaryPrint[name,stat,desc,info]
+	{Gazer}
+\end{lstlisting}
+
+\bestiaryPrint[name,stat,desc,info]{Gazer}
+
+\begin{lstlisting}
+\subparagraph{Gazer}
+	(\bestiaryPrintStat{Gazer}
+\end{lstlisting}
+
+\subparagraph{Gazer} (\bestiaryPrintStat{Gazer})
+
+\vfill
+\clearpage
+
+\section{Print Entries}
+
+\begin{lstlisting}
+\bestiaryPrintEntriesByTag{<tag>}
+	[<before>][<after>][<index>]
+
+\bestiaryPrintEntriesByTag*{<tag>}
+[<before>][<after>][<index>]
+
+\bestiaryPrintAllEntries
+	[<before>][<after>][<index>]
+
+\bestiaryPrintAllEntries*
+[<before>][<after>][<index>]
+
+% the starred versions do not write into the index
+\end{lstlisting}
+
+\subsection{By Tag (monster)}
+
+\begin{lstlisting}
+\bestiaryPrintEntriesByTag{monster}
+	[][\vfill]
+\end{lstlisting}
+
+\bestiaryPrintEntriesByTag{monster}[][\vfill]
+
+%\skipline[2\baselineskip]
+
+\subsection{By Tag (beast)}
+
+\begin{lstlisting}
+\bestiaryPrintEntriesByTag{beast}
+	[][\vfill]
+\end{lstlisting}
+
+\bestiaryPrintEntriesByTag{beast}[][\vfill]
+
+%\skipline[5\baselineskip]
+
+\section{Print All Entries}
+
+\begin{lstlisting}
+\bestiaryPrintAllEntries
+	[][\vfill][\jobname]
+\end{lstlisting}
+
+\bestiaryPrintAllEntries[][\vfill]
+
+\end{document}

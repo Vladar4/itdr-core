@@ -1,0 +1,26 @@
+\documentclass[itdr]{subfiles}
+
+\begin{document}
+
+\cleartoleftpage
+\addtocontents{toc}{\protect\newcolumn}% start appendixes' toc from the second column
+
+\chapterx{Appendix A: Appendix Name}
+\label{ch:appendix_a}
+
+\begin{lstlisting}
+\cleartoleftpage
+\addtocontents{toc}
+	{\protect\newcolumn}% start appendixes' toc from the second column
+\end{lstlisting}
+
+\begin{lstlisting}
+\chapterx{Appendix A: Appendix Name}
+\label{ch:appendix_a}
+\end{lstlisting}
+
+\section{Section 1}
+
+\lipsum[1]
+
+\end{document}
