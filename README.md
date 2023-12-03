@@ -6,45 +6,16 @@ Core LaTeX packages for the [Into the Dungeon: Revived](https://vladar4.github.i
 Usage
 -----
 
-Add this repository as a submodule into your git project, or just put its contents into the `itdr` sub-directory.
+Consult the [manual](MANUAL.md) and `itdr-core-guide.tex` document for the list of available commands and practical examples of their usage.
 
-```
-git submodule add https://github.com/Vladar4/itdr-core itdr
-git commit -m 'Added itdr-core submodule'
-git push
-```
-
-Consult the `itdr-core-guide.tex` document for the list of available commands and practical examples of their usage.
 The compiled PDF version of `itdr-core-guide` is available in [Releases](https://github.com/Vladar4/itdr-core/releases).
 
 Packages
 --------
 
-### core.sty
+- [core.sty](MANUAL.md#core.sty) — the main package that provides everything you need to produce a document in ItDR style.
 
-`\usepackage{itdr/core}`
-
-The main package that provides everything you need to produce a document in ItDR style.
-
-### def.tex
-
-Create one for your project, using the example presented here, and input it in your project's preamble (`\input{def}`) just before `\begin{document}`.
-
-```tex
-\def \game {Into the Dungeon: Revived}	% GAME variable
-\def \title {Title}	% TITLE variable
-\def \subtitle {Subtitle}	% SUBTITLE variable
-\def \author {Author}	% AUTHOR variable
-\def \keywords {\title;Into the Dungeon;RPG}	% KEYWORDS variable
-\def \version {v1.0}	% VERSION variable
-\def \license {\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)}}	% LICENSE variable
-```
-
-### bestiary.sty
-
-`\usepackage{itdr/bestiary}`
-
-The expandable CSV bestiary database that allows you to insert previously defined monster stat-blocks using short LaTeX commands.
+- [bestiary.sty](MANUAL.md#bestiary.sty) — the expandable CSV bestiary database that allows you to insert previously defined monster stat-blocks using short LaTeX commands.
 
 Dependencies
 ------------
@@ -55,7 +26,6 @@ Dependencies
 
 ### Debian
 `sudo apt-get install texlive-latex-base texlive-fonts-extra texlive-latex-extra`
-
 
 Changelog
 ---------
