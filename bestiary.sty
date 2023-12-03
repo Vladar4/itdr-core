@@ -285,7 +285,7 @@
 
 % print all names containing a tag
 %
-% \bestiaryPrintEntriesByTag{beast}[prefix][suffix]
+% \bestiaryPrintNamesByTag{beast}[prefix][suffix]
 %
 % #1 - tag
 % #2 - prefix (optional)
@@ -301,13 +301,13 @@
 }
 
 
-% print all entries the database
+% print all entries from the database
 %
 % \bestiaryPrintAllEntries[before][after]
 %
 % #1 - * (the starred version does not write into the index)
-% #2 - before (optional)
-% #3 - after (optional)
+% #2 - before (optional) for each entry
+% #3 - after (optional) for each entry
 %
 \NewDocumentCommand{\bestiaryPrintAllEntries}{ s O{} O{} }{%
 	\DTLforeach*{bestiaryDB}{\name=name}{%
@@ -319,7 +319,7 @@
 
 % print all entries containing a tag
 %
-% \bestiaryPrintEntriesByTag{tag}[before][after][index]
+% \bestiaryPrintEntriesByTag[fields]{tag}[before][after]
 %
 % #1 - * (the starred version does not write into the index)
 % #2 - fields (optional) field list
@@ -327,11 +327,11 @@
 % #4 - before (optional)
 % #5 - after (optional)
 %
-\NewDocumentCommand{\bestiaryPrintEntriesByTag}{ s O{name,stat,desc,info} m O{} O{} O{} }{%
+\NewDocumentCommand{\bestiaryPrintEntriesByTag}{ s O{name,stat,desc,info} m O{} O{} }{%
 	\DTLforeach*{bestiaryDB}{\name=name, \tags=tags}{%
 		\DTLifinlist{#3}{\tags}{% if tag is present
 			#4% before
-			\IfBooleanTF{#1}{\bestiaryPrint*{\name}}{\bestiaryPrint{\name}}
+			\IfBooleanTF{#1}{\bestiaryPrint*[#2]{\name}}{\bestiaryPrint[#2]{\name}}
 			#5% after
 		}{}% if tag is absent
 	}% DTLforeach*
