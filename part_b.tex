@@ -185,17 +185,17 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 \section{Print Entries}
 
 \begin{lstlisting}
-\bestiaryPrintEntriesByTag{<tag>}
-	[<before>][<after>][<index>]
+\bestiaryPrintEntriesByTag
+	[fields]{<tag>}[<before>][<after>]
 
-\bestiaryPrintEntriesByTag*{<tag>}
-[<before>][<after>][<index>]
+\bestiaryPrintEntriesByTag*
+	[fields]{<tag>}[<before>][<after>]
 
 \bestiaryPrintAllEntries
-	[<before>][<after>][<index>]
+	[<before>][<after>]
 
 \bestiaryPrintAllEntries*
-[<before>][<after>][<index>]
+	[<before>][<after>]
 
 % the starred versions do not write into the index
 \end{lstlisting}
