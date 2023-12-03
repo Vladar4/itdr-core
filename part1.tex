@@ -408,7 +408,7 @@ For details on footnotes, see \href{https://www.ctan.org/pkg/sepfootnotes}{sepfo
 
 \vfill
 \paragraph{Symbols}
-\fbox{\lstinline!\\dbar!} \dbar --- prettier double bar.
+\fbox{\lstinline!\\dbar!} \dbar~--- prettier double bar.
 
 \vfill
 \paragraph{Lineskip}
@@ -465,23 +465,6 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 
 \vfill
 
-\begin{bbox}
-	\paragraph{Background Box}
-	Highlighting important information.\\
-	\lipsum[66]
-\end{bbox}
-
-\skipline[0.5\baselineskip]
-
-\begin{lstlisting}
-	\begin{bbox}
-		\paragraph{Background Box}
-		CONTENTS
-	\end{bbox}
-\end{lstlisting}
-
-\break
-
 \begin{qbox}
 	\paragraph{Quote Box}
 	Quotes and handouts.\\
@@ -495,6 +478,23 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 	\paragraph{Quote Box}
 	CONTENTS
 \end{qbox}
+\end{lstlisting}
+
+\break
+
+\begin{bbox}
+	\paragraph{Background Box}
+	Highlighting important information.\\
+	\lipsum[66]
+\end{bbox}
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+\begin{bbox}
+	\paragraph{Background Box}
+	CONTENTS
+\end{bbox}
 \end{lstlisting}
 
 \vfill

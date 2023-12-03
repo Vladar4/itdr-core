@@ -1,5 +1,5 @@
-ItDR — Core
-===========
+ItDR Core
+=========
 
 Core LaTeX packages for the [Into the Dungeon: Revived](https://vladar4.github.io/itdr/) role-playing game and compatible materials.
 

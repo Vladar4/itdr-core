@@ -5,7 +5,23 @@ ItDR Core Manual
     - [def.tex](def.tex)
     - [project.tex](project.tex)
 - [core.sty](core.sty)
+    - [Boxes](#boxes)
+    - [Fonts](#fonts)
+    - [Footnotes](#footnotes)
+    - [Icons](#icons)
+    - [Images](#images)
+    - [Index](#index)
+    - [Lists](#lists)
+    - [Sectioning](#sectioning)
+    - [Tables](#tables)
+    - [Templates](#templates)
+    - [Table of contents](#table-of-contents)
+    - [Wrap](#wrap)
+    - [Hyperlinks](#hyperlinks)
 - [bestiary.sty](bestiary.sty)
+    - [Fields](#fields)
+    - [Management](#management)
+    - [Usage](#usage)
 
 Project structure
 -----------------
@@ -42,6 +58,8 @@ project
 └── project.tex
 ```
 
+---
+
 ### def.tex
 
 This file defines the main variables and metadata for the PDF file.
@@ -57,6 +75,8 @@ Follow the example below to create your `def.tex` and input it in your project's
 \def \version {v1.0}	% VERSION variable
 \def \license {\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)}}	% LICENSE variable
 ```
+
+---
 
 ### project.tex
 
@@ -139,23 +159,23 @@ The main package that provides everything you need to produce a document in ItDR
 
 #### dbox environment
 
-"Default" box, 
+"Default" box — optional rules and notes.
 
 #### abox environment
 
-"Aloud" box, 
+"Aloud" box — room descriptions and other material to read aloud to the players.
 
 #### qbox environment
 
-"Quote" box, 
+"Quote" box — quotes and handouts.
 
 #### bbox environment
 
-"Background" box, 
+"Background" box — highlighting important information.
 
 #### lbar environment
 
-Left bar, 
+Left bar — vertical bar to the left side of the text, used in [Domain](#domain) command.
 
 #### rightbox
 
@@ -177,9 +197,13 @@ Right-aligned text.
 
 #### docFontSize
 
+`\docFontSize`
+
 Document font size length, used in some calculations.
 
 #### fancyfont
+
+`\fancyfont`
 
 Fancy font used for `\textBigTitle` and `textSubTitle`.
 
@@ -201,6 +225,8 @@ Print book subtitle.
 
 #### fnsize
 
+`\fnsize`
+
 Footnote font size (`small` by default)
 
 #### note
@@ -221,13 +247,19 @@ Print `n`-th local note `text`.
 
 #### iconItDR
 
+`\iconItDR`
+
 Custom ItDR logo icon
 
 #### faOldKey
 
+`\faOldKey`
+
 Custom old key icon (from fontawesome v4)
 
 #### iconLower
+
+`\iconLower`
 
 Vertical kerning length for icons.
 
@@ -344,14 +376,19 @@ It's style is defined in `itdr/itdr.ist` file and can be overriden by creating `
 Enumerate list index with range of values.
 E.g., `\itemrange{3} second item` will produce `2–4. second item`.
 
+---
+
 ### Sectioning
 
 #### tocstep
+
+`\tocsep`
 
 "Tabbing" step distance for TOC, used internally.
 
 #### New title classes
 
+- `\chapterx` - unnumbered chapter
 - `\paragraphsection` - a new title class between `\subsubsection` and `\paragraph`.
 - `\paragraphsubsection` - a new title class between `\paragraph` and `\subparagraph`.
 
@@ -382,6 +419,8 @@ Takes a single argument of columns specification (default: `LL`).
 
 #### cleartoleftpage
 
+`\cleartoleftpage`
+
 Start from a new left (even) page.
 
 #### tsub
@@ -398,6 +437,8 @@ A shorthand for `\textsuperscript`.
 
 #### dbar
 
+`\dbar`
+
 A prettier double bar glyph.
 
 #### skipline
@@ -409,6 +450,8 @@ A prettier double bar glyph.
 A shorthand for `\vspace*{length}`.
 
 #### tight
+
+`\tight`
 
 A shorthand for `\looseness=-1`.
 When placed at the end of a paragraph, it attempts to fit the text in a lesser amount of lines than previously.
@@ -452,8 +495,6 @@ Default spell index should be defined as `\newindex{\spells}{Spell List}` before
 
 #### Rooms
 
-#### room
-
 `\room[\title]{idx}{name}`
 
 - `\title` - *(optional)* title level (`\subsection` by default)
@@ -461,8 +502,6 @@ Default spell index should be defined as `\newindex{\spells}{Spell List}` before
 - `name` - the name of the room
 
 Room header with two-line lettrine of its index on the map.
-
-#### dimensions
 
 `\dimensions[unit]{x}{y}{z}`
 
@@ -476,7 +515,7 @@ Room dimensions to use immediatelly after the `\room` command.
 
 - `\iparagraph[index]{title}` - indexed paragraph; adds to the default index (`\jobname`) by default
 - `\statpar[index]{monster name}` and `\statpar*{monster name}` - monster stat block header
-- `\underpar{text}` - monster stat block sub-header
+- `\underpar{text}` - monster stat block underparagraph (sub-header)
 
 #### Classess and Creeds
 
@@ -533,9 +572,11 @@ The expandable CSV bestiary database that allows you to insert previously define
 
 `\usepackage{itdr/bestiary}` - load with the default database file (`itdr/bestiary`)
 
-`\usepackage[db=filename]{itdr/bestiary}` - load with a custom database file
+`\usepackage[db=filename]{itdr/bestinary}` - load with a custom database file
 
 `\usepackage[db={file1, file2, file3, ...}]{itdr/bestiary}` - load with a custom list of database files
+
+---
 
 ### Fields
 
@@ -565,6 +606,8 @@ name|tags|str|dex|wil|hp|armour|data|desc|info||
 Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a \save{DEX} or take Tusks Damage and be knocked prone.|\subparagraph{Trample:} a prone target takes d12~Damage.|
 ```
 
+---
+
 ### Management
 
 - `\bestiaryDefault` - default database file name (`itdr/bestiary` by default)
@@ -577,6 +620,8 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 - `\bestiaryAppend{filename}` - append to the database and sort it by name field
 - `\bestiaryLoadList{file1, file2, file3, ...}` - clear the database, load a comma-separated list of files, and then sort it by name field
 - `\DTLdef{\name}{bestiaryDB}{column1 name}{column1 value}{column2 name}` - store the value of `column2` into a new `\def`
+
+---
 
 ### Usage
 
