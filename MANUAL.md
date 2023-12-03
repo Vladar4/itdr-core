@@ -2,9 +2,9 @@ ItDR Core Manual
 ================
 
 - [Project structure](#project-structure)
-    - [def.tex](def.tex)
-    - [project.tex](project.tex)
-- [core.sty](core.sty)
+    - [def.tex](#def.tex)
+    - [project.tex](#project.tex)
+- [core.sty](#core.sty)
     - [Boxes](#boxes)
     - [Fonts](#fonts)
     - [Footnotes](#footnotes)
@@ -18,7 +18,7 @@ ItDR Core Manual
     - [Table of contents](#table-of-contents)
     - [Wrap](#wrap)
     - [Hyperlinks](#hyperlinks)
-- [bestiary.sty](bestiary.sty)
+- [bestiary.sty](#bestiary.sty)
     - [Fields](#fields)
     - [Management](#management)
     - [Usage](#usage)
