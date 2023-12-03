@@ -221,11 +221,12 @@
 \renewcommand{\footnotelayout}{\fnsize\em}% footnote text style
 
 % \note[n]
-% footnote symbol for local notes
+% footnote symbol for a local note
 \makeatletter
 \newcommand{\note}[1][1]{\textsuperscript{\normalfont\fnsize\@fnsymbol{#1}}}
 \makeatother
 
+% \notetext[n]{text}
 \newcommand{\notetext}[2][1]{\note[#1]~{\fnsize\em #2}}
 
 %%%%%%%%%
@@ -370,7 +371,7 @@
 	\end{tikzpicture}
 }
 
-% \faOldKey - custom icon (fontawesome old key from v4)
+% \faOldKey - old key icon (from fontawesome v4)
 \newcommand{\faOldKey}{%
 	\begin{tikzpicture}[baseline={([yshift=-0.35\docFontSize]current bounding box.center)}, y=\docFontSize, x=\docFontSize, yscale=0.1, xscale=0.1, inner sep=0pt, outer sep=0pt]
 		\path[fill,line width=0.750pt] (5.2262,7.5879) .. controls (5.2262, 7.9229) and
@@ -430,7 +431,6 @@
 
 % \icon{\icon}
 % print an icon at the start of the line without indentation
-%\newcommand{\icon}[1]{\noindent\lower\iconLower\hbox{#1}~}
 \newcommand{\icon}[1]{\noindent\lower\iconLower\hbox{#1}~}
 
 % \icontitle{\icon}{\title}{Text}
@@ -555,14 +555,21 @@
 %%%%%%%%%
 
 \RequirePackage{imakeidx}
-\makeindex[options=-s itdr]
+\IfFileExists{itdr.ist}{% itdr.ist
+	\makeindex[options=-s itdr]
+}{% itdr/itdr.ist
+	\makeindex[options=-s itdr/itdr]
+}
 \RequirePackage[totoc,columns=3,columnsep=1em,font=small,indentunit=1em,rule=0pt]{idxlayout}
 
 % \newindex{name}{title}
 \newcommand{\newindex}[2]{%
-	\makeindex[name=#1, title={#2}, options=-s itdr]
+	\IfFileExists{itdr.ist}{% itdr.ist
+		\makeindex[name=#1, title={#2}, options=-s itdr]
+	}{% itdr/itdr.ist
+		\makeindex[name=#1, title={#2}, options=-s itdr/itdr]
+	}
 }
-
 
 %%%%%%%%%
 % LISTS %
@@ -628,7 +635,7 @@
 	\def\labelenumiv{\original}
 	\fi\fi\fi\fi
 }
-\makeatother
+\makeatother% LISTS
 
 %%%%%%%%%%%%%%
 % SECTIONING %
@@ -816,20 +823,14 @@
 \newcommand{\tsup}[1]{\textsuperscript{#1}}
 
 % \dbar
-% prettier double bar
+% a prettier double bar glyph
 %\newcommand{\dbar}{\textbar\kern-1ex\textbar}
 \newcommand{\dbar}{\normalfont\textbar\textbar}
-
-% \iparagraph[index]{title}
-% (indexed paragraph)
-\newcommand{\iparagraph}[2][\jobname]{%
-	\index[#1]{#2}
-	\paragraph{#2}
-}
 
 % \skipline[\baselineskip]
 \newcommand{\skipline}[1][\baselineskip]{\vspace*{#1}}
 
+% \tight
 \newcommand{\tight}{\looseness=-1}
 
 % SAVES %
@@ -840,7 +841,6 @@
 % \saves{ABILITY}
 \newcommand{\saves}[1]{#1~Saves}
 
-\makeatletter
 %
 % !NOTE!
 %
@@ -850,6 +850,7 @@
 
 % FEAT %
 
+\makeatletter
 \newcommand{\feat}{\@ifstar{\feat@star}{\feat@index}}
 
 % \feat[index]{name}
@@ -892,6 +893,9 @@
 \newcommand{\featb@star}[1]{%
 	\paragraphsection[#1]{\decosix~#1~\decosix}
 }
+\makeatother% FEATS
+
+% OTHER %
 
 % \featmt
 \newcommand{\featmt}{%
@@ -913,6 +917,7 @@
 
 % EQUIP %
 
+\makeatletter
 \newcommand{\equip}{\@ifstar{\equip@star}{\equip@index}}
 
 % \equip[index]{name}{price}
@@ -955,8 +960,10 @@
 \newcommand{\armour@star}[3]{%
 	\subparagraph{#1} (#2): Armour #3.%
 }
+\makeatother% EQUIP
 
-% SIZPOP %
+% DOMAINS %
+
 % \sizpop[pop]{siz}
 % Print domain size along with appropriate populace
 \def\populace#1{\ (Populace #1)}
@@ -991,8 +998,6 @@
 	\fi
 }
 
-
-% DOMAIN %
 % \domain{ruler}{siz}[populace]{details}
 \NewDocumentCommand{\domain}{m m O{} m}{%
 	\begin{lbar}
@@ -1002,15 +1007,66 @@
 	\end{lbar}%
 }
 
-% SPELL %
+% ROOMS %
+
+\RequirePackage{lettrine}
+
+\makeatletter
+\newcommand*{\@skip@empty@lines}[1]{%
+	\@nobreakfalse
+	\global\@noskipsectrue
+	\everypar{%
+		\if@noskipsec
+		\global\@noskipsecfalse
+		{\setbox\z@\lastbox}% remove paragraph indentation
+		#1%
+		\else
+		\everypar{}%
+		\fi}%
+	\ignorespaces
+}
+
+% \room[\title]{idx}{name}
+%
+% title - (optional) title level (\subsection by default)
+% idx - the map index of the room (two-line lettrine)
+% name - the name of the room
+%
+\newcommand{\room}[3][\subsection]{%
+	\@skip@empty@lines{%
+		\lettrine[findent=0.5em,nindent=0em]{#2}{%
+			\raisebox{-0.5ex}{\parbox{\linewidth-\widthof{\Huge #2}}{#1[#2. #3]{#3}}}
+		}\\%lettrine
+	}
+}
+\makeatother
+
+% \dimensions[unit]{x}{y}{z}
+%
+% unit - (optional) measure unit (~ft. by default)
+% x, y - horizontal dimensions
+% z - vertical dimension (leave empty to omit)
+%
+\newcommand{\dimensions}[4][~ft.]{%
+	#2$\times$#3%
+	\ifx&#4&\else
+	$\times$#4%
+	\fi
+	\ifx&#1&\else
+	#1%
+	\fi
+}
+
+% SPELLS %
 
 % DEFAULT SPELL INDEX
 %
 % Define:
-%	\newindex{spells}{Spell List}
+%	\newindex{\spells}{Spell List}
 % before the start of your document.
-\def \spells {spells}
+\def\spells{spells}
 
+\makeatletter
 \newcommand{\spell}{\@ifstar{\spell@star}{\spell@index}}
 
 % \spell[index]{name} description.
@@ -1040,9 +1096,20 @@
 \newcommand{\sspell@star}[2]{%
 	\textbf{#1 (#2):}\index[spells]{#1 (#2)}%
 }
+\makeatother% SPELLS
+
+% IPARAGRAPH %
+
+% \iparagraph[index]{title}
+% (indexed paragraph)
+\newcommand{\iparagraph}[2][\jobname]{%
+	\index[#1]{#2}
+	\paragraph{#2}
+}
 
 % STATPAR %
 
+\makeatletter
 \newcommand{\statpar}{\@ifstar{\statpar@star}{\statpar@index}}
 
 % \statpar[index]{monster name}
@@ -1055,6 +1122,7 @@
 \newcommand{\statpar@star}[1]{%
 	\paragraphsection[#1]{#1}%
 }
+\makeatother
 
 % UNDERPAR %
 
@@ -1068,6 +1136,7 @@
 
 % CLASS %
 
+\makeatletter
 \newcommand{\class}{\@ifstar{\class@star}{\class@index}}
 
 % \class[index]{name}
@@ -1080,9 +1149,11 @@
 \newcommand{\class@star}[1]{%
 	\paragraphsection[#1]{\decosix~#1~\decosix}
 }
+\makeatother
 
 % CREED %
 
+\makeatletter
 \newcommand{\creed}{\@ifstar{\creed@star}{\creed@index}}
 
 % \creed[index]{name}
@@ -1095,6 +1166,7 @@
 \newcommand{\creed@star}[1]{%
 	\paragraphsection[#1]{\decosix~#1~\decosix}
 }
+\makeatother
 
 % MISC
 
@@ -1112,8 +1184,6 @@
 	\endgroup
 	\clearpage
 }
-
-\makeatother% TEMPLATES
 
 %%%%%%%
 % TOC %
@@ -1143,56 +1213,6 @@
 \NewDocumentEnvironment{wrap}{o m o G{0pt}}%
 {\wrapfloat{object}[#1]{#2}[#3]{#4}}%
 {\endwrapfloat}
-
-% ROOM %
-
-\RequirePackage{lettrine}
-
-\makeatletter
-\newcommand*{\@skip@empty@lines}[1]{%
-	\@nobreakfalse
-	\global\@noskipsectrue
-	\everypar{%
-		\if@noskipsec
-		\global\@noskipsecfalse
-		{\setbox\z@\lastbox}% remove paragraph indentation
-		#1%
-		\else
-		\everypar{}%
-		\fi}%
-	\ignorespaces
-}
-
-% \room[\title]{index}{name}
-%
-% title - (optional) default: \subsection
-% index - room index (two-line lettrine)
-% name - room name (subsection)
-%
-\newcommand{\room}[3][\subsection]{%
-	\@skip@empty@lines{%
-		\lettrine[findent=0.5em,nindent=0em]{#2}{%
-			\raisebox{-0.5ex}{\parbox{\linewidth-\widthof{\Huge #2}}{#1[#2. #3]{#3}}}
-		}\\%lettrine
-	}
-}
-\makeatother
-
-% \dimensions[unit]{x}{y}{z}
-%
-% unit - (optional) measure unit (~ft. by default)
-% x, y - horizontal dimensions
-% z - vertical dimension (leave empty to omit)
-%
-\newcommand{\dimensions}[4][~ft.]{%
-	#2$\times$#3%
-	\ifx&#4&\else
-		$\times$#4%
-	\fi
-	\ifx&#1&\else
-		#1%
-	\fi
-}
 
 %%%%%%%%%%%%%%
 % HYPERLINKS %
@@ -1231,7 +1251,7 @@
 \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}: \nameref*{#1}}}
 
 % \safenameref{label}[fallback]
-% if the label is undefined, fallback is used
+% if the label is undefined, fallback is printed instead
 \makeatletter
 \NewDocumentCommand{\safenameref}{ m O{} }{%
 	\@ifundefined{r@#1}{#2}{\nameref{#1}}}
@@ -1240,7 +1260,7 @@
 % \safepageref{before}{label}{after}[fallback]
 % output: before ?? after
 % where ?? is a page number of the label
-% if label is undefined, fallback is used
+% if label is undefined, fallback is printed instead
 \makeatletter
 \NewDocumentCommand{\safepageref}{ m m m O{} }{%
 	\@ifundefined{r@#2}{#4}{#1\pageref{#2}#3}}
