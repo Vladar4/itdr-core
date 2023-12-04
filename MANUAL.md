@@ -4,6 +4,7 @@ ItDR Core Manual
 - [Project structure](#project-structure)
     - [def.tex](#deftex)
     - [project.tex](#projecttex)
+    - [part0.tex](#part0tex)
 - [core.sty](#coresty)
     - [Boxes](#boxes)
     - [Fonts](#fonts)
@@ -22,6 +23,8 @@ ItDR Core Manual
     - [Fields](#fields)
     - [Management](#management)
     - [Usage](#usage)
+
+---
 
 Project structure
 -----------------
@@ -144,6 +147,36 @@ is designed to be used with ``Into the Dungeon: Revived'' ruleset freely availab
 ```
 
 ---
+
+### part0.tex
+
+```tex
+\documentclass[itdr/core]{subfiles}
+
+\begin{document}
+
+\toc[2] % Table of Contents
+
+\vfill
+
+\noindent
+\begin{minipage}{\textwidth}
+\begin{center}\fnsize
+	Writing and illustrations by \author{}.
+
+	``\title'' is licensed under\\the \license.
+\end{center}
+\end{minipage}
+
+\clearpage
+
+\chapterx{Introduction}
+\label{ch:introduction}
+
+\end{document}
+```
+
+---
 ---
 
 core.sty
@@ -152,8 +185,6 @@ core.sty
 The main package that provides everything you need to produce a document in ItDR style.
 
 `\usepackage{itdr/core}`
-
----
 
 ### Boxes
 
@@ -637,4 +668,7 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 - `\bestiaryPrintAllEntries*[before][after]` - same, but do not add into the bestiary index
 - `\bestiaryPrintEntriesByTag[fields]{tag}[before][after]` - print all entries (of just some `fields`) containing a specific `tag` with an optional `before` and `after` text for each entry
 - `\bestiaryPrintEntriesByTag*[fields]{tag}[before][after]` - same, but do not add into the bestiary index
+
+---
+---
 
