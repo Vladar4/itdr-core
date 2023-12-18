@@ -71,38 +71,18 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 \section{Print Names}
 
 \begin{lstlisting}
-\bestiaryPrintAllNames
-	[<prefix>][<suffix>]
-
 \bestiaryPrintNamesByTag
-	{<tag>}[<prefix>][<suffix>]
+	{tag}[prefix][suffix]
+
+\bestiaryPrintNamesRange
+	{first}{last}[prefix][suffix]
+
+\bestiaryPrintNamesRangeByTag
+	{first}{last}{tag}[prefix][suffix]
+
+\bestiaryPrintAllNames
+	[prefix][suffix]
 \end{lstlisting}
-
-\begin{lstlisting}
-\begin{enumerate}
-	\bestiaryPrintAllNames[\item]
-\end{enumerate}
-\end{lstlisting}
-
-\begin{enumerate}
-	\bestiaryPrintAllNames[\item]
-\end{enumerate}
-
-\vfill
-\break
-
-\begin{lstlisting}
-\begin{enumerate}
-\bestiaryPrintNamesByTag{monster}
-	[\item]
-\end{enumerate}
-\end{lstlisting}
-
-\begin{enumerate}
-	\bestiaryPrintNamesByTag{monster}[\item]
-\end{enumerate}
-
-\vfill
 
 \begin{lstlisting}
 \begin{enumerate}
@@ -116,14 +96,55 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 \end{enumerate}
 
 \vfill
+
+\begin{lstlisting}
+\begin{enumerate}
+	\bestiaryPrintNamesRange
+		{Landshark}{Manticore}[\item]
+\end{enumerate}
+\end{lstlisting}
+
+\begin{enumerate}
+	\bestiaryPrintNamesRange{Landshark}{Manticore}[\item]
+\end{enumerate}
+
+\vfill
+
+\begin{lstlisting}
+	\begin{enumerate}
+		\bestiaryPrintNamesRangeByTag
+		{Landshark}{Manticore}{beast}[\item]
+	\end{enumerate}
+\end{lstlisting}
+
+\begin{enumerate}
+	\bestiaryPrintNamesRangeByTag{Landshark}{Manticore}{beast}[\item]
+\end{enumerate}
+
+\vfill
+\break
+
+\begin{lstlisting}
+	\begin{enumerate}
+		\bestiaryPrintAllNames[\item]
+	\end{enumerate}
+\end{lstlisting}
+
+\begin{enumerate}
+	\bestiaryPrintAllNames[\item]
+\end{enumerate}
+
+\vfill
 \break
 
 \section{Print an Entry}
 
 \begin{lstlisting}
-\bestiaryPrint[<fields>]{<name>}
+\bestiaryPrint[fields]{name}
 
-\bestiaryPrint*[<fields>]{<name>}
+\bestiaryPrint*[fields]{name}
+
+\bestiaryPrintStat{name}
 
 % the starred version does not write into the index
 \end{lstlisting}
@@ -157,49 +178,48 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 \vfill
 
 \begin{lstlisting}
-\bestiaryPrint[name,stat]{Gazer}
-\end{lstlisting}
-
-\bestiaryPrint[name,stat]{Gazer}
-
-\vfill
-\break
-
-\begin{lstlisting}
-\bestiaryPrint[name,stat,desc,info]
-	{Gazer}
-\end{lstlisting}
-
-\bestiaryPrint[name,stat,desc,info]{Gazer}
-
-\begin{lstlisting}
 \subparagraph{Gazer}
-	(\bestiaryPrintStat{Gazer}
+	(\bestiaryPrintStat{Gazer})
 \end{lstlisting}
 
 \subparagraph{Gazer} (\bestiaryPrintStat{Gazer})
 
 \vfill
-\clearpage
+\break
 
 \section{Print Entries}
 
 \begin{lstlisting}
-\bestiaryPrintEntriesByTag
-	[fields]{<tag>}[<before>][<after>]
+\bestiaryPrintEntriesByTag[fields]
+	{tag}[before][after]
 
-\bestiaryPrintEntriesByTag*
-	[fields]{<tag>}[<before>][<after>]
+\bestiaryPrintEntriesByTag*[fields]
+	{tag}[before][after]
+
+\bestiaryPrintEntriesRange[fields]
+	{first}{last}[before][after]
+
+\bestiaryPrintEntriesRange*[fields]
+	{first}{last}[before][after]
+
+\bestiaryPrintEntriesRangeByTag
+	[fields]{first}{last}{tag}
+	[before][after]
+
+\bestiaryPrintEntriesRangeByTag*
+	[fields]{first}{last}{tag}
+	[before][after]
 
 \bestiaryPrintAllEntries
-	[<before>][<after>]
+	[before][after][fields]
 
 \bestiaryPrintAllEntries*
-	[<before>][<after>]
+	[before][after][fields]
 
 % the starred versions do not write into the index
 \end{lstlisting}
 
+\begin{comment}
 \subsection{By Tag (monster)}
 
 \begin{lstlisting}
@@ -208,25 +228,48 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 \end{lstlisting}
 
 \bestiaryPrintEntriesByTag{monster}[][\vfill]
+\end{comment}
 
-%\skipline[2\baselineskip]
+\vfill
 
 \subsection{By Tag (beast)}
 
 \begin{lstlisting}
-\bestiaryPrintEntriesByTag{beast}
-	[][\vfill]
+\bestiaryPrintEntriesByTag
+	{beast}[][\vfill]
 \end{lstlisting}
 
-\bestiaryPrintEntriesByTag{beast}[][\vfill]
+\bestiaryPrintEntriesByTag[name,stat]{beast}[][\vfill]
 
-%\skipline[5\baselineskip]
+\vfill
+
+\subsection{Range}
+
+\begin{lstlisting}
+\bestiaryPrintEntriesRange
+	[name,stat]{Landshark}{Manticore}
+\end{lstlisting}
+
+\bestiaryPrintEntriesRange[name,stat]{Landshark}{Manticore}
+
+\vfill
+
+\subsection{Range By Tag (beast)}
+
+\begin{lstlisting}
+\bestiaryPrintEntriesRangeByTag
+	{Landshark}{Manticore}{beast}
+\end{lstlisting}
+
+\bestiaryPrintEntriesRangeByTag{Landshark}{Manticore}{beast}
+
+\vfill
+\break
 
 \section{Print All Entries}
 
 \begin{lstlisting}
-\bestiaryPrintAllEntries
-	[][\vfill][\jobname]
+\bestiaryPrintAllEntries[][\vfill]
 \end{lstlisting}
 
 \bestiaryPrintAllEntries[][\vfill]

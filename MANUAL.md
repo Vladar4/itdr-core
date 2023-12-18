@@ -657,18 +657,34 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 
 ### Usage
 
+📝 **NOTE:** For all optional `fields` arguments below, the default value is `name,stat,desc,info` (the whole entry).
+
+#### Print an Entry
+
 - `\bestiaryPrint[fields]{name}` - print a single entry, or just some of its `fields` (comma-separated)
 - `\bestiaryPrint*[fields]{name}` - same but do not add into the bestiary index
     - `\bestiaryPrintField{name}{field}` - print a single `field` of an entry
     - `\bestiaryPrintStat{name}` - print and format stat fields of an entry
     - `\bestiaryPrintDesc{name}` - print a `desc` field of an entry
     - `\bestiaryPrintInfo{name}` - print all info fields of an entry
-- `\bestiaryPrintAllNames[prefix][suffix]` - print all names from the database with an optional `prefix` and `suffix`
+
+#### Print Names
+
 - `\bestiaryPrintNamesByTag{tag}[prefix][suffix]` - print all names containing a specific `tag` with an optional `prefix` and `suffix`
-- `\bestiaryPrintAllEntries[before][after]` - print all entries from the database with an optional `before` and `after` text for each entry
-- `\bestiaryPrintAllEntries*[before][after]` - same, but do not add into the bestiary index
-- `\bestiaryPrintEntriesByTag[fields]{tag}[before][after]` - print all entries (of just some `fields`) containing a specific `tag` with an optional `before` and `after` text for each entry
+- `\bestiaryPrintNamesRange{first}{last}[prefix][suffix]` - print names in range from `first` to `last` one, with an optional `prefix` and `suffix`
+- `\bestiaryPrintNamesRangeByTag{first}{last}{tag}[prefix][suffix]` - print names containing a specific `tag` in range from `first` to `last` one, with an optional `prefix` and `suffix`
+- `\bestiaryPrintAllNames[prefix][suffix]` - print all names from the database with an optional `prefix` and `suffix`
+
+#### Print Entries
+
+- `\bestiaryPrintEntriesByTag[fields]{tag}[before][after]` - print all entries (or just some `fields`) containing a specific `tag` with an optional `before` and `after` text for each entry
 - `\bestiaryPrintEntriesByTag*[fields]{tag}[before][after]` - same, but do not add into the bestiary index
+- `\bestiaryPrintEntriesRange[fields]{first}{last}[before][after]` - print entries (or just some `fields`) in range of names from `first` to `last` one, with an optional `before` and `after` text for each entry
+- `\bestiaryPrintEntriesRange*[fields]{first}{last}[before][after]` - same, but do not add into the bestiary index
+- `\bestiaryPrintEntriesRangeByTag[fields]{first}{last}{tag}[before][after]` - print entries (or just some `fields`) containing a specific `tag` in range of names from `first` to `last` one, with an optional `before` and `after` text for each entry
+- `\bestiaryPrintEntriesRangeByTag*[fields]{first}{last}{tag}[before][after]` - same, but do not add into the bestiary index
+- `\bestiaryPrintAllEntries[before][after][fields]` - print all entries (or just some `fields`) from the database with an optional `before` and `after` text for each entry
+- `\bestiaryPrintAllEntries*[before][after][fields]` - same, but do not add into the bestiary index
 
 ---
 ---

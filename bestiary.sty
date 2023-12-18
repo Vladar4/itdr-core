@@ -1,4 +1,4 @@
-\ProvidesPackage{itdr/bestiary}[2023/12/01]
+\ProvidesPackage{itdr/bestiary}[2023/12/18]
 \RequirePackage{datatool}
 \RequirePackage{kvoptions}
 \RequirePackage{pgffor}% foreach operator for comma-separated list of strings
@@ -84,6 +84,17 @@
 				#4\ignorespaces}}}
 }
 
+% if the string is in range, execute the 4th argument, otherwise - the 5th
+%
+% #1 - string
+% #2, #3 - range
+% #4 - code to execute if true
+% #5 - code to execute if false
+\newcommand{\ifinrange}[5]{%
+	\ifthenelse{\pdfstrcmp{#1}{#2} > -1 \AND \pdfstrcmp{#1}{#3} < 1}{%
+		#4\ignorespaces}{% else
+		#5\ignorespaces}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
                               %%%%%%%%%%%%%%
@@ -254,7 +265,7 @@
 % \bestiaryPrint[name,stat,desc,info]{name}
 %
 % #1 - * (the starred version does not write into the index)
-% #2 - (optional) field list
+% #2 - (optional) field list; default: name,stat,desc,info
 % #3 - name
 %
 \NewDocumentCommand{\bestiaryPrint}{ s O{name,stat,desc,info} m }{%
@@ -283,6 +294,22 @@
 	\DTLforeach*{bestiaryDB}{\name=name}{#1\name#2}
 }
 
+% print names in range
+%
+% \bestiaryPrintNamesRange{first}{last}[prefix][suffix]
+%
+% #1 - first name
+% #2 - last name
+% #3 - prefix (optional)
+% #4 - suffix (optional)
+\NewDocumentCommand{\bestiaryPrintNamesRange}{ m m O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name, \tags=tags}{%
+		\ifinrange{\name}{#1}{#2}{% if in range
+			#3\name#4
+		}{}% if not in range, do nothing
+	}% DTLforeach*
+}
+
 % print all names containing a tag
 %
 % \bestiaryPrintNamesByTag{beast}[prefix][suffix]
@@ -300,19 +327,40 @@
 	}% DTLforeach*
 }
 
+% print names in range containing a tag
+%
+% \bestiaryPrintNamesRangeByTag{first}{last}{tag}[prefix][suffix]
+%
+% #1 - first name
+% #2 - last name
+% #3 - tag
+% #4 - prefix (optional)
+% #5 - suffix (optional)
+%
+\NewDocumentCommand{\bestiaryPrintNamesRangeByTag}{ m m m O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name, \tags=tags}{%
+		\ifinrange{\name}{#1}{#2}{% if in range
+			\DTLifinlist{#3}{\tags}{% if tag is present
+				#4\name#5
+			}
+			{}% if tag is absent, do nothing
+		}{}% if not in range, do nothing
+	}% DTLforeach*
+}
 
 % print all entries from the database
 %
-% \bestiaryPrintAllEntries[before][after]
+% \bestiaryPrintAllEntries[before][after][fields]
 %
 % #1 - * (the starred version does not write into the index)
 % #2 - before (optional) for each entry
 % #3 - after (optional) for each entry
+% #4 - fields (optional) field list; default: name,stat,desc,info
 %
-\NewDocumentCommand{\bestiaryPrintAllEntries}{ s O{} O{} }{%
+\NewDocumentCommand{\bestiaryPrintAllEntries}{ s O{} O{} O{name,stat,desc,info} }{%
 	\DTLforeach*{bestiaryDB}{\name=name}{%
 		#2% before
-		\IfBooleanTF{#1}{\bestiaryPrint*{\name}}{\bestiaryPrint{\name}}
+		\IfBooleanTF{#1}{\bestiaryPrint*[#4]{\name}}{\bestiaryPrint[#4]{\name}}
 		#3% after
 	}% DTLforeach*
 }
@@ -322,7 +370,7 @@
 % \bestiaryPrintEntriesByTag[fields]{tag}[before][after]
 %
 % #1 - * (the starred version does not write into the index)
-% #2 - fields (optional) field list
+% #2 - fields (optional) field list; default: name,stat,desc,info
 % #3 - tag
 % #4 - before (optional)
 % #5 - after (optional)
@@ -333,7 +381,49 @@
 			#4% before
 			\IfBooleanTF{#1}{\bestiaryPrint*[#2]{\name}}{\bestiaryPrint[#2]{\name}}
 			#5% after
-		}{}% if tag is absent
+		}{}% if tag is absent, do nothing
 	}% DTLforeach*
 }
 
+% print entries in range
+%
+% \bestiaryPrintEntriesRange[fields]{first}{last}[before][after]
+%
+% #1 - * (the starred version does not write into the index)
+% #2 - fields (optional) field list; default: name,stat,desc,info
+% #3 - first entry's name
+% #4 - last entry's name
+% #5 - before (optional)
+% #6 - after (optional)
+\NewDocumentCommand{\bestiaryPrintEntriesRange}{s O{name,stat,desc,info} m m O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name}{%
+		\ifinrange{\name}{#3}{#4}{% if in range
+			#5% before
+			\IfBooleanTF{#1}{\bestiaryPrint*[#2]{\name}}{\bestiaryPrint[#2]{\name}}
+			#6% after
+		}{}% if not in range, do nothing
+	}% DTLforeach*
+}
+
+% print entries in range containing a tag
+%
+% \bestiaryPrintEntriesRangeByTag[fields]{first}{last}{tag}[before][after]
+%
+% #1 - * (the starred version does not write into the index)
+% #2 - fields (optional) field list; default: name,stat,desc,info
+% #3 - first entry's name
+% #4 - last entry's name
+% #5 - tag
+% #6 - before (optional)
+% #7 - after (optional)
+\NewDocumentCommand{\bestiaryPrintEntriesRangeByTag}{s O{name,stat,desc,info} m m m O{} O{} }{%
+	\DTLforeach*{bestiaryDB}{\name=name, \tags=tags}{%
+		\ifinrange{\name}{#3}{#4}{% if in range
+			\DTLifinlist{#5}{\tags}{% if tag is present
+				#6% before
+				\IfBooleanTF{#1}{\bestiaryPrint*[#2]{\name}}{\bestiaryPrint[#2]{\name}}
+				#7% after
+			}{}% if tag is absent, do nothing
+		}{}% if not in range, do nothing
+	}% DTLforeach*
+}

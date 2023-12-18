@@ -30,6 +30,20 @@ Dependencies
 Changelog
 ---------
 
+### 2023-12-18
+
+#### Core
+- Added starred version of `\chapterx` command
+- Removed TOC indentation for unnumbered chapters
+
+#### Bestiary
+- `\bestiaryPrintAllEntries` command now has an optional `fields` argument
+- Added range printing commands:
+    - `\bestiaryPrintNamesRange`
+    - `\bestiaryPrintNamesRangeByTag`
+    - `\bestiaryPrintEntriesRange` and `\bestiaryPrintEntriesRange*`
+    - `\bestiaryPrintEntriesRangeByTag` and `\bestiaryPrintEntriesRangeByTag*`
+
 ### 2023-12-01
 Initial release.
 
