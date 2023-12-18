@@ -420,6 +420,7 @@ E.g., `\itemrange{3} second item` will produce `2–4. second item`.
 #### New title classes
 
 - `\chapterx` - unnumbered chapter
+- `\chapterx*` - unnumbered chapter without a TOC entry
 - `\paragraphsection` - a new title class between `\subsubsection` and `\paragraph`.
 - `\paragraphsubsection` - a new title class between `\paragraph` and `\subparagraph`.
 
