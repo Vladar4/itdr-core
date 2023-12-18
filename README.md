@@ -32,11 +32,11 @@ Changelog
 
 ### 2023-12-18
 
-#### Core
+#### core.sty
 - Added starred version of `\chapterx` command
 - Removed TOC indentation for unnumbered chapters
 
-#### Bestiary
+#### bestiary.sty
 - `\bestiaryPrintAllEntries` command now has an optional `fields` argument
 - Added range printing commands:
     - `\bestiaryPrintNamesRange`

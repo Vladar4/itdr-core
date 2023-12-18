@@ -100,7 +100,8 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 \begin{lstlisting}
 \begin{enumerate}
 	\bestiaryPrintNamesRange
-		{Landshark}{Manticore}[\item]
+		{Landshark}{Manticore}
+			[\item]
 \end{enumerate}
 \end{lstlisting}
 
@@ -113,7 +114,8 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 \begin{lstlisting}
 	\begin{enumerate}
 		\bestiaryPrintNamesRangeByTag
-		{Landshark}{Manticore}{beast}[\item]
+			{Landshark}{Manticore}{beast}
+				[\item]
 	\end{enumerate}
 \end{lstlisting}
 
@@ -204,11 +206,11 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 
 \bestiaryPrintEntriesRangeByTag
 	[fields]{first}{last}{tag}
-	[before][after]
+		[before][after]
 
 \bestiaryPrintEntriesRangeByTag*
 	[fields]{first}{last}{tag}
-	[before][after]
+		[before][after]
 
 \bestiaryPrintAllEntries
 	[before][after][fields]
@@ -236,7 +238,7 @@ Elephant|beast|20||8|12|1|d10~Tusks||\subparagraph{Charge:} a target must pass a
 
 \begin{lstlisting}
 \bestiaryPrintEntriesByTag
-	{beast}[][\vfill]
+	[name,stat]{beast}[][\vfill]
 \end{lstlisting}
 
 \bestiaryPrintEntriesByTag[name,stat]{beast}[][\vfill]
