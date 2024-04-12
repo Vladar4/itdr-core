@@ -200,6 +200,11 @@ The main package that provides everything you need to produce a document in ItDR
 
 "Quote" box — quotes and handouts.
 
+#### cbox environment
+
+"Centered" box — same as `qbox`, but for short quotes and handouts.
+This box can be shorter than `\linewidth`.
+
 #### bbox environment
 
 "Background" box — highlighting important information.
