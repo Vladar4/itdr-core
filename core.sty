@@ -30,63 +30,88 @@
 	backgroundcolor=white,
 	innerleftmargin=0.5em,
 	innerrightmargin=0.5em,
-	innertopmargin=0ex,
+	innertopmargin=0.5ex,
+	innerbottommargin=0.5ex,
 	leftmargin=1em,
+	rightmargin=1em,
 	linewidth=1pt,
 	linecolor=black,
 	skipabove=0ex,
 	skipbelow=0ex,
 }
 
+\makeatletter
+
+\newlength{\box@decor@width}
+\setlength{\box@decor@width}{1.0324\linewidth}
+\newlength{\box@decor@hoffset}
+\setlength{\box@decor@hoffset}{-0.0155\linewidth}
+
 % "default" box
 \newenvironment{dbox}{%
 	\par\noindent\begin{minipage}{\linewidth}%
-		\noindent\vspace{-13.38pt}\hspace{-0.0156\linewidth}% box_top position
-		\includegraphics[width=1.031\linewidth]{box_top.pdf}%
-		\begin{mdframed}[	backgroundcolor=dColor2,
+		\noindent\vspace{-13.38pt}\hspace{\box@decor@hoffset}% box_top position
+		\includegraphics[width=\box@decor@width]{box_top.pdf}%
+		\begin{mdframed}[%
+			backgroundcolor=dColor2,
 			hidealllines=true,
 			]%
-			\vspace{0.5ex}% spacing before the text
 		}{ % <- the space here is left intentionally
-			\vspace{-0.5ex}% spacing after the text
 		\end{mdframed}%
-		\vspace{-3pt}\noindent\hspace{-0.0156\linewidth}% box_bottom position
-		\includegraphics[width=1.031\linewidth]{box_bottom.pdf}%
+		\vspace{-6pt}\noindent\hspace{\box@decor@hoffset}% box_bottom position
+		\includegraphics[width=\box@decor@width]{box_bottom.pdf}%
 	\end{minipage}\par%
 }
 
 % "aloud" box
 \newenvironment{abox}{%
 	\par\noindent\begin{minipage}{\linewidth}%
-		\noindent\vspace{-11.38pt}\hspace{-0.0156\linewidth}% box_top position
-		\includegraphics[width=1.031\linewidth]{box_quote.pdf}%
-		\begin{mdframed}[	align=center,
+		\noindent\vspace{-11.38pt}\hspace{\box@decor@hoffset}% box_quote position
+		\includegraphics[width=\box@decor@width]{box_quote.pdf}%
+		\begin{mdframed}[%
+			align=center,
 			topline=false,
 			bottomline=false,
 			]%
-			\vspace{0.5ex}% spacing before the text
 		}{ % <- the space here is left intentionally
-			\vspace{-0.5ex}% spacing after the text
 		\end{mdframed}%
-		\vspace{-1pt}\noindent\hspace{-0.0156\linewidth}% box_bottom position
-		\includegraphics[width=1.031\linewidth]{box_quote.pdf}%
+		\vspace{-3.65pt}\noindent\hspace{\box@decor@hoffset}% box_quote position
+		\includegraphics[width=\box@decor@width]{box_quote.pdf}%
 	\end{minipage}\par%
 }
 
 % "quote" box
 \newenvironment{qbox}{%
 	\par\noindent\begin{minipage}{\linewidth}%
-		\begin{mdframed}[	align=center,
+		\begin{mdframed}[%
+			align=center,
 			]%
-			\vspace{0.5ex}% spacing before the text
 		}{ % <- the space here is left intentionally
-			\vspace{-0.5ex}% spacing after the text
 		\end{mdframed}%
-	\end{minipage}\vspace{0.5ex}\par%
+	\end{minipage}\par%
+}
+
+% centered box
+\RequirePackage{environ}
+\RequirePackage{varwidth}
+\newlength{\cbox@width}
+\NewEnviron{cbox}{%
+	\setlength{\cbox@width}{\mdflength{leftmargin}}% setlength
+	\savebox0{%
+		\begin{varwidth}{\dimexpr\linewidth-\cbox@width\relax}%
+			\BODY
+		\end{varwidth}%
+	}% savebox
+	\par\noindent%
+	\begin{mdframed}[%
+		align=center,
+		userdefinedwidth=\dimexpr\wd0+\cbox@width\relax,
+		]%
+		\usebox0
+	\end{mdframed}\par%
 }
 
 % "background" box
-\makeatletter
 \newsavebox{\s@bbox}
 \newenvironment{bbox}{%
 	\par\noindent\hspace*{-\fboxsep}%
@@ -97,23 +122,22 @@
 	\end{lrbox}%
 	\colorbox{dColor2}{\usebox{\s@bbox}\par}%
 }
-\makeatother
 
 % left bar
 \newenvironment{lbar}{%
 	\par\noindent\begin{minipage}{\linewidth}%
-		\begin{mdframed}[	align=center,
+		\begin{mdframed}[%
+			align=center,
 			topline=false,
 			bottomline=false,
 			rightline=false,
 			]%
-			\vspace{0.5ex}% spacing before the text
 		}{ % <- the space here is left intentionally
-			\vspace{-1ex}% spacing after the text
 		\end{mdframed}%
-		\vspace{1ex}
 	\end{minipage}\par%
 }
+
+\makeatother
 
 % \rightbox[\parskip]{text}
 % put a right-aligned line of text raised by \baselineskip + #1
