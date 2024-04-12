@@ -197,15 +197,15 @@ At the very least, it should have \lstinline!\title!, \lstinline!\author!, and \
 
 \noindent\fbox{\lstinline!\\feate\{Text\}!} \feate{Text}
 
-\vspace{-0.7\baselineskip}
+\vspace{-1ex}
 
 \noindent\fbox{\lstinline!\\featmt!} \featmt
 
-\vspace{-0.7\baselineskip}
+\vspace{-1ex}
 
 \noindent\fbox{\lstinline!\\feathp!} \feathp
 
-\vspace{-0.7\baselineskip}
+\vspace{-1ex}
 
 \noindent\fbox{\lstinline!\\featadv Text!} \textbf{Advancement:} Text
 
@@ -440,7 +440,6 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 
 \begin{lstlisting}
 \begin{dbox}
-	\paragraph{Default Box}
 	CONTENTS
 \end{dbox}
 \end{lstlisting}
@@ -458,7 +457,6 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 
 \begin{lstlisting}
 \begin{abox}
-	\paragraph{Aloud Box}
 	CONTENTS
 \end{abox}
 \end{lstlisting}
@@ -475,12 +473,26 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 
 \begin{lstlisting}
 \begin{qbox}
-	\paragraph{Quote Box}
 	CONTENTS
 \end{qbox}
 \end{lstlisting}
 
-\break
+\vfill
+
+\begin{cbox}
+	\paragraph{Centered Box}
+	Short quotes and handouts.
+\end{cbox}
+
+\skipline[0.5\baselineskip]
+
+\begin{lstlisting}
+\begin{cbox}
+	CONTENTS
+\end{cbox}
+\end{lstlisting}
+
+\vfill
 
 \begin{bbox}
 	\paragraph{Background Box}
@@ -492,7 +504,6 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 
 \begin{lstlisting}
 \begin{bbox}
-	\paragraph{Background Box}
 	CONTENTS
 \end{bbox}
 \end{lstlisting}
@@ -508,7 +519,6 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 
 \begin{lstlisting}
 	\begin{lbar}
-		\paragraph{Left Bar}
 		CONTENTS
 	\end{lbar}
 \end{lstlisting}
