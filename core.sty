@@ -1,4 +1,4 @@
-\ProvidesPackage{itdr/core}[2024/04/12]
+\ProvidesPackage{itdr/core}[2024/04/14]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -28,16 +28,16 @@
 
 \mdfsetup{
 	backgroundcolor=white,
-	innerleftmargin=0.5em,
-	innerrightmargin=0.5em,
-	innertopmargin=0.5ex,
-	innerbottommargin=0.5ex,
+	innerleftmargin=5pt,
+	innerrightmargin=5pt,
+	innertopmargin=6pt,
+	innerbottommargin=4pt,
 	leftmargin=1em,
 	rightmargin=1em,
 	linewidth=1pt,
 	linecolor=black,
 	skipabove=0ex,
-	skipbelow=0ex,
+	skipbelow=0.5ex,
 }
 
 \makeatletter
@@ -96,13 +96,17 @@
 \RequirePackage{varwidth}
 \newlength{\cbox@width}
 \NewEnviron{cbox}{%
-	\setlength{\cbox@width}{\mdflength{leftmargin}}% setlength
+	\setlength{\cbox@width}{\dimexpr%
+		+\mdflength{innerleftmargin}
+		+\mdflength{innerrightmargin}
+		+2\mdflength{linewidth}
+		\relax}% setlength
 	\savebox0{%
 		\begin{varwidth}{\dimexpr\linewidth-\cbox@width\relax}%
 			\BODY
 		\end{varwidth}%
 	}% savebox
-	\par\noindent%
+	\par\noindent\vspace*{-2ex}%
 	\begin{mdframed}[%
 		align=center,
 		userdefinedwidth=\dimexpr\wd0+\cbox@width\relax,
@@ -828,6 +832,19 @@
 	\rowcolors{1}{dColor1}{dColor2}% Alternate colors
 	\tabularx{\linewidth}{#1}%
 }{\endtabularx\vspace{0.5ex}\noindent}
+
+% \pcell[width]{contents}[linespread]
+% A wrapper of \pbox to use inside tabular cells, with custom linespread.
+%
+% width - (optional) maximum paragraph width (\linewidth by default)
+% contents - paragraph contents
+% linespread - (optional) custom linespread factor (0.5 by default)
+\RequirePackage{pbox}
+\makeatletter
+\NewDocumentCommand{\pcell}{ O{\linewidth} m O{0.5} }{%
+	\pbox[t]{#1}{\linespread{#3}\selectfont{}#2}%
+}
+\makeatother
 
 %%%%%%%%%%%%%
 % TEMPLATES %
