@@ -30,8 +30,8 @@
 	backgroundcolor=white,
 	innerleftmargin=5pt,
 	innerrightmargin=5pt,
-	innertopmargin=6pt,
-	innerbottommargin=4pt,
+	innertopmargin=4pt,
+	innerbottommargin=2pt,
 	leftmargin=1em,
 	rightmargin=1em,
 	linewidth=1pt,
@@ -58,7 +58,7 @@
 			]%
 		}{ % <- the space here is left intentionally
 		\end{mdframed}%
-		\vspace{-6pt}\noindent\hspace{\box@decor@hoffset}% box_bottom position
+		\vspace{-8pt}\noindent\hspace{\box@decor@hoffset}% box_bottom position
 		\includegraphics[width=\box@decor@width]{box_bottom.pdf}%
 	\end{minipage}\par%
 }
@@ -72,10 +72,12 @@
 			align=center,
 			topline=false,
 			bottomline=false,
+			innertopmargin=2pt,
+			innerbottommargin=0pt,
 			]%
 		}{ % <- the space here is left intentionally
 		\end{mdframed}%
-		\vspace{-3.65pt}\noindent\hspace{\box@decor@hoffset}% box_quote position
+		\vspace{-8pt}\noindent\hspace{\box@decor@hoffset}% box_quote position
 		\includegraphics[width=\box@decor@width]{box_quote.pdf}%
 	\end{minipage}\par%
 }
@@ -832,6 +834,8 @@
 \newenvironment{dtable}[1][LL]{%
 	\vspace{0.1ex}\noindent
 	\rowcolors{1}{dColor1}{dColor2}% Alternate colors
+	\linespread{0.5}\selectfont{}% halved linespread
+	\setlength{\extrarowheight}{1ex}% extra vertical space at the top and bottom of each row
 	\tabularx{\linewidth}{#1}%
 }{\endtabularx\vspace{0.5ex}\noindent}
 
@@ -844,7 +848,7 @@
 \RequirePackage{pbox}
 \makeatletter
 \NewDocumentCommand{\pcell}{ O{\linewidth} m O{0.5} }{%
-	\pbox[t]{#1}{\linespread{#3}\selectfont{}#2}%
+	\pbox[t]{#1}{\linespread{#3}\selectfont{}#2\strut}%
 }
 \makeatother
 

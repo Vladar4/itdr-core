@@ -32,7 +32,7 @@ Changelog
 
 ### 2024-04-14
 - Added new command: `\pcell`
-- Adjusted box margins
+- Better margins for boxes and tables
 
 ### 2024-04-12
 
