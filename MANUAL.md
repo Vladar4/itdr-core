@@ -450,6 +450,16 @@ Table header.
 The default table (`tabularx`) of `\linewidth` width.
 Takes a single argument of columns specification (default: `LL`).
 
+#### pcell
+
+`\pcell[width]{contents}[linespread]`
+
+A wrapper of `\pbox` to use inside tabular cells, with custom linespread.
+
+- `width` - *(optional)* maximum paragraph width (`\linewidth` by default)
+- `contents` - paragraph contents
+- `linespread` - *(optional)* custom linespread factor (`0.5` by default)
+
 ---
 
 ### Templates

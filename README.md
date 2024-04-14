@@ -30,16 +30,20 @@ Dependencies
 Changelog
 ---------
 
+### 2024-04-14
+- Added new command: `\pcell`
+- Adjusted box margins
+
 ### 2024-04-12
 
 #### core.sty
 - Added new environment: `\cbox`
 - `\placeholder` command - added vertical dimension printout
 - `\room` command regression fix
-- list formatting - changed to `\setlist` call
+- List formatting - changed to `\setlist` call
 
 #### bestiary.sty
-- leech swarm - non-Blast attacks are Impaired
+- Leech swarm - non-Blast attacks are Impaired
 
 ### 2023-12-18
 

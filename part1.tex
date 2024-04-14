@@ -41,7 +41,7 @@ At the very least, it should have \lstinline!\title!, \lstinline!\author!, and \
 	\multirow{-2}{*}{multirow} & text & text \\
 	\hline
 	text & \multicolumn{2}{c}{multicolumn} \\
-	text & text & text \\
+	\pcell{multi-line\\paragraph cell} & text & text \\
 \end{dtable}
 
 \break
@@ -68,7 +68,7 @@ At the very least, it should have \lstinline!\title!, \lstinline!\author!, and \
 	\multirow{-2}{*}{multirow} & text & text \\
 	\hline
 	text & \multicolumn{2}{c}{multicolumn} \\
-	text & text & text \\
+	\pcell{multi-line\\paragraph cell} & text & text \\
 \end{dtable}
 \end{lstlisting}
 
@@ -436,7 +436,7 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 	\lipsum[66]
 \end{dbox}
 
-\skipline[0.5\baselineskip]
+\skipline[0.25\baselineskip]
 
 \begin{lstlisting}
 \begin{dbox}
@@ -453,7 +453,7 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 	\lipsum[66]\tight
 \end{abox}
 
-\skipline[0.5\baselineskip]
+\skipline[0.25\baselineskip]
 
 \begin{lstlisting}
 \begin{abox}
@@ -469,7 +469,7 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 	\lipsum[66]\tight
 \end{qbox}
 
-\skipline[0.5\baselineskip]
+\skipline[0.25\baselineskip]
 
 \begin{lstlisting}
 \begin{qbox}
@@ -478,13 +478,12 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 \end{lstlisting}
 
 \vfill
+\break
 
 \begin{cbox}
 	\paragraph{Centered Box}
 	Short quotes and handouts.
 \end{cbox}
-
-\skipline[0.5\baselineskip]
 
 \begin{lstlisting}
 \begin{cbox}
@@ -515,7 +514,7 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 	\lipsum[66]\tight
 \end{lbar}
 
-\skipline[0.5\baselineskip]
+\skipline[0.25\baselineskip]
 
 \begin{lstlisting}
 	\begin{lbar}
@@ -530,7 +529,7 @@ A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the
 Put a right-aligned line of text raised by \fbox{\lstinline!\\baselineskip + #1!}.
 Default of \fbox{\lstinline!#1!} is \fbox{\lstinline!\\parskip!} to put the text on a \fbox{\lstinline!\\paragraph!} line above.
 
-\skipline[0.5\baselineskip]
+\skipline[0.25\baselineskip]
 
 \begin{lstlisting}
 \paragraph{Right Box}
