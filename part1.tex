@@ -372,13 +372,13 @@ STR~12, 3hp, Armour~1, d4~Bite, club (d6), abilities.
 \fbox{\lstinline!\\tsub\{\}!} A \tsub{shorthand} for \fbox{\lstinline!\\textsubscript\{\}!}\\
 \fbox{\lstinline!\\tsup\{\}!} A \tsup{shorthand} for \fbox{\lstinline!\\textsuperscript\{\}!}\\
 
-\vfill
+\vspace{-1ex}
 \iparagraph{Indexed Paragraph}
 \begin{lstlisting}
 \iparagraph{Indexed Paragraph}
 \end{lstlisting}
 
-\vfill
+\vspace{-1ex}
 \paragraph{Saves}
 
 Make a \save{STR}. This affects all \saves{DEX}.
@@ -387,7 +387,7 @@ Make a \save{STR}. This affects all \saves{DEX}.
 Make a \save{STR}. This affects all \saves{DEX}.
 \end{lstlisting}
 
-\vfill
+\vspace{-1ex}
 \paragraph{Notes}
 \vspace{-\baselineskip}
 \begin{multicols}{2}
@@ -406,19 +406,23 @@ Text\note[6] \fbox{\lstinline!Text\\note[6]!}
 \notetext[5]{Note.} \fbox{\lstinline!\\notetext[5]\{Note.\}!}\\
 \notetext[6]{Note.} \fbox{\lstinline!\\notetext[6]\{Note.\}!}\\
 
-For details on footnotes, see \href{https://www.ctan.org/pkg/sepfootnotes}{sepfootnotes} package.
+\vspace{-2ex}
+\paragraph{Footnotes}
 
-\vfill
+\fbox{\lstinline!\\footnotemark[1]!} \fbox{\lstinline!\\footnotetext[1]\{text\}!}
+
+\noindent{}Additionally, see \href{https://www.ctan.org/pkg/sepfootnotes}{sepfootnotes} package.
+
+%\vfill
 \paragraph{Symbols}
 \fbox{\lstinline!\\dbar!} \dbar~--- prettier double bar.
 
-\vfill
+%\vfill
 \paragraph{Lineskip}
 \fbox{\lstinline!\\lineskip!} --- skip one line.\\
 \fbox{\lstinline!\\lineskip[length]!} --- skip vertical length.
 
-\vfill
-
+%\vfill
 \paragraph{Tight}
 \vspace{-0.5\baselineskip}
 A shortcut for the \fbox{\lstinline!\\looseness=-1!} command. When placed at the end of a paragraph, it attempts to fit the text in a lesser amount of lines than previously.\tight
