@@ -584,6 +584,8 @@ Print an icon at the start of the title line.
 
 \iconls{faBookmark}{bookmark}\\
 
+\iconls{faCorridor}{\em (custom icon based on \textbackslash{}faDungeon)} \\
+
 \iconls{faCube}{container}\\
 
 \iconls{faDragon}{monster}\\
@@ -644,23 +646,60 @@ Print an icon at the start of the title line.
 \header{Shortcuts}
 
 \begin{dtable}[cL|cL]
-	\iconItDR & \multicolumn{3}{l}{\textbackslash iconItDR\note} \\
+	%\iconItDR & \multicolumn{3}{l}{\textbackslash iconItDR\note} \\
+	\iconsc{iconItDR}\note	& \iconsc{iconLock}		\\
 	\iconsc{iconCharacter}	& \iconsc{iconMagic}	\\
 	\iconsc{iconContainer}	& \iconsc{iconMonster}	\\
-	\iconsc{iconDanger}		& \iconsc{iconNight}	\\
-	\iconsc{iconDay}		& \iconsc{iconReward}	\\
-	\iconsc{iconDirections}	& \iconsc{iconSize}		\\
-	\iconsc{iconDoor}		& \iconsc{iconStar}		\\
-	\iconsc{iconEncounter}	& \iconsc{iconTimer}	\\
-	\iconsc{iconGroup}		& \iconsc{iconTravel}	\\
-	\iconsc{iconHidden}		& \iconsc{iconTreasure}	\\
-	\iconsc{iconKey}\note	& \iconsc{iconTrigger}	\\
-	\iconsc{iconLock}		& \iconsc{iconVisible}	\\
+	\iconsc{iconCorridor}\note	& \iconsc{iconNight}	\\
+	\iconsc{iconDanger}		& \iconsc{iconReward}	\\
+	\iconsc{iconDay}		& \iconsc{iconSize}		\\
+	\iconsc{iconDirections}	& \iconsc{iconStar}		\\
+	\iconsc{iconDoor}		& \iconsc{iconTimer}	\\
+	\iconsc{iconEncounter}	& \iconsc{iconTravel}	\\
+	\iconsc{iconGroup}		& \iconsc{iconTreasure}	\\
+	\iconsc{iconHidden}		& \iconsc{iconTrigger}	\\
+	\iconsc{iconKey}\note	& \iconsc{iconVisible}	\\
 \end{dtable}
 
 \note {\em Custom icon declared in \lstinline!itdr.sty!}
 
+\header{Arrows}
+
+\begin{dtable}[cL|cL]
+	\iconsc{iconArrows}		& \iconsc{iconArrowsX}	\\
+	\iconsc{iconArrowsH}	& \iconsc{iconArrowsV}	\\
+	\iconsc{iconArrowsS}	& \iconsc{iconArrowsB}	\\
+\hline
+	\iconsc{iconArrowN}		& \iconsc{iconArrowS}	\\
+	\iconsc{iconArrowNE}	& \iconsc{iconArrowSW}	\\
+	\iconsc{iconArrowE}		& \iconsc{iconArrowW}	\\
+	\iconsc{iconArrowSE}	& \iconsc{iconArrowNW}	\\
+\hline
+	\iconsc{iconArrowCircleN}	& \iconsc{iconArrowCircleS}		\\
+	\iconsc{iconArrowCircleNE}	& \iconsc{iconArrowCircleSW}	\\
+	\iconsc{iconArrowCircleE}	& \iconsc{iconArrowCircleW}		\\
+	\iconsc{iconArrowCircleSE}	& \iconsc{iconArrowCircleNW}	\\
+\hline
+	\iconsc{iconArrowAltCircleN}	& \iconsc{iconArrowAltCircleS}	\\
+	\iconsc{iconArrowAltCircleNE}	& \iconsc{iconArrowAltCircleSW}	\\
+	\iconsc{iconArrowAltCircleE}	& \iconsc{iconArrowAltCircleW}	\\
+	\iconsc{iconArrowAltCircleSE}	& \iconsc{iconArrowAltCircleNW}	\\
+\hline
+	\iconsc{iconChevronN}	& \iconsc{iconChevronS}		\\
+	\iconsc{iconChevronNE}	& \iconsc{iconChevronSW}	\\
+	\iconsc{iconChevronE}	& \iconsc{iconChevronW}		\\
+	\iconsc{iconChevronSE}	& \iconsc{iconChevronNW}	\\
+\hline
+	\iconsc{iconChevronCircleN}		& \iconsc{iconChevronCircleS}	\\
+	\iconsc{iconChevronCircleNE}	& \iconsc{iconChevronCircleSW}	\\
+	\iconsc{iconChevronCircleE}		& \iconsc{iconChevronCircleW}	\\
+	\iconsc{iconChevronCircleSE}	& \iconsc{iconChevronCircleNW}	\\
+\hline
+	\iconsc{iconLevelUp}	& \iconsc{iconLevelDown}	\\
+\end{dtable}
+
 \vfill
+\break
 
 \section{Links}
 \label{sec:links}
@@ -713,7 +752,9 @@ Where \lstinline!??! is a page number of the label. If label is undefined, fallb
 		{.}{Other: fallback}
 \end{lstlisting}
 
-\cleartoleftpage
+\vfill
+\clearpage
+%\cleartoleftpage
 
 \begin{minipage}{\textwidth}
 \section{Wrap}
@@ -830,7 +871,8 @@ New environment (around \lstinline!wrapfloat!):
 \lipsum[5]
 
 \vfill
-\cleartoleftpage
+\clearpage
+%\cleartoleftpage
 
 \dimagebottom{dimagebottom}{150pt}
 

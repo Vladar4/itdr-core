@@ -30,6 +30,13 @@ Dependencies
 Changelog
 ---------
 
+### 2024-04-20
+- Added new commands:
+    - `\rot` and `\iconrot` for icon rotation
+- Added new custom icon: `\iconCorridor`
+- Added various arrow icons
+- Improved `\dimensions` command
+
 ### 2024-04-14
 - Added new command: `\pcell`
 - Better margins for boxes and tables

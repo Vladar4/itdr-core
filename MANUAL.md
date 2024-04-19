@@ -287,6 +287,12 @@ Print `n`-th local note `text`.
 
 Custom ItDR logo icon
 
+#### faCorridor
+
+`\faCorridor`
+
+Custom corridor icon based on `\faDungeon`
+
 #### faOldKey
 
 `\faOldKey`
@@ -311,10 +317,31 @@ Print an icon at the start of the line without indentation.
 
 Print an icon at the start of the `\title` (`\section`, `\paragraph`, etc.)
 
+#### Arrows
+
+Each set of arrows (except `Arrows` and `Level` ones) has eight versions for all cardinal directions: `N`, `NE`, `E`, `SE`, `S`, `SW`, `W`, `NW`.
+
+- `Arrows`:
+    - `\iconArrows` - "plus-shaped" cross of arrows
+    - `\iconArrowsX` - "x-shaped" cross of arrows
+    - `\iconArrowsV` - "vertical" arrow pointing up and down
+    - `\iconArrowsH` - "horizontal" arrow pointing left and right
+    - `\iconArrowsS` - "slash" arrow pointing bottom-left and top-right
+    - `\iconArrowsB` - "backslash" arrow pointing top-left and bottom-right
+- `Arrow` - a set of eight normal arrows (`\iconArrowN`, `\iconArrowNE`, etc.)
+- `ArrowCircle` - a set of eight arrows in a black circle (`\iconArrowCircleN`, `\iconArrowCircleNE`, etc.)
+- `ArrowAltCircle` - a set of eight arrows in a white circle (`\iconArrowAltCircleN`, `\iconArrowAltCircleNE`, etc.)
+- `Chevron` - a set of eight chevrons (`\iconChevronN`, `\iconChevronNE`, etc.)
+- `ChevronCircle` - a set of eight chevrons in a black circle (`\iconChevronCircleN`, `\iconChevronCircleNE`, etc.)
+- `Level`:
+    - `iconLevelUp` - bent arrow pointing up
+    - `\iconLevelDown` - bent arrow pointing down
+
 #### Shortcuts
 
 - `\def\iconBookmark{\faBookmark}`
 - `\def\iconContainer{\faCube}`
+- `\def\iconCorridor{\faCorridor}`
 - `\def\iconCharacter{\faUser}`
 - `\def\iconDay{\faSun}`
 - `\def\iconGroup{\faUsers}`
@@ -550,11 +577,11 @@ Default spell index should be defined as `\newindex{\spells}{Spell List}` before
 
 Room header with two-line lettrine of its index on the map.
 
-`\dimensions[unit]{x}{y}{z}`
+`\dimensions[unit]{x}{y}[z]`
 
 - `unit` - *(optional)* measure unit (`~ft.` by default)
 - `x`, `y` - horizontal dimensions
-- `z` - vertical dimension (leave empty to omit)
+- `z` - *(optional)* vertical dimension
 
 Room dimensions to use immediatelly after the `\room` command.
 
