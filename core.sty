@@ -1,4 +1,4 @@
-\ProvidesPackage{itdr/core}[2024/04/14]
+\ProvidesPackage{itdr/core}[2024/04/20]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -455,6 +455,70 @@
 	\end{tikzpicture}%
 }
 
+% \faCorridor - modified \faDungeon icon from fontawesome5
+\newcommand{\faCorridor}{%
+	\begin{tikzpicture}[baseline={([yshift=-0.375\docFontSize]current bounding box.center)}, y=\docFontSize, x=\docFontSize, yscale=0.025, xscale=0.025, inner sep=0pt, outer sep=0pt]
+		\path[fill,line width=0.283pt] (26.2389,27.7122) .. controls (26.3402, 27.6265)
+		and (26.4494, 27.5407) .. (26.5429, 27.4550) .. controls (27.2679, 26.8157)
+		and (28.3358, 26.6365) .. (29.1465, 27.1743) -- (34.4161,30.6900) .. controls
+		(35.3048, 31.2824) and (35.5231, 32.4985) .. (34.8137, 33.2936) .. controls
+		(33.5197, 34.7202) and (32.0308, 35.9674) .. (30.3782, 36.9808) .. controls
+		(29.4506, 37.5498) and (28.2813, 37.0899) .. (27.8759, 36.0765) --
+		(25.4983,30.1365) .. controls (25.1476, 29.2713) and (25.5139, 28.2969) ..
+		(26.2389, 27.7044) -- cycle(25.5685,37.0431) .. controls (25.9661, 38.0409)
+		and (25.4438, 39.1791) .. (24.3992, 39.4207) .. controls (22.9727, 39.7403)
+		and (21.4838, 39.9118) .. (19.9559, 39.9118) .. controls (18.4280, 39.9118)
+		and (16.9391, 39.7403) .. (15.5126, 39.4129) .. controls (14.4602, 39.1791)
+		and (13.9380, 38.0409) .. (14.3433, 37.0431) -- (16.7053,31.1343) .. controls
+		(17.0561, 30.2535) and (18.0149, 29.7935) .. (18.9659, 29.8871) .. controls
+		(19.2933, 29.9183) and (19.6207, 29.9339) .. (19.9559, 29.9339) .. controls
+		(20.2911, 29.9339) and (20.6263, 29.9183) .. (20.9459, 29.8871) .. controls
+		(21.8891, 29.7935) and (22.8480, 30.2535) .. (23.2065, 31.1343) --
+		cycle(5.1059,33.2858) .. controls (4.3965, 32.4907) and (4.6148, 31.2746) ..
+		(5.5035, 30.6822) -- (10.7731,27.1665) .. controls (11.5760, 26.6287) and
+		(12.6517, 26.8080) .. (13.3767, 27.4472) .. controls (13.4780, 27.5329) and
+		(13.5794, 27.6265) .. (13.6885, 27.7044) .. controls (14.4135, 28.2891) and
+		(14.7720, 29.2713) .. (14.4291, 30.1365) -- (12.0359,36.0765) .. controls
+		(11.6306, 37.0821) and (10.4535, 37.5420) .. (9.5336, 36.9808) .. controls
+		(7.8810, 35.9674) and (6.3921, 34.7202) .. (5.1059, 33.2858) --
+		cycle(29.5831,22.5985) .. controls (29.6532, 22.3413) and (29.7156, 22.0840)
+		.. (29.7624, 21.8190) .. controls (29.9572, 20.8056) and (30.7757, 19.9559) ..
+		(31.8047, 19.9559) -- (38.0409,19.9559) .. controls (39.0777, 19.9559) and
+		(39.9196, 20.7978) .. (39.8261, 21.8268) .. controls (39.6312, 23.9471) and
+		(39.1011, 25.9739) .. (38.2904, 27.8525) .. controls (37.8617, 28.8581) and
+		(36.6222, 29.1465) .. (35.7102, 28.5463) -- (30.3626,24.9839) .. controls
+		(29.5987, 24.4772) and (29.3336, 23.4872) .. (29.5831, 22.6063) --
+		cycle(4.2017,28.5463) .. controls (3.2974, 29.1543) and (2.0502, 28.8581) ..
+		(1.6214, 27.8525) .. controls (0.8107, 25.9739) and (0.2806, 23.9471) ..
+		(0.0857, 21.8268) .. controls (-0.0078, 20.7978) and (0.8341, 19.9559) ..
+		(1.8709, 19.9559) -- (8.1071,19.9559) .. controls (9.1439, 19.9559) and
+		(9.9624, 20.7978) .. (10.1494, 21.8190) .. controls (10.1962, 22.0840) and
+		(10.2586, 22.3413) .. (10.3287, 22.5985) .. controls (10.5704, 23.4872) and
+		(10.3131, 24.4694) .. (9.5492, 24.9761) -- cycle(8.1071,17.4614) --
+		(1.8709,17.4614) .. controls (0.8341, 17.4614) and (0.0000, 16.6273) ..
+		(0.0000, 15.5906) -- (0.0000,11.8488) .. controls (0.0000, 10.8120) and
+		(0.8341, 9.9780) .. (1.8709, 9.9780) -- (8.1071,9.9780) .. controls (9.1439,
+		9.9780) and (9.9780, 10.8120) .. (9.9780, 11.8488) -- (9.9780,15.5906) ..
+		controls (9.9780, 16.6273) and (9.1439, 17.4614) .. (8.1071, 17.4614) --
+		cycle(31.8047,17.4614) .. controls (30.7680, 17.4614) and (29.9339, 16.6273)
+		.. (29.9339, 15.5906) -- (29.9339,11.8488) .. controls (29.9339, 10.8120) and
+		(30.7680, 9.9780) .. (31.8047, 9.9780) -- (38.0409,9.9780) .. controls
+		(39.0777, 9.9780) and (39.9118, 10.8120) .. (39.9118, 11.8488) --
+		(39.9118,15.5906) .. controls (39.9118, 16.6273) and (39.0777, 17.4614) ..
+		(38.0409, 17.4614) -- cycle(1.8709,7.4835) .. controls (0.8341, 7.4835) and
+		(0.0000, 6.6494) .. (0.0000, 5.6126) -- (0.0000,1.8709) .. controls (0.0000,
+		0.8341) and (0.8341, 0.0000) .. (1.8709, 0.0000) -- (8.1071,0.0000) ..
+		controls (9.1439, 0.0000) and (9.9780, 0.8341) .. (9.9780, 1.8709) --
+		(9.9780,5.6126) .. controls (9.9780, 6.6494) and (9.1439, 7.4835) .. (8.1071,
+		7.4835) -- cycle(31.8047,7.4835) .. controls (30.7680, 7.4835) and (29.9339,
+		6.6494) .. (29.9339, 5.6126) -- (29.9339,1.8709) .. controls (29.9339, 0.8341)
+		and (30.7680, 0.0000) .. (31.8047, 0.0000) -- (38.0409,0.0000) .. controls
+		(39.0777, 0.0000) and (39.9118, 0.8341) .. (39.9118, 1.8709) --
+		(39.9118,5.6126) .. controls (39.9118, 6.6494) and (39.0777, 7.4835) ..
+		(38.0409, 7.4835) -- cycle;
+	\end{tikzpicture}%
+}
+
 \RequirePackage{fontawesome5}% icons
 
 % icon vertical kerning
@@ -463,16 +527,86 @@
 
 % \icon{\icon}
 % print an icon at the start of the line without indentation
-\newcommand{\icon}[1]{\noindent\lower\iconLower\hbox{#1}~}
+\newcommand{\icon}[1]{\noindent\lower\iconLower\hbox{#1}}
+
+% \rot[angle]{contents}
+% \iconrot[angle]{icon}
+% rotated icon
+\newcommand{\rot}[2][45]{\rotatebox[origin=c]{#1}{#2}}
+\newcommand{\iconrot}[2][45]{\rotatebox[origin=c]{#1}{\icon{#2}}}
 
 % \icontitle{\icon}{\title}{Text}
 % print an icon at the start of the \title (\section, \paragraph, etc.)
-\newcommand{\icontitle}[3]{#2[#3]{\icon{#1}#3}}
+\newcommand{\icontitle}[3]{#2[#3]{\icon{#1}~#3}}
 
 % SHORTCUTS
 
+% Arrows
+\def\iconArrows{\faArrows*}
+\def\iconArrowsX{\faExpandArrows*}
+\def\iconArrowsV{\faArrowsAltV}
+\def\iconArrowsH{\faArrowsAltH}
+\def\iconArrowsS{\rot\faArrowsAltV}
+\def\iconArrowsB{\rot\faArrowsAltH}
+
+% Arrow
+\def\iconArrowNW{\rot\faArrowUp}
+\def\iconArrowN{\faArrowUp}
+\def\iconArrowNE{\rot\faArrowRight}
+\def\iconArrowE{\faArrowRight}
+\def\iconArrowSE{\rot\faArrowDown}
+\def\iconArrowS{\faArrowDown}
+\def\iconArrowSW{\rot\faArrowLeft}
+\def\iconArrowW{\faArrowLeft}
+
+% ArrowCircle
+\def\iconArrowCircleNW{\rot\faArrowCircleUp}
+\def\iconArrowCircleN{\faArrowCircleUp}
+\def\iconArrowCircleNE{\rot\faArrowCircleRight}
+\def\iconArrowCircleE{\faArrowCircleRight}
+\def\iconArrowCircleSE{\rot\faArrowCircleDown}
+\def\iconArrowCircleS{\faArrowCircleDown}
+\def\iconArrowCircleSW{\rot\faArrowCircleLeft}
+\def\iconArrowCircleW{\faArrowCircleLeft}
+
+% ArrowAltCircle
+\def\iconArrowAltCircleNW{\rot{\faIcon[regular]{arrow-alt-circle-up}}}
+\def\iconArrowAltCircleN{\faIcon[regular]{arrow-alt-circle-up}}
+\def\iconArrowAltCircleNE{\rot{\faIcon[regular]{arrow-alt-circle-right}}}
+\def\iconArrowAltCircleE{\faIcon[regular]{arrow-alt-circle-right}}
+\def\iconArrowAltCircleSE{\rot{\faIcon[regular]{arrow-alt-circle-down}}}
+\def\iconArrowAltCircleS{\faIcon[regular]{arrow-alt-circle-down}}
+\def\iconArrowAltCircleSW{\rot{\faIcon[regular]{arrow-alt-circle-left}}}
+\def\iconArrowAltCircleW{\faIcon[regular]{arrow-alt-circle-left}}
+
+% Chevron
+\def\iconChevronNW{\rot\faChevronUp}
+\def\iconChevronN{\faChevronUp}
+\def\iconChevronNE{\rot\faChevronRight}
+\def\iconChevronE{\faChevronRight}
+\def\iconChevronSE{\rot\faChevronDown}
+\def\iconChevronS{\faChevronDown}
+\def\iconChevronSW{\rot\faChevronLeft}
+\def\iconChevronW{\faChevronLeft}
+
+% ChevronCircle
+\def\iconChevronCircleNW{\rot\faChevronCircleUp}
+\def\iconChevronCircleN{\faChevronCircleUp}
+\def\iconChevronCircleNE{\rot\faChevronCircleRight}
+\def\iconChevronCircleE{\faChevronCircleRight}
+\def\iconChevronCircleSE{\rot\faChevronCircleDown}
+\def\iconChevronCircleS{\faChevronCircleDown}
+\def\iconChevronCircleSW{\rot\faChevronCircleLeft}
+\def\iconChevronCircleW{\faChevronCircleLeft}
+
+% Level
+\def\iconLevelUp{\faLevelUp*}
+\def\iconLevelDown{\faLevelDown*}
+
+% Misc
 \def\iconBookmark{\faBookmark}
 \def\iconContainer{\faCube}
+\def\iconCorridor{\faCorridor}
 \def\iconCharacter{\faUser}
 \def\iconDay{\faSun}
 \def\iconGroup{\faUsers}
@@ -1107,13 +1241,13 @@
 }
 \makeatother
 
-% \dimensions[unit]{x}{y}{z}
+% \dimensions[unit]{x}{y}[z]
 %
 % unit - (optional) measure unit (~ft. by default)
 % x, y - horizontal dimensions
-% z - vertical dimension (leave empty to omit)
+% z - (optional) vertical dimension
 %
-\newcommand{\dimensions}[4][~ft.]{%
+\NewDocumentCommand{\dimensions}{ O{~ft.} m m O{} }{%
 	#2$\times$#3%
 	\ifx&#4&\else
 	$\times$#4%
