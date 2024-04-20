@@ -620,9 +620,11 @@
 \def\iconLock{\faLock}
 \def\iconMagic{\faMagic}
 \def\iconMonster{\faDragon}
+\def\iconMoon{\faMoon}
 \def\iconNight{\faMoon}
 \def\iconReward{\faTrophy}
 \def\iconStar{\faStar}
+\def\iconSun{\faSun}
 \def\iconTimer{\faHourglassHalf}
 \def\iconTravel{\faHiking}
 \def\iconTreasure{\faGem}
@@ -1236,7 +1238,7 @@
 	\@skip@empty@lines{%
 		\lettrine[findent=0.5em,nindent=0em]{#2}{%
 			\raisebox{-0.5ex}{\parbox{\linewidth-\widthof{\Huge #2}}{#1[#2. #3]{#3}}}\@ignore@paragraphs
-		}\\%lettrine
+		}\\\label{#2. #3}%%lettrine
 	}
 }
 \makeatother
@@ -1446,6 +1448,9 @@
 
 % \customref{label}{text}
 \newcommand*{\customref}[2]{\hyperref[{#1}]{#2}}
+
+% \roomref{label}
+\newcommand{\roomref}[1]{\hyperref[{#1}]{\textbf{#1}}}
 
 % \fullref{label}
 \newcommand*{\fullref}[1]{\hyperref[{#1}]{\autoref*{#1}: \nameref*{#1}}}
