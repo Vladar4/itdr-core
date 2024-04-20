@@ -355,9 +355,11 @@ Each set of arrows (except `Arrows` and `Level` ones) has eight versions for all
 - `\def\iconLock{\faLock}`
 - `\def\iconMagic{\faMagic}`
 - `\def\iconMonster{\faDragon}`
+- `def\iconMoon{\faMoon}`
 - `\def\iconNight{\faMoon}`
 - `\def\iconReward{\faTrophy}`
 - `\def\iconStar{\faStar}`
+- `\def\iconSun{\faSun}`
 - `\def\iconTimer{\faHourglassHalf}`
 - `\def\iconTravel{\faHiking}`
 - `\def\iconTreasure{\faGem}`
@@ -632,6 +634,7 @@ Wrapped paragraph environment. See [wrapfig2](https://www.ctan.org/pkg/wrapfig2)
 ### Hyperlinks
 
 - `\customref{label}{text}` - custom reference link to the `label`
+- `\roomref{room}` - reference link to [rooms](#Rooms) by title (e.g. `\roomref{1. First Room}` will refer to the `\room{1}{First Room}`)
 - `\fullref{label}` - full reference link to the `label`
 - `\safenameref{label}[fallback]` - if the label is undefined, `fallback` is printed instead
 - `\safepageref{before}{label}{after}[fallback]` - page link between `before` and `after` text; if the label is undefined, `fallback` is printed instead

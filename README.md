@@ -33,8 +33,10 @@ Changelog
 ### 2024-04-20
 - Added new commands:
     - `\rot` and `\iconrot` for icon rotation
+    - `\roomref` for hyper-referencing rooms by title
 - Added new custom icon: `\iconCorridor`
 - Added various arrow icons
+- Added synonym icons `\iconSun` (`\iconDay`) and `\iconMoon` (`\iconNight`)
 - Improved `\dimensions` command
 
 ### 2024-04-14
