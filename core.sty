@@ -1,4 +1,4 @@
-\ProvidesPackage{itdr/core}[2024/04/20]
+\ProvidesPackage{itdr/core}[2024/04/23]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -27,7 +27,7 @@
 %%%%%%%%%
 
 \mdfsetup{
-	backgroundcolor=white,
+	backgroundcolor=dColor1,
 	innerleftmargin=5pt,
 	innerrightmargin=5pt,
 	innertopmargin=4pt,
@@ -522,12 +522,21 @@
 \RequirePackage{fontawesome5}% icons
 
 % icon vertical kerning
-\newlength{\iconLower}
-\setlength{\iconLower}{0.1\docFontSize}
+% (0.0\docFontSize by default)
+\newlength{\IconLower}
+\setlength{\IconLower}{0.0\docFontSize}
+%\setlength{\iconLower}{0.1\docFontSize}
 
-% \icon{\icon}
-% print an icon at the start of the line without indentation
-\newcommand{\icon}[1]{\noindent\lower\iconLower\hbox{#1}}
+% icon indentation
+% (\labelindent by default)
+\newcommand{\IconIndent}{\labelindent}
+
+% \icon[\IconIndent]{\icon}[\IconLower]
+% print an icon with the proper indentation (at the start of the line) and vertical offset
+% (see \icon@indent and \icon@lower lengths)
+\NewDocumentCommand{\icon}{ O{\IconIndent} m O{\IconLower} }{%
+	\hspace*{#1}\lower#3\hbox{#2}%
+}
 
 % \rot[angle]{contents}
 % \iconrot[angle]{icon}
@@ -539,6 +548,7 @@
 % print an icon at the start of the \title (\section, \paragraph, etc.)
 \newcommand{\icontitle}[3]{#2[#3]{\icon{#1}~#3}}
 
+
 % SHORTCUTS
 
 % Arrows
@@ -548,6 +558,16 @@
 \def\iconArrowsH{\faArrowsAltH}
 \def\iconArrowsS{\rot\faArrowsAltH}
 \def\iconArrowsB{\rot\faArrowsAltV}
+
+% LongArrow
+\def\iconLongArrowNW{\rot\faLongArrowAltUp}
+\def\iconLongArrowN{\faLongArrowAltUp}
+\def\iconLongArrowNE{\rot\faLongArrowAltRight}
+\def\iconLongArrowE{\faLongArrowAltRight}
+\def\iconLongArrowSE{\rot\faLongArrowAltDown}
+\def\iconLongArrowS{\faLongArrowAltDown}
+\def\iconLongArrowSW{\rot\faLongArrowAltLeft}
+\def\iconLongArrowW{\faLongArrowAltLeft}
 
 % Arrow
 \def\iconArrowNW{\rot\faArrowUp}
@@ -598,6 +618,16 @@
 \def\iconChevronCircleS{\faChevronCircleDown}
 \def\iconChevronCircleSW{\rot\faChevronCircleLeft}
 \def\iconChevronCircleW{\faChevronCircleLeft}
+
+% Triangle
+\def\iconTriangleNW{\rot\faSortUp}
+\def\iconTriangleN{\faSortUp}
+\def\iconTriangleNE{\rot[-45]{\faSortUp}}
+\def\iconTriangleE{\rot[-90]{\faSortUp}}
+\def\iconTriangleSE{\rot[-135]{\faSortUp}}
+\def\iconTriangleS{\rot[180]{\faSortUp}}
+\def\iconTriangleSW{\rot[135]{\faSortUp}}
+\def\iconTriangleW{\rot[90]\faSortUp}
 
 % Level
 \def\iconLevelUp{\faLevelUp*}
