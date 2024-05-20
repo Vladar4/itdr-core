@@ -3,7 +3,7 @@
 \def \subtitle {A \LaTeX~style manual for ``\game''}	% SUBTITLE variable
 \def \author {Vladimir Arabadzhi}	% AUTHOR variable
 \def \keywords {\title;Into the Dungeon;RPG;LaTeX}	% KEYWORDS variable
-\def \version {2024/04/12}	% VERSION variable
+\def \version {2024/05/20}	% VERSION variable
 \def \license {\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)}}	% LICENSE variable
 
 % SPECIAL TO ITDR-CORE-GUIDE
@@ -26,5 +26,7 @@
 	backgroundcolor=\color{lightgray!50},
 }
 
-\newcommand{\iconls}[2]{\lower\iconLower\hbox{\csname #1\endcsname}\hspace*{-0.5em}&\textbackslash#1&#2}
-\newcommand{\iconsc}[1]{\lower\iconLower\hbox{\csname #1\endcsname}\hspace*{-0.7em}&{\small \textbackslash#1}}
+\newcommand{\iconls}[2]{\lower\IconLower\hbox{\csname #1\endcsname}\hspace*{-0.5em}&\textbackslash#1&#2}
+
+\newcommand{\iconsc}[1]{\lower\IconLower\hbox{\csname #1\endcsname}\hspace*{-0.7em}&{\small\textbackslash#1}}
+

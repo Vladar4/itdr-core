@@ -49,11 +49,19 @@
 \righttext{\textbackslash toc[0]}
 
 \begin{lstlisting}
-\chapter{Title} % numbered
+\chapter{Title}		% numbered
+\chapterx{Title}	% unnumbered
+\chapterx*{title}	% unnumbered,
+	% no TOC entry
 
-\chapterx{Title} % unnumbered
+\chapterstr{Title}	% straight,
+	% numbered
+\chapterstrx{Title}	% straight,
+	% unnumbered
+\chapterstr*{Title}	% straight,
+	% unnumbered, no TOC entry
 
-\label{ch:title} % chapter label
+\label{ch:title}		% chapter label
 \end{lstlisting}
 
 \section{Section Example}
@@ -107,7 +115,7 @@ Maximum recommended ToC depth.
 \subparagraph{Title}
 \end{lstlisting}
 
-\vfill
+\break
 
 \section[Second Section]{Different Title in TOC}
 
@@ -117,7 +125,7 @@ Maximum recommended ToC depth.
 \section[Second Section]{Different Title in TOC}
 \end{lstlisting}
 
-\break
+\vfill
 
 \section{Rooms}
 

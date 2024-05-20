@@ -10,22 +10,22 @@
 The file \lstinline!def.tex! defines some essential variables and should be included in the document's preamble.
 
 \begin{lstlisting}
-	\input{def} % variables
+\input{def} % variables
 \end{lstlisting}
 
 At the very least, it should have \lstinline!\title!, \lstinline!\author!, and \lstinline!\keywords! definitions, as they are used for the PDF metadata.
 
 \vspace{\baselineskip}
 \noindent\begin{minipage}{\textwidth}
-	\begin{lstlisting}
-		\def \game {Into the Dungeon: Revived}	% GAME variable
-		\def \title {ItDR Core Guide}	% TITLE variable
-		\def \subtitle {A \LaTeX~style manual for ``\game''}	% SUBTITLE variable
-		\def \author {Vladimir Arabadzhi}	% AUTHOR variable
-		\def \keywords {\title;Into the Dungeon;RPG;LaTeX}	% KEYWORDS variable
-		\def \version {2023/12/01}	% VERSION variable
-		\def \license {\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)}}	% LICENSE variable
-	\end{lstlisting}
+\begin{lstlisting}
+\def \game {Into the Dungeon: Revived}	% GAME variable
+\def \title {ItDR Core Guide}	% TITLE variable
+\def \subtitle {A \LaTeX~style manual for ``\game''}	% SUBTITLE variable
+\def \author {Vladimir Arabadzhi}	% AUTHOR variable
+\def \keywords {\title;Into the Dungeon;RPG;LaTeX}	% KEYWORDS variable
+\def \version {2024/05/20}	% VERSION variable
+\def \license {\href{https://creativecommons.org/licenses/by-sa/4.0/}{Creative Commons Attribution-ShareAlike 4.0 International License (CC BY-SA 4.0)}}	% LICENSE variable
+\end{lstlisting}
 \end{minipage}
 
 \vfill
@@ -565,7 +565,7 @@ Right-align a part \righttext{of the text.}
 \icon{\faGem} Icons from the \href{https://ctan.org/pkg/fontawesome5}{fontawesome5} package.
 \end{lstlisting}
 
-\skipline
+\vfill
 
 \icontitle\faGem\paragraph{Icon and Paragraph}
 
@@ -575,72 +575,51 @@ Right-align a part \righttext{of the text.}
 
 Print an icon at the start of the title line.
 
-\skipline
+\paragraph{Rotation}
+
+\rot[30]{R} ~ \fbox{\lstinline!\\rot\[30\]\{R\}!} \hfill \iconrot{\faArrowUp} ~ \fbox{\lstinline!\\iconrot\{\\faArrowUp\}!}
+
+\begin{lstlisting}
+% \rot[angle]{text}
+% \iconrot[angle]{icon}
+% (the default angle is 45)
+\end{lstlisting}
+
+\vfill
 
 \header{Examples}
 \begin{dtable}[cl|L]
-
 \iconls{faBolt}{trigger}\\
-
 \iconls{faBookmark}{bookmark}\\
-
 \iconls{faCorridor}{\em (custom icon based on \textbackslash{}faDungeon)} \\
-
 \iconls{faCube}{container}\\
-
 \iconls{faDragon}{monster}\\
-
 \iconls{faDungeon}{door}\\
-
 \iconls{faExclamationTriangle}{encounter}\\
-
 \iconls{faEye}{visible}\\
-
 \iconls{faFlag}{flag}\\
-
 \iconls{faGem}{treasure}\\
-
 \iconls{faHiking}{travel}\\
-
 \iconls{faHourglassHalf}{timer}\\
-
 \iconls{faKey}{key}\\
-
 \iconls{faOldKey}{\em (custom v4 icon)}\\
-
 \iconls{faLock}{locked}\\
-
 \iconls{faMagic}{magic}\\
-
 \iconls{faMap}{map}\\
-
 \iconls{faMapSigns}{directions} \\
-
 \iconls{faMoon}{night}\\
-
 \iconls{faPaw}{tracks}\\
-
 \iconls{faRulerCombined}{size, dimensions}\\
-
 \iconls{faScroll}{scroll, info}\\
-
 \iconls{faSearch}{hidden}\\
-
 \iconls{faSkullCrossbones}{trap, danger}\\
-
 \iconls{faStar}{special}\\
-
 \iconls{faSun}{day}\\
-
 \iconls{faTrophy}{reward}\\
-
 \iconls{faUser}{character}\\
-
 \iconls{faUsers}{group}\\
-
 \end{dtable}
 
-\vfill
 \break
 
 \header{Shortcuts}
@@ -897,11 +876,19 @@ New environment (around \lstinline!wrapfloat!):
 \clearpage
 %\cleartoleftpage
 
-\dimagebottom{dimagebottom}{150pt}
+\dimagetop{dimagetop}{50pt}[\section{Images}]
 
-\section{Images}
+\dimagebottom{dimagebottom}{50pt}
 
-\dimage{dimage}{400pt}
+\faHandPointUp
+\begin{lstlisting}
+% place BEFORE anything on the page
+\dimagetop{dimagetop}{50pt}
+	[\section{Images}]
+% \dimagetop[options]{filename}[extension]{height}[after]
+\end{lstlisting}
+
+\dimage{dimage}{360pt}
 
 \break
 
@@ -936,8 +923,8 @@ The default \lstinline!\graphicspath! is:\\
 \vfill
 
 \begin{lstlisting}
-% place BEFORE anything on the page
-\dimagebottom{dimagebottom}{150pt}
+% place BEFORE anything on the page (except \dimagetop)
+\dimagebottom{dimagebottom}{50pt}
 % \dimagebottom[options]{filename}[extension]{height}
 \end{lstlisting}
 \faHandPointDown

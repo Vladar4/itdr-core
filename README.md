@@ -30,6 +30,12 @@ Dependencies
 Changelog
 ---------
 
+### 2024-05-20
+- Added new commands:
+    - `\dimagetop` for placing full-width images on top of the page
+    - `\chapterstr`, `\chapterstr*`, and `\chapterstrx` - straight class chapters
+- Added new icons
+
 ### 2024-04-20
 - Added new commands:
     - `\rot` and `\iconrot` for icon rotation

@@ -281,6 +281,18 @@ Print `n`-th local note `text`.
 
 ### Icons
 
+#### Lengths
+
+- `\IconIndent` - icon indentation (`\labelindent` by default)
+- `\IconLower` - vertical kerning length for the icons (`0.0\docFontSize` by default)
+
+#### Macros
+
+- `\icon[\IconIndent]{\icon}[\IconLower]` - print an icon at the start of the line with proper indentation (at the start of the line) and vertical offset (see `\IconIndent` and `\IconLower`)
+- `\icontitle{\icon}{\title}{Text}` - print an icon at the start of the `\title` (`\section`, `\paragraph`, etc.)
+- `\rot[angle]{text}` - rotated text or icon (default angle = `45`)
+- `\iconrot[angle]{icon}` - rotated icon (similar to `\icon`)
+
 #### iconItDR
 
 `\iconItDR`
@@ -298,24 +310,6 @@ Custom corridor icon based on `\faDungeon`
 `\faOldKey`
 
 Custom old key icon (from fontawesome v4)
-
-#### iconLower
-
-`\iconLower`
-
-Vertical kerning length for icons.
-
-#### icon
-
-`\icon{\icon}`
-
-Print an icon at the start of the line without indentation.
-
-#### icontitle
-
-`\icontitle{\icon}{\title}{Text}`
-
-Print an icon at the start of the `\title` (`\section`, `\paragraph`, etc.)
 
 #### Arrows
 
@@ -395,6 +389,21 @@ Used internally to display a placeholder of non-existing `\dimage`.
 The default command for image inclusion.
 Dimensions `\linewidth` x `height`
 
+#### dimagetop
+
+`\dimagetop[options]{filename}[extension]{height}[after]`
+
+- `options` - *(optional)* `\includegraphics` options (`width=\textwidth,#1` by default)
+- `filename` - image file name
+- `extension` - `(optional)` default: `png`
+- `height` - expected image height (for `\placeholder`)
+- `after` - (optional) content to place after the image in onecolumn mode
+
+Place **BEFORE** anything on the page.
+Dimensions: `\textwidth` x `height`.
+
+Example usage of the `after` argument to place an image on top of the first page of the new chapter: `\dimagetop{filename}{200pt}[\chapterstr{Title}]`
+
 #### dimagebottom
 
 `\dimagebottom[options]{filename}[extension]{height}`
@@ -405,7 +414,7 @@ Dimensions `\linewidth` x `height`
 - `height` - expected image height (for `\placeholder`)
 
 A full-page image at the bottom of the page.
-Place **BEFORE** anything on the page.
+Place **BEFORE** anything on the page (except `\dimagetop`).
 Dimensions: `\textwidth` x `height`.
 
 #### dimagepage
@@ -455,6 +464,9 @@ E.g., `\itemrange{3} second item` will produce `2–4. second item`.
 
 - `\chapterx` - unnumbered chapter
 - `\chapterx*` - unnumbered chapter without a TOC entry
+- `\chapterstr` - straight class chapter (will not start a new page)
+- `\chapterstr*` - unnumbered straight class chapter without a TOC entry
+- `\chapterstrx` - unnumbered straight class chapter (appears in TOC)
 - `\paragraphsection` - a new title class between `\subsubsection` and `\paragraph`.
 - `\paragraphsubsection` - a new title class between `\paragraph` and `\subparagraph`.
 
