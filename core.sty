@@ -1,4 +1,4 @@
-\ProvidesPackage{itdr/core}[2024/04/23]
+\ProvidesPackage{itdr/core}[2024/05/20]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -521,19 +521,20 @@
 
 \RequirePackage{fontawesome5}% icons
 
+
+% icon indentation
+% (\labelindent by default)
+\newcommand{\IconIndent}{\labelindent}
+
 % icon vertical kerning
 % (0.0\docFontSize by default)
 \newlength{\IconLower}
 \setlength{\IconLower}{0.0\docFontSize}
 %\setlength{\iconLower}{0.1\docFontSize}
 
-% icon indentation
-% (\labelindent by default)
-\newcommand{\IconIndent}{\labelindent}
-
 % \icon[\IconIndent]{\icon}[\IconLower]
 % print an icon with the proper indentation (at the start of the line) and vertical offset
-% (see \icon@indent and \icon@lower lengths)
+% (see \IconIndent and \IconLower lengths)
 \NewDocumentCommand{\icon}{ O{\IconIndent} m O{\IconLower} }{%
 	\hspace*{#1}\lower#3\hbox{#2}%
 }
@@ -680,8 +681,8 @@
 % \placeholder[width]{filename}{height}
 %
 % #1 - width (optional) default: \linewidth
-% #2 - filename
-% #3 - height
+% #2 - filename - placeholder text
+% #3 - height - placeholder height
 \newcommand{\placeholder}[3][\linewidth]{%
 	\par\noindent\begin{minipage}[c][#3][c]{#1}
 		\centering
@@ -695,10 +696,10 @@
 
 % \dimage[options]{filename}[extension]{height}
 %
-% #1 - options (optional)
-% #2 - filename
+% #1 - options (optional) \includegraphics options (width=\linewidth,#1 by default)
+% #2 - filename - image file name
 % #3 - extension (optional) default: png
-% #4 - height (for placeholder size)
+% #4 - expected image height (for \placeholder)
 \NewDocumentCommand{\dimage}{ O{} m O{png} m }{%
 	\IfImageExists{#2.#3}{%
 		\noindent\includegraphics[width=\linewidth,#1]{#2.#3}%
@@ -714,12 +715,37 @@
 	}{\placeholder{#1}{#3}}% else
 }
 
-% full-page image at the bottom of the page
+% full-page image at the top of the page
 % place BEFORE anything on the page
+% \dimagetop[options]{filename}[extension]{height}[after]
+%
+% #1 - options (optional) \includegraphics options (width=\linewidth,#1 by default)
+% #2 - image file name
+% #3 - extension (optional) default: png
+% #4 - expected image height (for \placeholder)
+% #5 - content to place after the image in onecolumn mode
+\NewDocumentCommand{\dimagetop}{ O{} m O{png} m O{} }{{% <- second pair of brackets is intentional
+	\twocolumn[%
+		\centering\IfImageExists{#2.#3}{%
+			\includegraphics[width=\textwidth,#1]{#2.#3}%
+		}{\placeholder{#2}{#4}}% else
+		\vspace*{2ex}\par
+		#5% after
+	]{}
+}}
+
+
+% full-page image at the bottom of the page
+% place BEFORE anything on the page, (except \dimagetop)
 % \dimagebottom[options]{filename}[extension]{height}
+%
+% #1 - options (optional) \includegraphics options (width=\linewidth,#1 by default)
+% #2 - image file name
+% #3 - extension (optional) default: png
+% #4 - expected image height (for \placeholder)
 \RequirePackage{stfloats}
 \NewDocumentCommand{\dimagebottom}{ O{} m O{png} m }{{% <- second pair of brackets is intentional
-		\noindent\begin{figure*}[bp]
+		\noindent\begin{figure*}[bp!]
 			\centering\IfImageExists{#2.#3}{%
 				\includegraphics[width=\textwidth,#1]{#2.#3}%
 			}{\placeholder{#2}{#4}}% else
@@ -730,6 +756,10 @@
 
 % full-page image on a separate page (\thispagestyle{empty}).
 % \dimagepage[options]{filename}[extension]
+%
+% #1 - options (optional) \includegraphics options
+% #2 - image file name
+% #3 - extension (optional) default: png
 \NewDocumentCommand{\dimagepage}{ O{} m O{png} }{{% <- second pair of brackets is intentional
 		\newpage
 		\thispagestyle{empty}%
@@ -873,6 +903,8 @@
 	[]% below-code
 
 % unnumbered chapter
+% \chapterx{title} - appears in toc
+% \chapterx*{title} - does not appear in toc
 \makeatletter
 \newcommand{\chapterx}{\@ifstar{\chapterx@star}{\chapterx@toc}}
 
@@ -885,6 +917,48 @@
 \newcommand{\chapterx@star}[1]{%
 	\chapter*{#1}
 	\markboth{#1}{}%
+}
+\makeatother
+
+% straight class chapter (will not start a new page)
+% \chapterstr{title} - numbered
+% \chapterstr*{title} - unnumbered, does not appear in toc
+% \chapterstrx{title} - unnumbered, appears in toc
+
+% command executed before \chapterstr, \chapterstr*, and \chapterstrx
+% (provides extra spacing by default)
+\newcommand{\beforechapterstr}{%
+	\ifdim\pagetotal>0pt% not top of the page
+		\vspace{1ex}
+	\else% top of the page
+	\fi%
+}
+
+\makeatletter
+\newcommand{\chapterstr}{\@ifstar{\chapterstr@star}{\chapterstr@toc}}
+
+\newcommand{\chapterstr@toc}[1]{%
+	\titleclass{\chapter}{straight}%
+	\beforechapterstr{}%
+	\chapter{#1}%
+	\titleclass{\chapter}{top}%
+}
+
+\newcommand{\chapterstr@star}[1]{%
+	\titleclass{\chapter}{straight}%
+	\beforechapterstr{}%
+	\chapter*{#1}%
+	\markboth{#1}{}%
+	\titleclass{\chapter}{top}%
+}
+
+\newcommand{\chapterstrx}[1]{%
+	\titleclass{\chapter}{straight}%
+	\beforechapterstr{}%
+	\chapter*{#1}%
+	\markboth{#1}{}%
+	\addcontentsline{toc}{chapter}{#1}%
+	\titleclass{\chapter}{top}%
 }
 \makeatother
 
@@ -1257,7 +1331,6 @@
 	{\endgroup}%
 }
 
-
 % \room[\title]{idx}{name}
 %
 % title - (optional) title level (\subsection by default)
@@ -1442,6 +1515,13 @@
 \RequirePackage{wrapfig2}
 
 % \begin{wrap}[line number]{location}[overhang]{width}
+%
+% line number - (optional)
+% location - one of:
+%	l (left), L (floating left),
+%	r (right), R (floating right),
+%	i (inner margin), I (floating inner margin),
+%	o (outer margin), O (floating outer margin)
 \NewDocumentEnvironment{wrap}{o m o G{0pt}}%
 {\wrapfloat{object}[#1]{#2}[#3]{#4}}%
 {\endwrapfloat}
