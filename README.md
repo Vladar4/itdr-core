@@ -30,6 +30,16 @@ Dependencies
 Changelog
 ---------
 
+### 2024-10-26
+
+LICENSE changed to LPPL
+
+#### core.sty
+  - `\chapterx`, `\chapterstr`, and `\chapterstrx` now take an optional `toc-title` argument
+
+### bestiary.sty
+  - clarified and updated Mummy and Yeti fear effects
+
 ### 2024-05-20
 - Added new commands:
     - `\dimagetop` for placing full-width images on top of the page
