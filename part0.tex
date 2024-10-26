@@ -49,17 +49,19 @@
 \righttext{\textbackslash toc[0]}
 
 \begin{lstlisting}
-\chapter{Title}		% numbered
-\chapterx{Title}	% unnumbered
-\chapterx*{title}	% unnumbered,
-	% no TOC entry
-
-\chapterstr{Title}	% straight,
+\chapter[toc-title]{Title}
 	% numbered
-\chapterstrx{Title}	% straight,
+\chapterx[toc-title]{Title}
 	% unnumbered
-\chapterstr*{Title}	% straight,
+\chapterx*{title}
 	% unnumbered, no TOC entry
+
+\chapterstr[toc-title]{Title}
+	% straight, numbered
+\chapterstrx[toc-title]{Title}
+	% straight, unnumbered
+\chapterstr*{Title}
+	% straight, unnumbered, no TOC entry
 
 \label{ch:title}		% chapter label
 \end{lstlisting}

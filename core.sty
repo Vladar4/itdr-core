@@ -18,7 +18,7 @@
 %   core.sty,
 %   itdr.ist.
 
-\ProvidesPackage{itdr/core}[2024/05/20]
+\ProvidesPackage{itdr/core}[2024/10/26]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -923,27 +923,27 @@
 	[]% below-code
 
 % unnumbered chapter
-% \chapterx{title} - appears in toc
+% \chapterx[toc-title]{title} - appears in toc
 % \chapterx*{title} - does not appear in toc
 \makeatletter
-\newcommand{\chapterx}{\@ifstar{\chapterx@star}{\chapterx@toc}}
+\newcommand{\chapterx}{\@ifstar{\chapterx@star}{\@dblarg\chapterx@toc}}
 
-\newcommand{\chapterx@toc}[1]{%
-	\chapter*{#1}
+\def\chapterx@toc[#1]#2{%
+	\chapter*{#2}%
 	\markboth{#1}{}%
 	\addcontentsline{toc}{chapter}{#1}%
 }
 
 \newcommand{\chapterx@star}[1]{%
-	\chapter*{#1}
+	\chapter*{#1}%
 	\markboth{#1}{}%
 }
 \makeatother
 
 % straight class chapter (will not start a new page)
-% \chapterstr{title} - numbered
+% \chapterstr[toc-title]{title} - numbered
 % \chapterstr*{title} - unnumbered, does not appear in toc
-% \chapterstrx{title} - unnumbered, appears in toc
+% \chapterstrx[toc-title]{title} - unnumbered, appears in toc
 
 % command executed before \chapterstr, \chapterstr*, and \chapterstrx
 % (provides extra spacing by default)
@@ -955,12 +955,12 @@
 }
 
 \makeatletter
-\newcommand{\chapterstr}{\@ifstar{\chapterstr@star}{\chapterstr@toc}}
+\newcommand{\chapterstr}{\@ifstar{\chapterstr@star}{\@dblarg\chapterstr@toc}}
 
-\newcommand{\chapterstr@toc}[1]{%
+\def\chapterstr@toc[#1]#2{%
 	\titleclass{\chapter}{straight}%
 	\beforechapterstr{}%
-	\chapter{#1}%
+	\chapter[#1]{#2}%
 	\titleclass{\chapter}{top}%
 }
 
@@ -972,10 +972,12 @@
 	\titleclass{\chapter}{top}%
 }
 
-\newcommand{\chapterstrx}[1]{%
+\newcommand{\chapterstrx}{\@dblarg\chapterstrx@body}
+
+\def\chapterstrx@body[#1]#2{%
 	\titleclass{\chapter}{straight}%
 	\beforechapterstr{}%
-	\chapter*{#1}%
+	\chapter*{#2}%
 	\markboth{#1}{}%
 	\addcontentsline{toc}{chapter}{#1}%
 	\titleclass{\chapter}{top}%
