@@ -30,6 +30,11 @@ Dependencies
 Changelog
 ---------
 
+### 2025-04-05
+
+#### bestiary.sty
+  - fixed for the datatool v3
+
 ### 2024-10-26
 
 LICENSE changed to LPPL
@@ -37,7 +42,7 @@ LICENSE changed to LPPL
 #### core.sty
   - `\chapterx`, `\chapterstr`, and `\chapterstrx` now take an optional `toc-title` argument
 
-### bestiary.sty
+#### bestiary.sty
   - clarified and updated Mummy and Yeti fear effects
 
 ### 2024-05-20
