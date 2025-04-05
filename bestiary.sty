@@ -251,8 +251,7 @@
 	\newcount\idx
 	\idx=\infofirst% first info index
 	\loop
-		\xdtlgetrowindex{\row}{bestiaryDB}{1}{#1}% get row index
-		\dtlgetrow{bestiaryDB}{\row}% get row by index
+		\edtlgetrowforvalue{bestiaryDB}{1}{#1}
 		\dtlgetentryfromcurrentrow{\info}{\idx}% get info
 		\ifnum% outer condition start (true if >0)
 				%\ifx\info\empty% first condition
