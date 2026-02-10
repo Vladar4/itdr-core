@@ -18,7 +18,7 @@
 %   core.sty,
 %   itdr.ist.
 
-\ProvidesPackage{itdr/core}[2024/10/26]
+\ProvidesPackage{itdr/core}[2026/02/10]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -70,11 +70,12 @@
 % "default" box
 \newenvironment{dbox}{%
 	\par\noindent\begin{minipage}{\linewidth}%
-		\noindent\vspace{-13.38pt}\hspace{\box@decor@hoffset}% box_top position
+		\noindent\vspace{-14.38pt}\hspace{\box@decor@hoffset}% box_top position
 		\includegraphics[width=\box@decor@width]{box_top.pdf}%
 		\begin{mdframed}[%
 			backgroundcolor=dColor2,
-			hidealllines=true,
+			leftline=false,
+			rightline=false,
 			]%
 		}{ % <- the space here is left intentionally
 		\end{mdframed}%
@@ -656,30 +657,37 @@
 
 % Misc
 \def\iconBookmark{\faBookmark}
+\def\iconCharacter{\faUser}
 \def\iconContainer{\faCube}
 \def\iconCorridor{\faCorridor}
-\def\iconCharacter{\faUser}
-\def\iconDay{\faSun}
-\def\iconGroup{\faUsers}
-\def\iconSize{\faRulerCombined}
 \def\iconDanger{\faSkullCrossbones}
+\def\iconDay{\faSun}
 \def\iconDirections{\faMapSigns}
 \def\iconDoor{\faDungeon}
 \def\iconEncounter{\faExclamationTriangle}
+\def\iconGroup{\faUsers}
 \def\iconHidden{\faSearch}
+\def\iconInvisible{\faMask}
 \def\iconKey{\faOldKey}
+\def\iconLocked{\faLock}
 \def\iconLock{\faLock}
 \def\iconMagic{\faMagic}
 \def\iconMonster{\faDragon}
 \def\iconMoon{\faMoon}
 \def\iconNight{\faMoon}
+\def\iconNoise{\faRss}
+\def\iconOpen{\faLockOpen}
 \def\iconReward{\faTrophy}
+\def\iconScroll{\faScroll}
+\def\iconSize{\faRulerCombined}
 \def\iconStar{\faStar}
 \def\iconSun{\faSun}
 \def\iconTimer{\faHourglassHalf}
+\def\iconTrack{\faPaw}
 \def\iconTravel{\faHiking}
 \def\iconTreasure{\faGem}
 \def\iconTrigger{\faBolt}
+\def\iconUnlocked{\faLockOpen}
 \def\iconVisible{\faEye}
 
 %%%%%%%%%%
@@ -1124,6 +1132,22 @@
 	\clearpage
 	\if@twoside
 	\ifodd\c@page
+	\hbox{}\thispagestyle{empty}\newpage
+	\if@twocolumn
+	\hbox{}\thispagestyle{empty}\newpage
+	\fi
+	\fi
+	\fi
+}
+\makeatother
+
+% Clear to right page
+\makeatletter
+\newcommand*{\cleartorightpage}{%
+	\clearpage
+	\if@twoside
+	\ifodd\c@page
+	\else
 	\hbox{}\thispagestyle{empty}\newpage
 	\if@twocolumn
 	\hbox{}\thispagestyle{empty}\newpage
