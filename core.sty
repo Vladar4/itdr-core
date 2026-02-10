@@ -1572,6 +1572,51 @@
 {\wrapfloat{object}[#1]{#2}[#3]{#4}}%
 {\endwrapfloat}
 
+
+% \wimage[keyval]{filename}[ext]{l}
+% #1 - key=value pairs (see below)
+% #2 - filename  - placeholder text
+% #3 - extension - (png by default)
+% #4 - location  - wrap location (see wrap environment)
+%
+% Keys:
+% options  - image options (empty by default)
+% lines    - indented lines number correction (0 by default)
+% overhang - overhang length (0pt by default)
+% width    - image width (0.5\linewidth by default)
+% height   - image height (\linewidth by default)
+%            !NOTE! \linewidth will be equal to the image's width value (see above)
+% vspace   - vertical correction of the image position (0pt by default)
+\makeatletter
+\newcommand{\wimage@defaults}{%
+	\def\wimage@options{}%
+	\def\wimage@lines{0}%
+	\def\wimage@overhang{0pt}%
+	\def\wimage@width{0.5\linewidth}%
+	\def\wimage@height{\linewidth}%
+	\def\wimage@vspace{0pt}%
+}
+
+\wimage@defaults{}
+
+\define@key{wimage@keys}{options}	{\def\wimage@options{#1}}
+\define@key{wimage@keys}{lines}		{\def\wimage@lines{#1}}
+\define@key{wimage@keys}{overhang}	{\def\wimage@overhang{#1}}
+\define@key{wimage@keys}{width}		{\def\wimage@width{#1}}
+\define@key{wimage@keys}{height}	{\def\wimage@height{#1}}
+\define@key{wimage@keys}{vspace}	{\def\wimage@vspace{#1}}
+
+\NewDocumentCommand{\wimage}{ O{} m O{png} m }{%
+	\wimage@defaults
+	\setkeys{wimage@keys}{#1}%
+	\begin{wrap}[\wimage@lines]{#4}[\wimage@overhang]{\wimage@width}*
+		\vspace*{-\baselineskip}\vspace*{\wimage@vspace}
+		\edef\wimage@optionsX{\wimage@options}%
+		\expandafter\dimage\expandafter[\wimage@optionsX]{#2}[#3]{\wimage@height}
+	\end{wrap}
+}
+\makeatother
+
 %%%%%%%%%%%%%%
 % HYPERLINKS %
 %%%%%%%%%%%%%%
