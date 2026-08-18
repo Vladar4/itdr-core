@@ -1,5 +1,5 @@
 %% core.sty
-%% Copyright 2023-2024 Vladimir Arabadzhi
+%% Copyright 2023-2026 Vladimir Arabadzhi
 %
 % This work may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3
@@ -18,7 +18,7 @@
 %   core.sty,
 %   itdr.ist.
 
-\ProvidesPackage{itdr/core}[2026/02/10]
+\ProvidesPackage{itdr/core}[2026/08/18]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -241,10 +241,80 @@
 \setlength{\docFontSize}{\f@size pt}
 \makeatother
 
-\RequirePackage{fourier}% special symbols
+\RequirePackage{accsupp}
+\newcommand*\decosix{%
+	\leavevmode
+	\hbox to 0.783000em{%
+	\hbox to 0pt{%
+		\BeginAccSupp{method=hex,unicode,ActualText=2756}% BLACK DIAMOND MINUS WHITE X
+			\pdfliteral direct{3 Tr}%
+			X%
+			\pdfliteral direct{0 Tr}%
+			\EndAccSupp{}%
+			\hss
+		}%
+		\pgfpicture
+			\pgfpathmoveto{\pgfpoint{0.284000em}{0.242000em}}
+			\pgfpathcurveto{\pgfpoint{0.284000em}{0.303000em}}{\pgfpoint{0.333000em}{0.352000em}}{\pgfpoint{0.394000em}{0.352000em}}
+			\pgfpathcurveto{\pgfpoint{0.455000em}{0.352000em}}{\pgfpoint{0.504000em}{0.303000em}}{\pgfpoint{0.504000em}{0.242000em}}
+			\pgfpathcurveto{\pgfpoint{0.504000em}{0.181000em}}{\pgfpoint{0.455000em}{0.132000em}}{\pgfpoint{0.394000em}{0.132000em}}
+			\pgfpathcurveto{\pgfpoint{0.333000em}{0.132000em}}{\pgfpoint{0.284000em}{0.181000em}}{\pgfpoint{0.284000em}{0.242000em}}
+			\pgfpathclose
+			\pgfpathmoveto{\pgfpoint{0.501000em}{0.135000em}}
+			\pgfpathcurveto{\pgfpoint{0.533000em}{0.167000em}}{\pgfpoint{0.671000em}{0.219000em}}{\pgfpoint{0.768000em}{0.237000em}}
+			\pgfpathlineto{\pgfpoint{0.768000em}{0.246000em}}
+			\pgfpathcurveto{\pgfpoint{0.671000em}{0.265000em}}{\pgfpoint{0.532000em}{0.317000em}}{\pgfpoint{0.501000em}{0.348000em}}
+			\pgfpathcurveto{\pgfpoint{0.469000em}{0.381000em}}{\pgfpoint{0.418000em}{0.519000em}}{\pgfpoint{0.400000em}{0.616000em}}
+			\pgfpathlineto{\pgfpoint{0.391000em}{0.616000em}}
+			\pgfpathcurveto{\pgfpoint{0.372000em}{0.519000em}}{\pgfpoint{0.320000em}{0.380000em}}{\pgfpoint{0.289000em}{0.349000em}}
+			\pgfpathcurveto{\pgfpoint{0.255000em}{0.316000em}}{\pgfpoint{0.117000em}{0.264000em}}{\pgfpoint{0.020000em}{0.246000em}}
+			\pgfpathlineto{\pgfpoint{0.020000em}{0.237000em}}
+			\pgfpathcurveto{\pgfpoint{0.117000em}{0.218000em}}{\pgfpoint{0.256000em}{0.166000em}}{\pgfpoint{0.287000em}{0.135000em}}
+			\pgfpathcurveto{\pgfpoint{0.321000em}{0.102000em}}{\pgfpoint{0.372000em}{-0.036000em}}{\pgfpoint{0.390000em}{-0.133000em}}
+			\pgfpathlineto{\pgfpoint{0.399000em}{-0.133000em}}
+			\pgfpathcurveto{\pgfpoint{0.418000em}{-0.036000em}}{\pgfpoint{0.470000em}{0.104000em}}{\pgfpoint{0.501000em}{0.135000em}}
+			\pgfpathclose
+			\pgfusepath{fill}%
+		\endpgfpicture
+		\hss
+	}%
+}
+
+\newcommand*\starredbullet{%
+	\leavevmode
+	\hbox to 0.485000em{%
+		\hbox to 0pt{%
+			\BeginAccSupp{method=hex,unicode,ActualText=25C6}% BLACK DIAMOND
+			\pdfliteral direct{3 Tr}%
+			X%
+			\pdfliteral direct{0 Tr}%
+			\EndAccSupp{}%
+			\hss
+		}%
+		\pgfpicture
+			\pgfpathmoveto{\pgfpoint{0.307000em}{0.268000em}}
+			\pgfpathcurveto{\pgfpoint{0.327000em}{0.287000em}}{\pgfpoint{0.410000em}{0.318000em}}{\pgfpoint{0.468000em}{0.329000em}}
+			\pgfpathlineto{\pgfpoint{0.468000em}{0.334000em}}
+			\pgfpathcurveto{\pgfpoint{0.410000em}{0.345000em}}{\pgfpoint{0.326000em}{0.377000em}}{\pgfpoint{0.307000em}{0.396000em}}
+			\pgfpathcurveto{\pgfpoint{0.288000em}{0.416000em}}{\pgfpoint{0.257000em}{0.498000em}}{\pgfpoint{0.247000em}{0.556000em}}
+			\pgfpathlineto{\pgfpoint{0.242000em}{0.556000em}}
+			\pgfpathcurveto{\pgfpoint{0.231000em}{0.498000em}}{\pgfpoint{0.199000em}{0.415000em}}{\pgfpoint{0.180000em}{0.396000em}}
+			\pgfpathcurveto{\pgfpoint{0.159000em}{0.376000em}}{\pgfpoint{0.077000em}{0.345000em}}{\pgfpoint{0.019000em}{0.335000em}}
+			\pgfpathlineto{\pgfpoint{0.019000em}{0.329000em}}
+			\pgfpathcurveto{\pgfpoint{0.077000em}{0.318000em}}{\pgfpoint{0.161000em}{0.287000em}}{\pgfpoint{0.180000em}{0.268000em}}
+			\pgfpathcurveto{\pgfpoint{0.200000em}{0.248000em}}{\pgfpoint{0.231000em}{0.165000em}}{\pgfpoint{0.242000em}{0.107000em}}
+			\pgfpathlineto{\pgfpoint{0.246000em}{0.107000em}}
+			\pgfpathcurveto{\pgfpoint{0.257000em}{0.165000em}}{\pgfpoint{0.289000em}{0.249000em}}{\pgfpoint{0.307000em}{0.268000em}}
+			\pgfpathclose
+			\pgfusepath{fill}%
+		\endpgfpicture
+		\hss
+	}%
+}
+
+\RequirePackage[T1]{fontenc}
 \RequirePackage{adfbullets}% special symbols
 \RequirePackage{humanist}% fancy title font
-\RequirePackage[T1]{fontenc}
 \RequirePackage{microtype}
 \DisableLigatures[s]{family=hmin}% disable s-ligatures for the humanist font family
 \newcommand*{\fancyfont}{\hminfamily}
