@@ -241,8 +241,9 @@
 \setlength{\docFontSize}{\f@size pt}
 \makeatother
 
+
 \RequirePackage{accsupp}
-\newcommand*\decosix{%
+\newcommand*\Decosix{%
 	\leavevmode
 	\hbox to 0.783000em{%
 	\hbox to 0pt{%
@@ -280,7 +281,7 @@
 	}%
 }
 
-\newcommand*\starredbullet{%
+\newcommand*\Starredbullet{%
 	\leavevmode
 	\hbox to 0.485000em{%
 		\hbox to 0pt{%
@@ -312,9 +313,10 @@
 	}%
 }
 
-\RequirePackage[T1]{fontenc}
+\RequirePackage{fourier}
 \RequirePackage{adfbullets}% special symbols
 \RequirePackage{humanist}% fancy title font
+\RequirePackage[T1]{fontenc}
 \RequirePackage{microtype}
 \DisableLigatures[s]{family=hmin}% disable s-ligatures for the humanist font family
 \newcommand*{\fancyfont}{\hminfamily}
@@ -909,7 +911,7 @@
 \makeatletter
 
 % itemize
-\renewcommand{\labelitemi}{\starredbullet}
+\renewcommand{\labelitemi}{\Starredbullet}
 \renewcommand{\labelitemii}{\adfbullet{48}}
 \renewcommand{\labelitemiii}{\adfbullet{43}}
 \renewcommand{\labelitemiv}{\adfbullet{44}}
@@ -1268,13 +1270,13 @@
 
 % \feat[index]{name}
 \newcommand{\feat@index}[2][\jobname]{%
-	\paragraphsection[#2]{\decosix~#2~\decosix}
+	\paragraphsection[#2]{\Decosix~#2~\Decosix}
 	\index[#1]{#2 (Feature)}%
 }
 
 % \feat*{name}
 \newcommand{\feat@star}[1]{%
-	\paragraphsection[#1]{\decosix~#1~\decosix}
+	\paragraphsection[#1]{\Decosix~#1~\Decosix}
 }
 
 % ANCESTRY %
@@ -1283,13 +1285,13 @@
 
 % \feata[index]{name}
 \newcommand{\feata@index}[2][\jobname]{%
-	\paragraphsection[#2]{\decosix~#2~\decosix}
+	\paragraphsection[#2]{\Decosix~#2~\Decosix}
 	\index[#1]{#2 (Feature, ancestry)}%
 }
 
 % \feata*{name}
 \newcommand{\feata@star}[1]{%
-	\paragraphsection[#1]{\decosix~#1~\decosix}
+	\paragraphsection[#1]{\Decosix~#1~\Decosix}
 }
 
 % BACKGROUND %
@@ -1298,13 +1300,13 @@
 
 % \featb[index]{name}
 \newcommand{\featb@index}[2][\jobname]{%
-	\paragraphsection[#2]{\decosix~#2~\decosix}
+	\paragraphsection[#2]{\Decosix~#2~\Decosix}
 	\index[#1]{#2 (Background)}%
 }
 
 % \featb*{name}
 \newcommand{\featb@star}[1]{%
-	\paragraphsection[#1]{\decosix~#1~\decosix}
+	\paragraphsection[#1]{\Decosix~#1~\Decosix}
 }
 \makeatother% FEATS
 
@@ -1562,13 +1564,13 @@
 
 % \class[index]{name}
 \newcommand{\class@index}[2][\jobname]{%
-	\paragraphsection[#2]{\decosix~#2~\decosix}
+	\paragraphsection[#2]{\Decosix~#2~\Decosix}
 	\index[#1]{#2 (Class)}%
 }
 
 % \class*{name}
 \newcommand{\class@star}[1]{%
-	\paragraphsection[#1]{\decosix~#1~\decosix}
+	\paragraphsection[#1]{\Decosix~#1~\Decosix}
 }
 \makeatother
 
@@ -1579,13 +1581,13 @@
 
 % \creed[index]{name}
 \newcommand{\creed@index}[2][\jobname]{%
-	\paragraphsection[#2]{\decosix~#2~\decosix}
+	\paragraphsection[#2]{\Decosix~#2~\Decosix}
 	\index[#1]{#2 (Creed)}%
 }
 
 % \creed*{name}
 \newcommand{\creed@star}[1]{%
-	\paragraphsection[#1]{\decosix~#1~\decosix}
+	\paragraphsection[#1]{\Decosix~#1~\Decosix}
 }
 \makeatother
 
