@@ -18,7 +18,7 @@
 %   core.sty,
 %   itdr.ist.
 
-\ProvidesPackage{itdr/core}[2026/09/02]
+\ProvidesPackage{itdr/core}[2026/09/07]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -39,6 +39,7 @@
 %%%%%%%%%%
 
 \RequirePackage[table,svgnames]{xcolor}
+\RequirePackage{pagecolor}
 \colorlet{dColor1}{white}
 \colorlet{dColor2}{lightgray!75}
 
@@ -243,6 +244,34 @@
 
 
 \RequirePackage{accsupp}
+
+% \AS[actual text]{code block}
+% #1 - actual text (empty by default)
+% #2 - code block
+\newcommand{\AS}[2][]{%
+	\BeginAccSupp{ActualText={#1}}%
+	#2%
+	\EndAccSupp{}%
+}
+
+% \ASU[unicode code]{code block}
+% #1 - unicode code (empty by default)
+% #2 - code block
+\newcommand{\ASU}[2][]{%
+	\BeginAccSupp{method=hex,unicode,ActualText={#1}}%
+	#2%
+	\EndAccSupp{}%
+}
+
+% \ASP[actual text]{code block}
+% #1 - actual text (empty by default)
+% #2 - code block
+\newcommand{\ASP}[2][]{%
+	\BeginAccSupp{method=pdfstringdef,unicode,ActualText={#1}}%
+	#2%
+	\EndAccSupp{}%
+}
+
 \newcommand*\Decosix{%
 	\leavevmode
 	\hbox to 0.783000em{%
@@ -319,17 +348,194 @@
 \RequirePackage[T1]{fontenc}
 \RequirePackage{microtype}
 \DisableLigatures[s]{family=hmin}% disable s-ligatures for the humanist font family
-\newcommand*{\fancyfont}{\hminfamily}
+\newcommand*{\fancyfont}{\fontencoding{OT1}\fontfamily{hmin}\selectfont}
 
-% \textBigTitle[size][baselineskip]{text}
-\NewDocumentCommand{\textBigTitle}{ O{30} O{24} m }{%
-	{\fancyfont\fontsize{#1}{#2}\bfseries\selectfont #3\linebreak}%
+% \textBigTitle[size][baselineskip]{text}[after]
+% after = \linebreak by default for backwards compatibility
+\NewDocumentCommand{\textBigTitle}{ O{30} O{24} m O{\linebreak} }{%
+	{\fancyfont\fontsize{#1}{#2}\bfseries\selectfont #3#4}%
 }
 
-% \textSubTitle[size][baselineskip]{text}
-\NewDocumentCommand{\textSubTitle}{ O{18} O{16} m }{%
-	{\fancyfont\fontsize{#1}{#2}\selectfont #3\linebreak}%
+% \textSubTitle[size][baselineskip]{text}[after]
+% after = \linebreak by default for backwards compatibility
+\NewDocumentCommand{\textSubTitle}{ O{18} O{16} m O{\linebreak} }{%
+	{\fancyfont\fontsize{#1}{#2}\selectfont #3#4}%
 }
+
+
+\RequirePackage{stackengine}
+\RequirePackage{scalerel}
+\makeatletter
+
+\newlength{\lig@wd}
+
+% \lig{ligature}
+% "Fake" ligatures for the fancyfont
+\newcommand{\lig}[1]{%
+	\setlength{\lig@wd}{\widthof{-}}%
+	\IfEqCase{#1}{%
+		{AE} {\ASU[00C6]{\AE}}%
+		{ae} {\ASU[00E6]{\ae}}%
+		{ct} {\AS[ct]{\char"0C}}%
+		{DH} {\ASU[00D0]{\raisebox{0.25ex}{-}\kern-0.33em\relax D}}%
+		{dh} {\ASU[00F0]{\reflectbox{6}\kern-0.33em\relax\raisebox{0.45ex}{-}\kern-0.15\lig@wd\relax}}%
+		{DJ} {\ASU[0110]{\raisebox{0.25ex}{-}\kern-0.33em\relax D}}%
+		{dj} {\ASU[0111]{d\kern-0.3em\relax \raisebox{0.75ex}{-}\kern-0.25\lig@wd\relax}}%
+		{IJ} {\ASU[0132]{I\kern-0.1em\relax J}}%
+		{ij} {\ASU[0133]{i\kern-0.08em\relax j}}%
+		{i}  {%
+			\makebox[\widthof{i}][l]{\ASU[0131]{i\kern-0.2em\relax\textcolor{\thepagecolor}{\smash{\rule[1ex]{0.2em}{0.35ex}}}}}}%
+		{j}  {%
+			\makebox[\widthof{j}][l]{\ASU[0237]{j\kern-0.2em\relax\textcolor{\thepagecolor}{\smash{\rule[1ex]{0.2em}{0.35ex}}}}}}%
+		{L}  {\ASU[0141]{L}\AS{\kern-0.68em\relax \raisebox{0.07ex}{\rotatebox{30}{\bfseries-}}\kern0.1\lig@wd\relax}}%
+		{l}  {\ASU[0142]{l}\AS{\kern-0.68em\relax \raisebox{0.14ex}{\rotatebox{30}{\bfseries-}}\kern0.1\lig@wd\relax}}%
+		{NG}{\makebox[\widthof{N}][l]{%
+				\AS{%
+					\kern0.42em\relax\smash{\raisebox{-0.5ex}{J}}%
+					\kern-0.25em\relax\textcolor{\thepagecolor}{\smash{\rule[0.25ex]{0.25em}{1ex}}}%
+				}%
+				\ASU[014A]{%
+					\kern-0.85em\relax N%
+					\kern-0.31em\relax\textcolor{\thepagecolor}{\smash{\rule[-0.025ex]{0.1em}{0.15ex}}}%
+					\kern0.09em\relax\textcolor{\thepagecolor}{\smash{\rule[-0.1ex]{0.1em}{0.25ex}}}%
+					\kern-0.01em\relax%
+				}%
+		}}%
+		{ng}{\makebox[\widthof{n}][l]{%
+				\AS{%
+					\kern0.42em\relax j%
+					\kern-0.25em\relax\textcolor{\thepagecolor}{\smash{\rule[0.3ex]{0.25em}{1.1ex}}}%
+				}%
+				\ASU[014B]{%
+					\kern-0.6075em\relax n%
+					\kern-0.0675em\relax\textcolor{\thepagecolor}{\smash{\rule{0.04em}{0.4ex}}}%
+				}%
+		}}%
+		{O}  {\makebox[\widthof{O}][l]{\AS{\kern0.16em$/$\kern-0.625em\relax}\ASU[00D8]{O}}}%
+		{o}  {\makebox[\widthof{o}][l]{\AS{\kern0.1em\raisebox{-0.25ex}{$/$}\kern-0.57em\relax}\ASU[00F8]{o}}}%
+		{OE} {\ASU[0152]{O\kern-0.22em\relax E}}%
+		{oe} {\ASU[0153]{o\kern-0.14em\relax e}}%
+		{st} {\ASU[FB06]{\char"0D}}%
+		{ss} {\ASU[00DF]{\char"0D}% st-ligature
+			\AS{%
+				\kern-0.5em\relax\textcolor{\thepagecolor}{\rule{0.48em}{1.3ex}}% hide t-part
+				\kern-0.515em\relax\scalebox{0.6}[1.4]{s}\kern0.02em\relax% add tranformed s-part
+		}}%
+		{TH} {\makebox[\widthof{P}][l]{\ASU[00DE]{\raisebox{0.66ex}{I\kern-0.3em\relax \raisebox{-0.66ex}{P}}}}}%
+		{th} {\makebox[\widthof{b}][l]{\ASU[00FE]{\kern-0.17em\relax\raisebox{-0.5ex}{1}\kern-0.39em\relax b}}}%
+	}[% other cases
+	#1%
+	]%
+}
+
+\newsavebox{\acc@box}
+\def\acc@coeffa{-0.55}% offset coefficient for the accent above
+\def\acc@coeffb{0.2}% offset coefficient for the accent below
+\newlength{\acc@offseta}% offset for the accent above
+\newlength{\acc@offsetb}% offset for the accent below
+\def\acc@acutegap{0.15em}% for the double acute (\H) accent
+
+\newcommand{\acc@height}[1]{%
+	\setbox\z@=\hbox{#1}%
+	\acc@offseta=\dimexpr\acc@coeffa\ht\z@-\dp\z@\relax% calcualate offset above
+	\acc@offsetb=\dimexpr\acc@coeffb\ht\z@+\dp\z@\relax% calculate offset below
+}
+
+\newcommand{\acc@kern}[2]{%
+	\hbox to 0pt{\hss\kern#1#2\hss}%
+}
+
+% substitute visible glyph and actual character for the \acc macro
+\newcommand{\acc@subst}[2]{%
+	\def\acc@glyph{#1}% visible glyph
+	\def\acc@char{#2}% actual character
+}
+
+\newcommand{\acc@special}[1]{%
+	\def\acc@glyph{#1}% visible glyph
+	\def\acc@char{#1}% actual character
+	\IfEqCase{#1}{%
+	{\i} {% special case for the dotless i (same as \lig{i}, but without \ASU to avoid nesting ActualText in \acc)
+		\acc@subst{\makebox[\widthof{i}][l]{i\kern-0.2em\relax\textcolor{\thepagecolor}{\smash{\rule[1ex]{0.2em}{0.35ex}}}}}{i}}%
+	{\j} {% special case for the dotless j (same as \lig{j}, but without \ASU to avoid nesting ActualText in \acc)
+		\acc@subst{\makebox[\widthof{j}][l]{j\kern-0.2em\relax\textcolor{\thepagecolor}{\smash{\rule[1ex]{0.2em}{0.35ex}}}}}{j}}%
+	} {}%
+}
+
+% \acc[kerning]{'}{a}
+% "Fake" accents for the fancyfont
+\newcommand{\acc}[3][0pt]{%
+	\begingroup
+	% check for special cases of visible glyph being different from the actual character
+	% also sets up \acc@glyph (visible glyph) and \acc@char (actual character) variables
+	\acc@special{#3}%
+	% calculate accent height
+	\acc@height{\acc@glyph}%
+	% predefined accents
+	\IfEqCase{#2}{%
+		{'} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\acute{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{`} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\grave{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{^} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\hat{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{~} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\tilde{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{=} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\bar{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{.} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\dot{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{"} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\ddot{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{H} {%
+			\setbox\acc@box=\hbox{%
+				\acc@kern{#1}{\scalerel*{\acute{\phantom{\acc@glyph}}}{\acc@glyph}}%
+			}%
+			\stackon[\the\acc@offseta]{\ASP[\H{\acc@char}]{\acc@glyph}}{%
+				\kern-0.5\wd\acc@box%
+				\AS{%
+					\usebox{\acc@box}%
+					\kern\dimexpr0.5\wd\acc@box+\acc@acutegap\relax%
+					\usebox{\acc@box}%
+				}%
+			}%
+		}%
+		{r} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\mathring{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{v} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\check{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{u} {\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{\breve{\phantom{\acc@glyph}}}{\acc@glyph}}}}%
+		{b} {%
+			\setbox\acc@box=\hbox{%
+				\acc@kern{#1}{\scalerel*{\bar{\phantom{\acc@glyph}}}{\acc@glyph}}%
+			}%
+			\stackunder[\the\acc@offsetb]{\ASP[\b{\acc@char}]{\acc@glyph}}{%
+				\AS{\raisebox{\dimexpr-\ht\acc@box\relax}[0pt][0pt]{\usebox{\acc@box}}}%
+			}%
+		}%
+		{c} {%
+			\setbox\acc@box=\hbox{%
+				\acc@kern{#1}{\scalerel*{\scalebox{0.66}[1]{,}}{\acc@glyph}}%
+			}%
+			\stackunder[\the\acc@offsetb]{\ASP[\c{\acc@char}]{\acc@glyph}}{%
+				\AS{\raisebox{\dimexpr\acc@offsetb-0.07\ht\acc@box\relax}[0pt][0pt]{\usebox{\acc@box}}}%
+			}%
+		}%
+		{d} {%
+			\setbox\acc@box=\hbox{%
+				\acc@kern{#1}{\scalerel*{\dot{\phantom{\acc@glyph}}}{\acc@glyph}}%
+			}%
+			\stackunder[\the\acc@offsetb]{\ASP[\d{\acc@char}]{\acc@glyph}}{%
+				\AS{\raisebox{\dimexpr-\ht\acc@box\relax}[0pt][0pt]{\usebox{\acc@box}}}%
+			}%
+		}%
+		{k}{%
+			\setbox\acc@box=\hbox{%
+				\acc@kern{#1}{\scalerel*{\reflectbox{\scalebox{0.66}[1]{,}}}{\acc@glyph}}%
+			}%
+			\stackunder[\the\acc@offsetb]{\ASP[\k{\acc@char}]{\acc@glyph}}{%
+				\AS{\raisebox{\dimexpr\acc@offsetb-0.07\ht\acc@box\relax}[0pt][0pt]{\usebox{\acc@box}}}%
+			}%
+		}%
+	}[% other cases
+		{\stackon[\the\acc@offseta]{\acc@glyph}{\acc@kern{#1}{\scalerel*{#2}{\acc@glyph}}}}%
+	]%
+	\endgroup
+}
+
+\makeatother
+
 
 %%%%%%%%%%%%%
 % FOOTNOTES %
