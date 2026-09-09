@@ -37,6 +37,11 @@ git commit -m 'Added itdr-core submodule'
 git push
 ```
 
+And to update the submodule:
+```
+git submodule update --remote itdr
+```
+
 The minimal viable project structure:
 
 ```
@@ -245,15 +250,70 @@ Fancy font used for `\textBigTitle` and `textSubTitle`.
 
 #### textBigTitle
 
-`\textBigTitle[size][baselineskip]{text}`
+`\textBigTitle[size][baselineskip]{text}[after]`
 
-Print book title.
+Print book title. `after` = `\linebreak` by default.
 
 #### textSubTitle
 
-`\textBigTitle[size][baselineskip]{text}`
+`\textBigTitle[size][baselineskip]{text}[after]`
 
-Print book subtitle.
+Print book subtitle. `after` = `\linebreak` by default.
+
+
+#### lig
+
+`\lig{ligature}`
+
+Constructed ligatures for the fancyfont.
+
+Supported ligatures:
+- `AE`, `ae` - `Æ`, `æ` (ash)
+- `ct` - absent from Unicode
+- `DH`, `dh` - `Ð`, `ð` (eth)
+- `DJ`, `dj` - `Đ`, `đ` (d with stroke)
+- `IJ`, `ij` - `Ĳ`, `ĳ` (ij digraph)
+- `i`, `j` - `ı`, `ȷ` (dotless i and j; inside the \acc macro, use \i and \j instead)
+- `L`, `l` - `Ł`, `ł` (l with stroke)
+- `NG`, `ng` - `Ŋ`, `ŋ` (eng)
+- `O`, `o` - `Ø`, `ø` (o with slash)
+- `OE`, `oe` - `Œ`, `œ` (ethel)
+- `st` - `ﬆ` (st ligature)
+- `ss` - `ß` (eszett)
+- `TH`, `th` - `Þ`, `þ` (thorn)
+
+#### acc
+
+`\acc{accent}{letter}`
+
+Constructed accents for the fancyfont.
+
+Supported accents:
+- `'` - acute
+- \` - grave
+- `^` - circumflex
+- `~` - tilde
+- `=` - macron
+- `.` - dot
+- `"` - double dot (umlaut, diaeresis, etc.)
+- `H` - double acute
+- `r` - ring
+- `v` - caron
+- `u` - breve
+- `b` - bar under
+- `c` - cedilla
+- `d` - dot under
+- `k` - ogonek
+- `t` - tie over two letters (visually can be more than two)
+
+#### Internal macros
+
+- `\AS[actual text]{code block}` - AccSupp ActualText wrapper
+- `\ASU[unicode hex]{code block}` - same, for unicode hex method
+- `\ASP[actual text]{code block}` - same, for pdfstringdef method
+- `\Decosix` and `\Starredbullet` - reconstructed symbols from the fourier font to pass ghostscript compression process
+
+
 
 ---
 
@@ -327,38 +387,48 @@ Each set of arrows (except `Arrows` and `Level` ones) has eight versions for all
 - `ArrowAltCircle` - a set of eight arrows in a white circle (`\iconArrowAltCircleN`, `\iconArrowAltCircleNE`, etc.)
 - `Chevron` - a set of eight chevrons (`\iconChevronN`, `\iconChevronNE`, etc.)
 - `ChevronCircle` - a set of eight chevrons in a black circle (`\iconChevronCircleN`, `\iconChevronCircleNE`, etc.)
+- `Triangle` - a set of eight small triangles (`\iconTriangleN`, `\iconTriangleNE`, etc.)
 - `Level`:
     - `iconLevelUp` - bent arrow pointing up
     - `\iconLevelDown` - bent arrow pointing down
 
 #### Shortcuts
 
-- `\def\iconBookmark{\faBookmark}`
-- `\def\iconContainer{\faCube}`
-- `\def\iconCorridor{\faCorridor}`
-- `\def\iconCharacter{\faUser}`
-- `\def\iconDay{\faSun}`
-- `\def\iconGroup{\faUsers}`
-- `\def\iconSize{\faRulerCombined}`
-- `\def\iconDanger{\faSkullCrossbones}`
-- `\def\iconDirections{\faMapSigns}`
-- `\def\iconDoor{\faDungeon}`
-- `\def\iconEncounter{\faExclamationTriangle}`
-- `\def\iconHidden{\faSearch}`
-- `\def\iconKey{\faOldKey}`
-- `\def\iconLock{\faLock}`
-- `\def\iconMagic{\faMagic}`
-- `\def\iconMonster{\faDragon}`
-- `def\iconMoon{\faMoon}`
-- `\def\iconNight{\faMoon}`
-- `\def\iconReward{\faTrophy}`
-- `\def\iconStar{\faStar}`
-- `\def\iconSun{\faSun}`
-- `\def\iconTimer{\faHourglassHalf}`
-- `\def\iconTravel{\faHiking}`
-- `\def\iconTreasure{\faGem}`
-- `\def\iconTrigger{\faBolt}`
-- `\def\iconVisible{\faEye}`
+```tex
+\def\iconBookmark{\faBookmark}
+\def\iconCharacter{\faUser}
+\def\iconContainer{\faCube}
+\def\iconCorridor{\faCorridor}
+\def\iconDanger{\faSkullCrossbones}
+\def\iconDay{\faSun}
+\def\iconDirections{\faMapSigns}
+\def\iconDoor{\faDungeon}
+\def\iconEncounter{\faExclamationTriangle}
+\def\iconGroup{\faUsers}
+\def\iconHidden{\faSearch}
+\def\iconInvisible{\faMask}
+\def\iconKey{\faOldKey}
+\def\iconLocked{\faLock}
+\def\iconLock{\faLock}
+\def\iconMagic{\faMagic}
+\def\iconMonster{\faDragon}
+\def\iconMoon{\faMoon}
+\def\iconNight{\faMoon}
+\def\iconNoise{\faRss}
+\def\iconOpen{\faLockOpen}
+\def\iconReward{\faTrophy}
+\def\iconScroll{\faScroll}
+\def\iconSize{\faRulerCombined}
+\def\iconStar{\faStar}
+\def\iconSun{\faSun}
+\def\iconTimer{\faHourglassHalf}
+\def\iconTrack{\faPaw}
+\def\iconTravel{\faHiking}
+\def\iconTreasure{\faGem}
+\def\iconTrigger{\faBolt}
+\def\iconUnlocked{\faLockOpen}
+\def\iconVisible{\faEye}
+```
 
 ---
 
@@ -399,6 +469,7 @@ Dimensions `\linewidth` x `height`
 - `height` - expected image height (for `\placeholder`)
 - `after` - (optional) content to place after the image in onecolumn mode
 
+A full-page image at the top of the page.
 Place **BEFORE** anything on the page.
 Dimensions: `\textwidth` x `height`.
 
@@ -449,6 +520,7 @@ It's style is defined in `itdr/itdr.ist` file and can be overriden by creating `
 
 Enumerate list index with range of values.
 E.g., `\itemrange{3} second item` will produce `2–4. second item`.
+Redefining `\leftmargin` might be required to fit the width of the range.
 
 ---
 
@@ -511,6 +583,12 @@ A wrapper of `\pbox` to use inside tabular cells, with custom linespread.
 
 Start from a new left (even) page.
 
+#### cleartorightpage
+
+`\cleartorightpage`
+
+Start from a new right (odd) page.
+
 #### tsub
 
 `\tsub{text}`
@@ -549,7 +627,7 @@ When placed at the end of a paragraph, it attempts to fit the text in a lesser a
 - `\save{ABILITY}` = "ABILITY~Save"
 - `\saves{ABILITY}` = "ABILITY~Saves"
 
-📝 **NOTE:** Starred templates do not push names to the `index` (`\jobname` by default), while the default ones do. In both cases, they add to the TOC at `paragraph` level.
+📝 **NOTE:** Starred version of templates below do not push names to the `index` (`\jobname` by default), while the default ones do. In both cases, they add to the TOC at `paragraph` level.
 
 #### Feats
 
@@ -597,7 +675,7 @@ Room header with two-line lettrine of its index on the map.
 - `x`, `y` - horizontal dimensions
 - `z` - *(optional)* vertical dimension
 
-Room dimensions to use immediatelly after the `\room` command.
+Room dimensions to use immediately after the `\room` command.
 
 #### Paragraphs
 
@@ -605,9 +683,9 @@ Room dimensions to use immediatelly after the `\room` command.
 - `\statpar[index]{monster name}` and `\statpar*{monster name}` - monster stat block header
 - `\underpar{text}` - monster stat block underparagraph (sub-header)
 
-#### Classess and Creeds
+#### Classes and Creeds
 
-📝 **NOTE:** Legacy commands used in [Classic Appendix](https://github.com/Vladar4/itdr-classic/).
+📝 **NOTE:** Legacy commands used in the [Classic Appendix](https://github.com/Vladar4/itdr-classic/).
 
 - `\class[index]{name}` and `\class*{name}` - class header
 - `\creed[index]{name}` and `\creed*{name}` - creed header
@@ -640,6 +718,35 @@ Print out the table of contents of the `level` depth:
 `\begin{wrap}[line number]{location}{overhang}{width}`
 
 Wrapped paragraph environment. See [wrapfig2](https://www.ctan.org/pkg/wrapfig2) documentation for details.
+
+#### Location
+
+- `l` - left
+- `L` - floating left
+- `r` - right
+- `R` - floating right
+- `i` - inner margin
+- `I` - floating inner margin
+- `o` - outer margin
+- `O` - floating outer margin
+
+### Wrapped images
+
+`\wimage[keyval]{filename}[extension]{location}`
+
+- `keyval` - key=value pairs (see the full list of keys below)
+- `filename` - image file name
+- `extension` - `(optional)` default: `png`
+- `location` - `wrap` environment location.
+
+#### Keys
+
+- `options` - image options (default: `{}`)
+- `lines` - indented lines number correction (default: `0`)
+- `overhang` - overhang length (default: `0pt`)
+- `width` - image width (default: `0.5\linewidth`)
+- `height` - image height (default: `\linewidth`) **NOTE!** `\linewidth` will be equal to the image's `width` value (see above)
+- `vspace` - vertical correction of the image position (default: `0pt`)
 
 ---
 
