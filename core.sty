@@ -540,11 +540,11 @@
 			\stackon[\the\acc@offseta]{%
 				\ASP[\acc@tie{\acc@char}]{\acc@glyph}%
 			}{%
-				\AS{%
+				\AS{\acc@kern{#1}{%
 					\kern-0.5\wd\acc@box%
 					\raisebox{-0.75\ht\acc@z}[1.25\ht\acc@z][0pt]{\usebox{\acc@box}}%
 					% The two coefficients (0.75 and 1.25) should add to the coefficient of the resizebox above (2 in {2\ht\acc@z})
-				}%
+				}}%
 			}%
 		}%
 	}[% other cases
