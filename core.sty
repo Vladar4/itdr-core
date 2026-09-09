@@ -18,7 +18,7 @@
 %   core.sty,
 %   itdr.ist.
 
-\ProvidesPackage{itdr/core}[2026/09/07]
+\ProvidesPackage{itdr/core}[2026/09/09]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -389,7 +389,7 @@
 			\makebox[\widthof{j}][l]{\ASU[0237]{j\kern-0.2em\relax\textcolor{\thepagecolor}{\smash{\rule[1ex]{0.2em}{0.35ex}}}}}}%
 		{L}  {\ASU[0141]{L}\AS{\kern-0.68em\relax \raisebox{0.07ex}{\rotatebox{30}{\bfseries-}}\kern0.1\lig@wd\relax}}%
 		{l}  {\ASU[0142]{l}\AS{\kern-0.68em\relax \raisebox{0.14ex}{\rotatebox{30}{\bfseries-}}\kern0.1\lig@wd\relax}}%
-		{NG}{\makebox[\widthof{N}][l]{%
+		{NG} {\makebox[\widthof{N}][l]{%
 				\AS{%
 					\kern0.42em\relax\smash{\raisebox{-0.5ex}{J}}%
 					\kern-0.25em\relax\textcolor{\thepagecolor}{\smash{\rule[0.25ex]{0.25em}{1ex}}}%
@@ -401,7 +401,7 @@
 					\kern-0.01em\relax%
 				}%
 		}}%
-		{ng}{\makebox[\widthof{n}][l]{%
+		{ng} {\makebox[\widthof{n}][l]{%
 				\AS{%
 					\kern0.42em\relax j%
 					\kern-0.25em\relax\textcolor{\thepagecolor}{\smash{\rule[0.3ex]{0.25em}{1.1ex}}}%
@@ -428,6 +428,7 @@
 	]%
 }
 
+\newsavebox{\acc@z}
 \newsavebox{\acc@box}
 \def\acc@coeffa{-0.55}% offset coefficient for the accent above
 \def\acc@coeffb{0.2}% offset coefficient for the accent below
@@ -436,9 +437,9 @@
 \def\acc@acutegap{0.15em}% for the double acute (\H) accent
 
 \newcommand{\acc@height}[1]{%
-	\setbox\z@=\hbox{#1}%
-	\acc@offseta=\dimexpr\acc@coeffa\ht\z@-\dp\z@\relax% calcualate offset above
-	\acc@offsetb=\dimexpr\acc@coeffb\ht\z@+\dp\z@\relax% calculate offset below
+	\setbox\acc@z=\hbox{#1}%
+	\acc@offseta=\dimexpr\acc@coeffa\ht\acc@z-\dp\acc@z\relax% calcualate offset above
+	\acc@offsetb=\dimexpr\acc@coeffb\ht\acc@z+\dp\acc@z\relax% calculate offset below
 }
 
 \newcommand{\acc@kern}[2]{%
@@ -461,6 +462,10 @@
 		\acc@subst{\makebox[\widthof{j}][l]{j\kern-0.2em\relax\textcolor{\thepagecolor}{\smash{\rule[1ex]{0.2em}{0.35ex}}}}}{j}}%
 	} {}%
 }
+
+% t (tie) helpers
+\def\acc@tie#1{\expandafter\acc@tieins#1\relax}
+\def\acc@tieins#1#2\relax{\t{#1}#2}
 
 % \acc[kerning]{'}{a}
 % "Fake" accents for the fancyfont
@@ -520,12 +525,26 @@
 				\AS{\raisebox{\dimexpr-\ht\acc@box\relax}[0pt][0pt]{\usebox{\acc@box}}}%
 			}%
 		}%
-		{k}{%
+		{k} {%
 			\setbox\acc@box=\hbox{%
 				\acc@kern{#1}{\scalerel*{\reflectbox{\scalebox{0.66}[1]{,}}}{\acc@glyph}}%
 			}%
 			\stackunder[\the\acc@offsetb]{\ASP[\k{\acc@char}]{\acc@glyph}}{%
 				\AS{\raisebox{\dimexpr\acc@offsetb-0.07\ht\acc@box\relax}[0pt][0pt]{\usebox{\acc@box}}}%
+			}%
+		}%
+		{t} {%
+			\setbox\acc@box=\hbox{%
+				\resizebox{\widthof{\acc@glyph}}{2\ht\acc@z}{\t{~}}%
+			}%
+			\stackon[\the\acc@offseta]{%
+				\ASP[\acc@tie{\acc@char}]{\acc@glyph}%
+			}{%
+				\AS{%
+					\kern-0.5\wd\acc@box%
+					\raisebox{-0.75\ht\acc@z}[1.25\ht\acc@z][0pt]{\usebox{\acc@box}}%
+					% The two coefficients (0.75 and 1.25) should add to the coefficient of the resizebox above (2 in {2\ht\acc@z})
+				}%
 			}%
 		}%
 	}[% other cases
