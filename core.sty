@@ -18,7 +18,7 @@
 %   core.sty,
 %   itdr.ist.
 
-\ProvidesPackage{itdr/core}[2026/09/09]
+\ProvidesPackage{itdr/core}[2026/09/12]
 
 \RequirePackage{comment}
 \RequirePackage[inner=1in,outer=1in,top=1.36in,bottom=1.36in,footskip=0.3in]{geometry}
@@ -1604,39 +1604,68 @@
 
 % DOMAINS %
 
-% \sizpop[pop]{siz}
+\makeatletter
+% \sizpop[pop]{siz}[version]
 % Print domain size along with appropriate populace
 \def\populace#1{\ (Populace #1)}
-\newcommand{\sizpop}[2][]{%
+%\newcommand{\sizpop}[2][]{%
+\NewDocumentCommand{\sizpop}{ O{} m O{24} }{%
 	SIZ~#2%
 	\ifx\relax#1\relax% if pop is empty
-		\ifcase#2 \populace{<100}% 0
-		\or \populace{100}% 1
-		\or \populace{300}% 2
-		\or \populace{600}% 3
-		\or \populace{1,000}% 4
-		\or \populace{3,000}% 5
-		\or \populace{5,000}% 6
-		\or \populace{7,500}% 7
-		\or \populace{10,000}% 8
-		\or \populace{15,000}% 9
-		\or \populace{20,000}% 10
-		\or \populace{30,000}% 11
-		\or \populace{50,000}% 12
-		\or \populace{75,000}% 13
-		\or \populace{100,000}% 14
-		\or \populace{150,000}% 15
-		\or \populace{200,000}% 16
-		\or \populace{300,000}% 17
-		\or \populace{500,000}% 18
-		\or \populace{750,000}% 19
-		\or \populace{1,000,000}% 20
-		\else \populace{unknown}%
-		\fi%ifcase
+		\ifstrequal{#3}{25}{% version 2.5
+			\ifcase#2 \populace{<100}% 0
+			\or \populace{100}% 1
+			\or \populace{150}% 2
+			\or \populace{250}% 3
+			\or \populace{400}% 4
+			\or \populace{600}% 5
+			\or \populace{1,000}% 6
+			\or \populace{1,500}% 7
+			\or \populace{2,000}% 8
+			\or \populace{3,000}% 9
+			\or \populace{4,000}% 10
+			\or \populace{6,000}% 11
+			\or \populace{8,000}% 12
+			\or \populace{10,000}% 13
+			\or \populace{15,000}% 14
+			\or \populace{20,000}% 15
+			\or \populace{30,000}% 16
+			\or \populace{40,000}% 17
+			\or \populace{60,000}% 18
+			\or \populace{80,000}% 19
+			\or \populace{100,000}% 20
+			\else \populace{unknown}%
+			\fi%ifcase
+		}{% default (version 2.4)
+			\ifcase#2 \populace{<100}% 0
+			\or \populace{100}% 1
+			\or \populace{300}% 2
+			\or \populace{600}% 3
+			\or \populace{1,000}% 4
+			\or \populace{3,000}% 5
+			\or \populace{5,000}% 6
+			\or \populace{7,500}% 7
+			\or \populace{10,000}% 8
+			\or \populace{15,000}% 9
+			\or \populace{20,000}% 10
+			\or \populace{30,000}% 11
+			\or \populace{50,000}% 12
+			\or \populace{75,000}% 13
+			\or \populace{100,000}% 14
+			\or \populace{150,000}% 15
+			\or \populace{200,000}% 16
+			\or \populace{300,000}% 17
+			\or \populace{500,000}% 18
+			\or \populace{750,000}% 19
+			\or \populace{1,000,000}% 20
+			\else \populace{unknown}%
+			\fi%ifcase
+		}%
 	\else% if pop is not empty
 		\populace{#1}%
 	\fi
 }
+\makeatother
 
 % \domain{ruler}{siz}[populace]{details}
 \NewDocumentCommand{\domain}{m m O{} m}{%
